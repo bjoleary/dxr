@@ -22,6 +22,7 @@ Imports:
     plyr,
     magrittr,
     scales,
-    stringr
+    stringr,
+    tibble
 URL: https://github.com/bjoleary/dxr
 BugReports: https://github.com/bjoleary/dxr/issues
