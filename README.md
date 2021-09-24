@@ -9,17 +9,19 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/dxr)](https://CRAN.R-project.org/package=dxr)
+[![lint](https://github.com/bjoleary/dxr/workflows/lint/badge.svg)](https://github.com/bjoleary/dxr/actions?query=workflow%3Alint)
 <!-- badges: end -->
 
 The goal of dxr is to …
 
 ## Installation
 
-You can install the released version of dxr from
-[CRAN](https://CRAN.R-project.org) with:
+You can install the development version of dxr from
+[GitHub](https://github.com/bjoleary/dxr) with:
 
 ``` r
-install.packages("dxr")
+# install.packages("devtools")
+devtools::install_github("bjoleary/fdadata")
 ```
 
 ## Example
