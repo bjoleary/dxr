@@ -45,11 +45,13 @@ proportion_difference <- function(
   proportion_1 <- agreement(
     true_calls = true_calls_1,
     false_calls = false_calls_1,
+    digits = Inf, # Perform intermediate calculations at full precision
     interval = interval
   )
   proportion_2 <- agreement(
     true_calls = true_calls_2,
     false_calls = false_calls_2,
+    digits = Inf, # Perform intermediate calculations at full precision
     interval = interval
   )
 
