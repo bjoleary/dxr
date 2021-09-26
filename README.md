@@ -22,7 +22,7 @@ You can install the development version of dxr from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("bjoleary/fdadata")
+devtools::install_github("bjoleary/dxr")
 ```
 
 ## Example
