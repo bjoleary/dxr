@@ -43,12 +43,3 @@ confidence <- function(true_calls, false_calls, interval = 0.95) {
     upper_bound = upper_bound
   )
 }
-
-
-
-
-
-
-
-
-

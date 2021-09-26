@@ -16,7 +16,17 @@
 #' format_percent(0.95)
 #' format_percent(0.9521231251, 0.0001)
 format_percent <- function(percent, digits = 0.1) {
-  value <- scales::percent(percent, accuracy = digits)
+  value <-
+    scales::number(
+        x = percent,
+        accuracy = digits,
+        scale = 100,
+        prefix = "",
+        suffix = "%",
+        big.mark = " ",
+        decimal.mark = ".",
+        trim = TRUE
+    )
 
   dplyr::case_when(
     stringr::str_detect(
