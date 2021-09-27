@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# dxr
+# dxr: Diagnostic (Dx) Product Evaluation in R
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
@@ -22,11 +22,13 @@ knitr::opts_chunk$set(
 [![lint](https://github.com/bjoleary/dxr/workflows/lint/badge.svg)](https://github.com/bjoleary/dxr/actions?query=workflow%3Alint)
 <!-- badges: end -->
 
-The goal of dxr is to ...
+This package provides functions to support evaluations of diagnostic products 
+using R. 
 
 ## Installation
 
-You can install the development version of dxr from [GitHub](https://github.com/bjoleary/dxr) with:
+You can install the development version of dxr from 
+[GitHub](https://github.com/bjoleary/dxr) with:
 
 ``` r
 # install.packages("devtools")

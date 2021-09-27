@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dxr
+# dxr: Diagnostic (Dx) Product Evaluation in R
 
 <!-- badges: start -->
 
@@ -13,7 +13,8 @@ status](https://www.r-pkg.org/badges/version/dxr)](https://CRAN.R-project.org/pa
 [![lint](https://github.com/bjoleary/dxr/workflows/lint/badge.svg)](https://github.com/bjoleary/dxr/actions?query=workflow%3Alint)
 <!-- badges: end -->
 
-The goal of dxr is to …
+This package provides functions to support evaluations of diagnostic
+products using R.
 
 ## Installation
 
