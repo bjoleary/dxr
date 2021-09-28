@@ -236,23 +236,83 @@ build_panel_sheet <- function(
       matrix = NA_character_,
       qualitative_result = NA_character_
     )
+  # If there is only one group:
+  if (length(sample_groups) == 1) {
+    panel_table <-
+      panel_table %>%
+      dplyr::mutate(
+        group = sample_groups[[1]]
+      )
+  }
+  # If there is only one group:
+  if (length(sample_matrices) == 1) {
+    panel_table <-
+      panel_table %>%
+      dplyr::mutate(
+        matrix = sample_matrices[[1]]
+      )
+  }
+  # If there is only one qualitative comparator, populate that column with it.
+  # Otherwise, use NA_character.
+  if (length(qualitative_comparators) == 1) {
+    panel_table <-
+      panel_table %>%
+      dplyr::mutate(
+        qualitative_comparator = qualitative_comparators[[1]]
+      )
+  } else {
+    panel_table <-
+      panel_table %>%
+      dplyr::mutate(
+        qualitative_comparator = NA_character_
+      )
+  }
 
-  # Add the semiquantitative results column if applicable
+  # Add the semiquantitative result column if applicable
   if (!all(is.na(semiquantitative_outcomes))) {
     panel_table <-
       panel_table %>%
       dplyr::mutate(
         semiquantitative_result = NA_character_
       )
+    # If there is only one semi-quantitative comparator, populate that column
+    # with it. Otherwise, use NA_character.
+    if (length(semiquantitative_comparators) == 1) {
+      panel_table <-
+        panel_table %>%
+        dplyr::mutate(
+          semiquantitative_comparator = semiquantitative_comparators[[1]]
+        )
+    } else {
+      panel_table <-
+        panel_table %>%
+        dplyr::mutate(
+          semiquantitative_comparator = NA_character_
+        )
+    }
   }
 
-  # Add the semiquantitative results column if applicable
+  # Add the quantitative result column if applicable
   if (!all(is.na(quantitative_units))) {
     panel_table <-
       panel_table %>%
       dplyr::mutate(
-        quantitative_result = NA_character_
+        quantitative_result = NA_complex_,
+        quantitative_units = quantitative_units[[1]]
       )
+    if (length(quantitative_comparators) == 1) {
+      panel_table <-
+        panel_table %>%
+        dplyr::mutate(
+          quantitative_comparator = quantitative_comparators[[1]]
+        )
+    } else {
+      panel_table <-
+        panel_table %>%
+        dplyr::mutate(
+          quantitative_comparator = NA_character_
+        )
+    }
   }
   # Write results? -------------------------------------------------------------
 
