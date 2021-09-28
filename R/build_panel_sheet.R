@@ -214,7 +214,6 @@ build_panel_sheet <- function(
       quantitative_comparators = quantitative_comparators
     ) %>%
     tibble::enframe()
-  padding <- nchar(as.character(n_samples))
   sample_id <-
     paste(
       snakecase::to_snake_case(panel_name),
