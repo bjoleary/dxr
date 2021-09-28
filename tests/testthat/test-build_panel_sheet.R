@@ -3,7 +3,7 @@ test_that("building a panel sheet works", {
 })
 
 test_that("proper errors are thrown", {
-  # Panel name must not be null, must be char string length 1
+  # panel_name must not be null, must be char string length 1-------------------
   expect_error(
     object =
       build_panel_sheet(
@@ -68,7 +68,7 @@ test_that("proper errors are thrown", {
       ),
     regexp = "panel_name"
   )
-  # Panel description must be char string length 1 or NULL or NA
+  # panel_description must be char string length 1 or NULL or NA ---------------
   expect_error(
     object =
       build_panel_sheet(
@@ -101,7 +101,7 @@ test_that("proper errors are thrown", {
       ),
     regexp = "panel_description"
   )
-  # The n_samples parameter must be a number greater than 0
+  # n_samples parameter must be a number greater than 0 ------------------------
   expect_error(
     object =
       suppressWarnings(
@@ -168,7 +168,7 @@ test_that("proper errors are thrown", {
       ),
     regexp = "Converting n_samples.*"
   )
-  # the sample_groups parameter should be a character vector
+  # sample_groups parameter should be a character vector -----------------------
   expect_error(
     object =
       build_panel_sheet(
@@ -201,7 +201,7 @@ test_that("proper errors are thrown", {
       ),
     regexp = "sample_groups"
   )
-  # the sample_matrices parameter should be a character vector
+  # sample_matrices parameter should be a character vector ---------------------
   expect_error(
     object =
       build_panel_sheet(
@@ -234,7 +234,7 @@ test_that("proper errors are thrown", {
       ),
     regexp = "sample_matrices"
   )
-  # analytes is a character vector with at least one level
+  # analytes is a character vector with at least one level ---------------------
   expect_error(
     object =
       build_panel_sheet(
@@ -267,7 +267,7 @@ test_that("proper errors are thrown", {
       ),
     regexp = "analytes"
   )
-  # targets is a character vector with at least one level
+  # targets is a character vector with at least one level ----------------------
   expect_error(
     object =
       build_panel_sheet(
@@ -301,7 +301,7 @@ test_that("proper errors are thrown", {
       ),
     regexp = "targets"
   )
-  # qualitative_outcomes is a character vector with at least one level
+  # qualitative_outcomes is a character vector with at least one level ---------
   expect_error(
     object =
       build_panel_sheet(
@@ -334,7 +334,7 @@ test_that("proper errors are thrown", {
       ),
     regexp = "qualitative_outcomes"
   )
-  # semiquantitative_outcomes must be a character vector or NULL
+  # semiquantitative_outcomes must be a character vector or NULL ---------------
   expect_error(
     object =
       build_panel_sheet(
@@ -367,7 +367,7 @@ test_that("proper errors are thrown", {
       ),
     regexp = "semiquantitative_outcomes"
   )
-  # quantitative_units must be a character string (not a vector) or NULL
+  # quantitative_units must be a character string (not a vector) or NULL -------
   expect_error(
     object =
       build_panel_sheet(
