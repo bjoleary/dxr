@@ -8,7 +8,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = NULL,
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -18,7 +18,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NULL
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "panel_name"
   )
@@ -26,7 +27,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = c("name_one", "name_two"),
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -36,7 +37,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NULL
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "panel_name"
   )
@@ -44,7 +46,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = 42,
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -54,7 +56,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NULL
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "panel_name"
   )
@@ -62,7 +65,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = NA_character_,
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -72,7 +75,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NULL
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "panel_name"
   )
@@ -91,7 +95,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "panel_description"
   )
@@ -109,7 +114,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "panel_description"
   )
@@ -126,10 +132,11 @@ test_that("proper errors are thrown", {
           analytes = c("IgM", "IgG", "Pan-Ig"),
           targets = c("Spike", "Nucleocapsid"),
           qualitative_outcomes = c("Positive", "Negative"),
-        qualitative_comparators = c("Method 1", "Method 2"),
+          qualitative_comparators = c("Method 1", "Method 2"),
           semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        semiquantitative_comparators = "Method 3",
-          quantitative_units = NULL
+          semiquantitative_comparators = "Method 3",
+          quantitative_units = NA_character_,
+          quantitative_comparators = NA_character_
         )
       ),
     regexp = "n_samples.*0"
@@ -148,7 +155,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "numeric.*n_samples"
   )
@@ -166,7 +174,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "n_samples.*0"
   )
@@ -184,7 +193,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "Converting n_samples.*"
   )
@@ -203,7 +213,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "sample_groups"
   )
@@ -221,7 +232,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "sample_groups"
   )
@@ -240,7 +252,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "sample_matrices"
   )
@@ -258,7 +271,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "sample_matrices"
   )
@@ -277,7 +291,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "analytes"
   )
@@ -295,7 +310,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "analytes"
   )
@@ -314,7 +330,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "targets"
   )
@@ -333,7 +350,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "targets"
   )
@@ -352,7 +370,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "qualitative_outcomes"
   )
@@ -370,7 +389,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "qualitative_outcomes"
   )
@@ -389,7 +409,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = NA_character_,
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "qualitative_comparators"
   )
@@ -407,7 +428,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = 0,
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "qualitative_comparators"
 )
@@ -426,7 +448,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = "Method 1",
         semiquantitative_outcomes = list("hi"),
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "semiquantitative_outcomes"
   )
@@ -444,7 +467,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = 42,
         semiquantitative_comparators = "Method 3",
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "semiquantitative_outcomes"
   )
@@ -463,7 +487,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = "Method 1",
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = list("hi"),
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "semiquantitative_comparators"
   )
@@ -481,7 +506,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = 42,
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "semiquantitative_comparators"
   )
@@ -500,7 +526,28 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = NA_character_,
-        quantitative_units = NA_character_
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
+      ),
+    regexp = "semiquantitative_comparators"
+  )
+  # Must be NA if outcomes is NA
+  expect_error(
+    object =
+      build_panel_sheet(
+        panel_name = "test",
+        panel_description = NA_character_,
+        n_samples = 110L,
+        sample_groups = c("Positive", "Negative"),
+        sample_matrices = c("Serum", "Plasma"),
+        analytes = c("IgM", "IgG", "Pan-Ig"),
+        targets = c("Spike", "Nucleocapsid"),
+        qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
+        semiquantitative_outcomes = NA_character_,
+        semiquantitative_comparators = c(NA_character_, "nope!"),
+        quantitative_units = NA_character_,
+        quantitative_comparators = NA_character_
       ),
     regexp = "semiquantitative_comparators"
   )
@@ -519,7 +566,8 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = c("Method 3", "Method 4"),
-        quantitative_units = c("units 1", "units 2")
+        quantitative_units = c("units 1", "units 2"),
+        quantitative_comparators = "Method 5"
       ),
     regexp = "quantitative_units"
   )
@@ -537,8 +585,88 @@ test_that("proper errors are thrown", {
         qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         semiquantitative_comparators = c("Method 3", "Method 4"),
-        quantitative_units = 42
+        quantitative_units = 42,
+        quantitative_comparators = "Method 5"
       ),
     regexp = "quantitative_units"
+  )
+  # quantitative_comparators must be a character vector or NA ------------------
+  expect_error(
+    object =
+      build_panel_sheet(
+        panel_name = "test",
+        panel_description = NA_character_,
+        n_samples = 110L,
+        sample_groups = c("Positive", "Negative"),
+        sample_matrices = c("Serum", "Plasma"),
+        analytes = c("IgM", "IgG", "Pan-Ig"),
+        targets = c("Spike", "Nucleocapsid"),
+        qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = "Method 1",
+        semiquantitative_outcomes = NA_character_,
+        semiquantitative_comparators = NA_character_,
+        quantitative_units = "unitless",
+        quantitative_comparators = list("hi")
+      ),
+    regexp = "quantitative_comparators"
+  )
+  expect_error(
+    object =
+      build_panel_sheet(
+        panel_name = "test",
+        panel_description = NA_character_,
+        n_samples = 110L,
+        sample_groups = c("Positive", "Negative"),
+        sample_matrices = c("Serum", "Plasma"),
+        analytes = c("IgM", "IgG", "Pan-Ig"),
+        targets = c("Spike", "Nucleocapsid"),
+        qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
+        semiquantitative_outcomes = NA_character_,
+        semiquantitative_comparators = NA_character_,
+        quantitative_units = "unitless",
+        quantitative_comparators = 42
+      ),
+    regexp = "quantitative_comparators"
+  )
+  # Can't be NA unless units is NA
+  expect_error(
+    object =
+      build_panel_sheet(
+        panel_name = "test",
+        panel_description = NA_character_,
+        n_samples = 110L,
+        sample_groups = c("Positive", "Negative"),
+        sample_matrices = c("Serum", "Plasma"),
+        analytes = c("IgM", "IgG", "Pan-Ig"),
+        targets = c("Spike", "Nucleocapsid"),
+        qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
+        semiquantitative_outcomes = NA_character_,
+        semiquantitative_comparators = NA_character_,
+        quantitative_units = "unitless",
+        quantitative_comparators = NA_character_
+      ),
+    regexp = "quantitative_comparators"
+  )
+  # Must be NA if units is NA
+  expect_error(
+    object =
+      build_panel_sheet(
+        panel_name = "test",
+        panel_description = NA_character_,
+        n_samples = 110L,
+        sample_groups = c("Positive", "Negative"),
+        sample_matrices = c("Serum", "Plasma"),
+        analytes = c("IgM", "IgG", "Pan-Ig"),
+        targets = c("Spike", "Nucleocapsid"),
+        qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
+        semiquantitative_outcomes = NA_character_,
+        semiquantitative_comparators = NA_character_,
+        quantitative_units = NA_character_,
+        quantitative_comparators = c(NA_character_, "this shouldn't be here")
+      ),
+    regexp = "quantitative_comparators"
   )
 })

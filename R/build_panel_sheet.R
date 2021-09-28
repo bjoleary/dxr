@@ -54,13 +54,22 @@
 #'   qualitative result).
 #' @param semiquantitative_comparators The semi-quantitative comparator methods
 #'   used to determine qualitative ground truth for the panel. Works similarly
-#'   to \code{qualitative_comparators} above.
+#'   to \code{qualitative_comparators} above. If
+#'   \code{semiqquantitative_outcomes} are provide (not all \code{NA}), then
+#'   this must be provided as well. If \code{semiqquantitative_outcomes} are not
+#'   provide (\code{all(is.na(semiqquantitative_outcomes))}), then this must be
+#'   NA as well.
 #' @param quantitative_units If quantitative outcomes have been established for
 #'   the panel, this is a character string describing the units of those
 #'   quantitative results. Defaults to \code{NA}, indicating that no
 #'   quantitative ground truth has been established for the sample panel. If the
 #'   results are unit-less, \code{"Unit-less"} can be used.
-#'
+#' @param quantitative_comparators The quantitative comparator methods used to
+#'   determine qualitative ground truth for the panel. Works similarly to
+#'   \code{qualitative_comparators} above. If \code{quantitative_units} is
+#'   provide (not \code{NA}), then this must be provided as well. If
+#'   \code{quantitative_units} is not provide
+#'   (\code{is.na(quantitative_units)}), then this must be NA as well.
 #' @return Returns \code{TRUE} if a sample panel sheet is created successfully.
 #' @export
 #'
@@ -94,9 +103,8 @@ build_panel_sheet <- function(
   qualitative_comparators,
   semiquantitative_outcomes = NA_character_,
   semiquantitative_comparators,
-  # TODO: add semiquantitative_comparator
-  quantitative_units = NA_character_
-  # TODO: add quantitative_comparator
+  quantitative_units = NA_character_,
+  quantitative_comparators
 ) {
   # Check inputs ---------------------------------------------------------------
   stopifnot(
@@ -148,6 +156,11 @@ build_panel_sheet <- function(
         length(quantitative_units) == 1
         ),
       is.na(quantitative_units)
+    ),
+    # quantitative_comparators must be a character vector or NA
+    any(
+      is.vector(quantitative_comparators, mode = "character"),
+      is.na(quantitative_comparators)
     )
   )
   if (!is.integer(n_samples)) {
@@ -157,10 +170,26 @@ build_panel_sheet <- function(
     )
   }
   # If we have semi-quantitative outcomes, we must have semi-quantitative
-  # comparators
+  # comparators (and vice-versa)
   if (!all(is.na(semiquantitative_outcomes))) {
     stopifnot(
       !all(is.na(semiquantitative_comparators))
+    )
+  }
+  if (all(is.na(semiquantitative_outcomes))) {
+    stopifnot(
+      all(is.na(semiquantitative_comparators))
+    )
+  }
+  # If we have quantitative units, we must have quantitative comparators
+  if (!all(is.na(quantitative_units))) {
+    stopifnot(
+      !all(is.na(quantitative_comparators))
+    )
+  }
+  if (all(is.na(quantitative_units))) {
+    stopifnot(
+      all(is.na(quantitative_comparators))
     )
   }
 
@@ -179,7 +208,8 @@ build_panel_sheet <- function(
       qualitative_comparators = qualitative_comparators,
       semiquantitative_outcomes = semiquantitative_outcomes,
       semiquantitative_comparators = semiquantitative_comparators,
-      quantitative_units = quantitative_units
+      quantitative_units = quantitative_units,
+      quantitative_comparators = quantitative_comparators
     ) %>%
     tibble::enframe()
   padding <- nchar(as.character(n_samples))
