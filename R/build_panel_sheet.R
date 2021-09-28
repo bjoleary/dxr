@@ -36,6 +36,15 @@
 #'   level, this level should not typically be included in the panel sheet,
 #'   where ground truth is expected to have been determined for each sample
 #'   present. This must be provided with at least one level (not \code{NA}).
+#' @param qualitative_comparators The qualitative comparator methods used to
+#'   determine qualitative ground truth for the panel. For example, if an
+#'   FDA-authorized PCR assay is used to determine ground truth--positive or
+#'   negative--for an evaluation of an antigen assay, this can be provided as
+#'   \code{"FDA-authorized PCR assay"} (or, ideally, the specific assay used,
+#'   sample matrix, etc.). If different methods were used to characterize
+#'   different samples, provide each method as an element of a character vector.
+#'   For example, \code{c("FDA-authorized PCR Assay 1", "FDA-authorized PCR
+#'   Assay 2", "Both FDA-authorized PCR Assay 1 and 2")}.
 #' @param semiquantitative_outcomes The valid semi-quantitative outcomes
 #'   associated with the panel. Defaults to \code{NA}, indicating that no
 #'   semi-quantitative ground truth has been established for the sample panel.
@@ -62,6 +71,11 @@
 #'   analytes = c("IgM", "IgG", "Pan-Ig"),
 #'   targets = c("Spike", "Nucleocapsid"),
 #'   qualitative_outcomes = c("Positive", "Negative"),
+#'   qualitative_comparators =
+#'     c(
+#'       "CDC Spike Antigen Assay and NCI Implementation of MS RBD Assay",
+#'       "Collected Pre-2020"
+#'     ),
 #'   semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
 #'   quantitative_units = NA_character_
 #' )
@@ -74,7 +88,7 @@ build_panel_sheet <- function(
   analytes,
   targets,
   qualitative_outcomes = c("Positive", "Negative"),
-  # TODO: add qualitative_comparator
+  qualitative_comparators,
   semiquantitative_outcomes = NA_character_,
   # TODO: add semiquantitative_comparator
   quantitative_units = NA_character_
@@ -110,6 +124,9 @@ build_panel_sheet <- function(
     # qualitative_outcomes is a character vector with at least one level
     is.vector(qualitative_outcomes, mode = "character"),
     !is.na(qualitative_outcomes),
+    # qualitative_comparators is a character vector with at least one level
+    is.vector(qualitative_comparators, mode = "character"),
+    !is.na(qualitative_comparators),
     # semiquantitative_outcomes must be a character vector or NA
     any(
       is.vector(semiquantitative_outcomes, mode = "character"),
@@ -143,6 +160,7 @@ build_panel_sheet <- function(
       analytes = analytes,
       targets = targets,
       qualitative_outcomes = qualitative_outcomes,
+      qualitative_comparators = qualitative_comparators,
       semiquantitative_outcomes = semiquantitative_outcomes,
       quantitative_units = quantitative_units
     ) %>%

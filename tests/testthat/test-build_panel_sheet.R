@@ -15,6 +15,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NULL
       ),
@@ -31,6 +32,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NULL
       ),
@@ -47,6 +49,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NULL
       ),
@@ -63,6 +66,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NULL
       ),
@@ -80,6 +84,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
@@ -96,6 +101,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
@@ -114,6 +120,7 @@ test_that("proper errors are thrown", {
           analytes = c("IgM", "IgG", "Pan-Ig"),
           targets = c("Spike", "Nucleocapsid"),
           qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
           semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
           quantitative_units = NULL
         )
@@ -131,6 +138,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
@@ -147,6 +155,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
@@ -163,6 +172,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
@@ -180,6 +190,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
@@ -196,6 +207,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
@@ -213,6 +225,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
@@ -229,6 +242,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
@@ -246,6 +260,7 @@ test_that("proper errors are thrown", {
         analytes = NA_character_,
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
@@ -262,6 +277,7 @@ test_that("proper errors are thrown", {
         analytes = 0,
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
@@ -279,6 +295,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = NA_character_,
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
@@ -296,6 +313,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         targets = 0,
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
@@ -313,6 +331,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = NA_character_,
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
@@ -329,11 +348,47 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = 0,
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
     regexp = "qualitative_outcomes"
   )
+  # qualitative_comparators is a character vector with at least 1 level --------
+  expect_error(
+    object =
+      build_panel_sheet(
+        panel_name = "test",
+        panel_description = NA_character_,
+        n_samples = 110L,
+        sample_groups = c("Positive", "Negative"),
+        sample_matrices = c("Serum", "Plasma"),
+        analytes = c("IgM", "IgG", "Pan-Ig"),
+        targets = c("Spike", "Nucleocapsid"),
+        qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = NA_character_,
+        semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
+        quantitative_units = NA_character_
+      ),
+    regexp = "qualitative_comparators"
+  )
+  expect_error(
+    object =
+      build_panel_sheet(
+        panel_name = "test",
+        panel_description = NA_character_,
+        n_samples = 110L,
+        sample_groups = c("Positive", "Negative"),
+        sample_matrices = c("Serum", "Plasma"),
+        analytes = c("IgM", "IgG", "Pan-Ig"),
+        targets = c("Spike", "Nucleocapsid"),
+        qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = 0,
+        semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
+        quantitative_units = NA_character_
+      ),
+    regexp = "qualitative_comparators"
+)
   # semiquantitative_outcomes must be a character vector or NULL ---------------
   expect_error(
     object =
@@ -346,6 +401,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = "Method 1",
         semiquantitative_outcomes = list("hi"),
         quantitative_units = NA_character_
       ),
@@ -362,6 +418,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = 42,
         quantitative_units = NA_character_
       ),
@@ -379,6 +436,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = c("units 1", "units 2")
       ),
@@ -395,6 +453,7 @@ test_that("proper errors are thrown", {
         analytes = c("IgM", "IgG", "Pan-Ig"),
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = c("Method 1", "Method 2"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = 42
       ),
