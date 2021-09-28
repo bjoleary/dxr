@@ -89,7 +89,9 @@
 #'       "Collected Pre-2020"
 #'     ),
 #'   semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-#'   quantitative_units = NA_character_
+#'   semiquantitative_comparators = "CDC Spike Antigen Assay",
+#'   quantitative_units = NA_character_,
+#'   quantitative_comparators = NA_character_
 #' )
 build_panel_sheet <- function(
   panel_name,

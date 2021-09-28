@@ -13,8 +13,11 @@ build_panel_sheet(
   analytes,
   targets,
   qualitative_outcomes = c("Positive", "Negative"),
+  qualitative_comparators,
   semiquantitative_outcomes = NA_character_,
-  quantitative_units = NA_character_
+  semiquantitative_comparators,
+  quantitative_units = NA_character_,
+  quantitative_comparators
 )
 }
 \arguments{
@@ -59,6 +62,16 @@ level, this level should not typically be included in the panel sheet,
 where ground truth is expected to have been determined for each sample
 present. This must be provided with at least one level (not \code{NA}).}
 
+\item{qualitative_comparators}{The qualitative comparator methods used to
+determine qualitative ground truth for the panel. For example, if an
+FDA-authorized PCR assay is used to determine ground truth--positive or
+negative--for an evaluation of an antigen assay, this can be provided as
+\code{"FDA-authorized PCR assay"} (or, ideally, the specific assay used,
+sample matrix, etc.). If different methods were used to characterize
+different samples, provide each method as an element of a character vector.
+For example, \code{c("FDA-authorized PCR Assay 1", "FDA-authorized PCR
+  Assay 2", "Both FDA-authorized PCR Assay 1 and 2")}.}
+
 \item{semiquantitative_outcomes}{The valid semi-quantitative outcomes
 associated with the panel. Defaults to \code{NA}, indicating that no
 semi-quantitative ground truth has been established for the sample panel.
@@ -67,11 +80,26 @@ provided as a character vector. For example: \code{c("0", "100", "400",
   "1600", "6400")} (where \code{0} corresponds to a sample with a negative
 qualitative result).}
 
+\item{semiquantitative_comparators}{The semi-quantitative comparator methods
+used to determine qualitative ground truth for the panel. Works similarly
+to \code{qualitative_comparators} above. If
+\code{semiqquantitative_outcomes} are provide (not all \code{NA}), then
+this must be provided as well. If \code{semiqquantitative_outcomes} are not
+provide (\code{all(is.na(semiqquantitative_outcomes))}), then this must be
+NA as well.}
+
 \item{quantitative_units}{If quantitative outcomes have been established for
 the panel, this is a character string describing the units of those
 quantitative results. Defaults to \code{NA}, indicating that no
 quantitative ground truth has been established for the sample panel. If the
 results are unit-less, \code{"Unit-less"} can be used.}
+
+\item{quantitative_comparators}{The quantitative comparator methods used to
+determine qualitative ground truth for the panel. Works similarly to
+\code{qualitative_comparators} above. If \code{quantitative_units} is
+provide (not \code{NA}), then this must be provided as well. If
+\code{quantitative_units} is not provide
+(\code{is.na(quantitative_units)}), then this must be NA as well.}
 }
 \value{
 Returns \code{TRUE} if a sample panel sheet is created successfully.
@@ -90,7 +118,14 @@ build_panel_sheet(
   analytes = c("IgM", "IgG", "Pan-Ig"),
   targets = c("Spike", "Nucleocapsid"),
   qualitative_outcomes = c("Positive", "Negative"),
+  qualitative_comparators =
+    c(
+      "CDC Spike Antigen Assay and NCI Implementation of MS RBD Assay",
+      "Collected Pre-2020"
+    ),
   semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-  quantitative_units = NA_character_
+  semiquantitative_comparators = "CDC Spike Antigen Assay",
+  quantitative_units = NA_character_,
+  quantitative_comparators = NA_character_
 )
 }
