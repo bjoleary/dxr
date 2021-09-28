@@ -23,6 +23,8 @@ Imports:
     magrittr,
     scales,
     stringr,
-    tibble
+    tibble,
+    tidyr,
+    snakecase
 URL: https://github.com/bjoleary/dxr
 BugReports: https://github.com/bjoleary/dxr/issues

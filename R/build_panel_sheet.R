@@ -6,7 +6,7 @@
 #' @param panel_name The name of the panel being used for the evaluation. Must
 #'   be a character string (not a multi-level vector) and must not be \code{NA}.
 #' @param panel_description An optional sentence or paragraph describing the
-#'   panel. Defaults to \code{NULL}.If provided, it must be a string rather than
+#'   panel. Defaults to \code{NA}. If provided, it must be a string rather than
 #'   a multi-level vector.
 #' @param n_samples The number of samples in the panel. Must be numeric and
 #'   greater than 0. If not provided as an integer, it will be converted into
@@ -37,7 +37,7 @@
 #'   where ground truth is expected to have been determined for each sample
 #'   present. This must be provided with at least one level (not \code{NA}).
 #' @param semiquantitative_outcomes The valid semi-quantitative outcomes
-#'   associated with the panel. Defaults to \code{NULL}, indicating that no
+#'   associated with the panel. Defaults to \code{NA}, indicating that no
 #'   semi-quantitative ground truth has been established for the sample panel.
 #'   If titers or other information are available, the relevant levels must be
 #'   provided as a character vector. For example: \code{c("0", "100", "400",
@@ -45,7 +45,7 @@
 #'   qualitative result).
 #' @param quantitative_units If quantitative outcomes have been established for
 #'   the panel, this is a character string describing the units of those
-#'   quantitative results. Defaults to \code{NULL}, indicating that no
+#'   quantitative results. Defaults to \code{NA}, indicating that no
 #'   quantitative ground truth has been established for the sample panel. If the
 #'   results are unit-less, \code{"Unit-less"} can be used.
 #'
@@ -55,7 +55,7 @@
 #' @examples
 #' build_panel_sheet(
 #'   panel_name = "Example Panel",
-#'   panel_description = "An example panel to illustrate use of the function.",
+#'   panel_description = NA_character_,
 #'   n_samples = 110L,
 #'   sample_groups = c("Positive", "Negative"),
 #'   sample_matrices = c("Serum", "Plasma"),
@@ -63,7 +63,7 @@
 #'   targets = c("Spike", "Nucleocapsid"),
 #'   qualitative_outcomes = c("Positive", "Negative"),
 #'   semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-#'   quantitative_units = NULL
+#'   quantitative_units = NA_character_
 #' )
 build_panel_sheet <- function(
   panel_name,
@@ -74,20 +74,12 @@ build_panel_sheet <- function(
   analytes,
   targets,
   qualitative_outcomes = c("Positive", "Negative"),
+  # TODO: add qualitative_comparator
   semiquantitative_outcomes = NA_character_,
+  # TODO: add semiquantitative_comparator
   quantitative_units = NA_character_
+  # TODO: add quantitative_comparator
 ) {
-  # panel_name = "Panel 1"
-  # panel_description = NA_character_
-  # n_samples = 110
-  # sample_groups = c("Positive", "Negative", "HIV+")
-  # sample_matrices = c("Serum", "EDTA Plasma")
-  # analytes = c("IgM", "IgG", "Pan-Ig")
-  # targets = c("Spike")
-  # qualitative_outcomes = c("Positive", "Negative")
-  # semiquantitative_outcomes = c("0", "100", "400", "1600", "6400")
-  # quantitative_units = NA_character_
-
   # Check inputs ---------------------------------------------------------------
   # panel_name must be a character string, not a vector
   if (
@@ -100,6 +92,7 @@ build_panel_sheet <- function(
     stop("The panel_name parameter must be a character string (not a vector).")
   }
   # panel description must be a character string (not a vector) or NULL
+  # TODO: This is broken.
   if (!all(is.character(panel_description), length(panel_description) == 1)) {
     stop(
       "The panel_description parameter must be a character string (not a ",
@@ -202,22 +195,66 @@ build_panel_sheet <- function(
   }
   # Build sheet ----------------------------------------------------------------
 
-metadata <-
-  list(
-    panel_name = panel_name,
-    panel_description = panel_description,
-    n_samples = n_samples,
-    sample_groups = sample_groups,
-    sample_matrices = sample_matrices,
-    analytes = analytes,
-    targets = targets,
-    qualitative_outcomes = qualitative_outcomes,
-    semiquantitative_outcomes = semiquantitative_outcomes,
-    quantitative_units = quantitative_units
-  )
+  metadata <-
+    list(
+      panel_name = panel_name,
+      panel_description = panel_description,
+      n_samples = n_samples,
+      sample_groups = sample_groups,
+      sample_matrices = sample_matrices,
+      analytes = analytes,
+      targets = targets,
+      qualitative_outcomes = qualitative_outcomes,
+      semiquantitative_outcomes = semiquantitative_outcomes,
+      quantitative_units = quantitative_units
+    ) %>%
+    tibble::enframe()
+  padding <- nchar(as.character(n_samples))
+  sample_id <-
+    paste(
+      snakecase::to_snake_case(panel_name),
+      stringr::str_pad(
+        string = as.character(seq(1, n_samples, 1)),
+        width = nchar(as.character(n_samples)),
+        side = c("left"),
+        pad = "0"
+      ),
+      sep = "_"
+    )
+  panel_table <-
+    tidyr::expand_grid(
+      sample = sample_id,
+      analyte = analytes,
+      target = targets
+    ) %>%
+    dplyr::mutate(
+      group = NA_character_,
+      matrix = NA_character_,
+      qualitative_result = NA_character_
+    )
 
+  # Add the semiquantitative results column if applicable
+  if (!all(is.na(semiquantitative_outcomes))) {
+    panel_table <-
+      panel_table %>%
+      dplyr::mutate(
+        semiquantitative_result = NA_character_
+      )
+  }
+
+  # Add the semiquantitative results column if applicable
+  if (!all(is.na(quantitative_units))) {
+    panel_table <-
+      panel_table %>%
+      dplyr::mutate(
+        quantitative_result = NA_character_
+      )
+  }
   # Write results? -------------------------------------------------------------
 
   # Finish
-  TRUE
+  list(
+    panel_metadata = metadata,
+    panel_table = panel_table
+  )
 }

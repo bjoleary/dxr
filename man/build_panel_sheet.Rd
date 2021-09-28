@@ -6,15 +6,15 @@
 \usage{
 build_panel_sheet(
   panel_name,
-  panel_description = NULL,
+  panel_description = NA_character_,
   n_samples,
   sample_groups = c("Positive", "Negative"),
   sample_matrices,
   analytes,
   targets,
   qualitative_outcomes = c("Positive", "Negative"),
-  semiquantitative_outcomes = NULL,
-  quantitative_units = NULL
+  semiquantitative_outcomes = NA_character_,
+  quantitative_units = NA_character_
 )
 }
 \arguments{
@@ -22,7 +22,7 @@ build_panel_sheet(
 be a character string (not a multi-level vector) and must not be \code{NA}.}
 
 \item{panel_description}{An optional sentence or paragraph describing the
-panel. Defaults to \code{NULL}.If provided, it must be a string rather than
+panel. Defaults to \code{NA}. If provided, it must be a string rather than
 a multi-level vector.}
 
 \item{n_samples}{The number of samples in the panel. Must be numeric and
@@ -60,7 +60,7 @@ where ground truth is expected to have been determined for each sample
 present. This must be provided with at least one level (not \code{NA}).}
 
 \item{semiquantitative_outcomes}{The valid semi-quantitative outcomes
-associated with the panel. Defaults to \code{NULL}, indicating that no
+associated with the panel. Defaults to \code{NA}, indicating that no
 semi-quantitative ground truth has been established for the sample panel.
 If titers or other information are available, the relevant levels must be
 provided as a character vector. For example: \code{c("0", "100", "400",
@@ -69,7 +69,7 @@ qualitative result).}
 
 \item{quantitative_units}{If quantitative outcomes have been established for
 the panel, this is a character string describing the units of those
-quantitative results. Defaults to \code{NULL}, indicating that no
+quantitative results. Defaults to \code{NA}, indicating that no
 quantitative ground truth has been established for the sample panel. If the
 results are unit-less, \code{"Unit-less"} can be used.}
 }
@@ -83,7 +83,7 @@ information needed about a sample panel or ground-truth.
 \examples{
 build_panel_sheet(
   panel_name = "Example Panel",
-  panel_description = "An example panel to illustrate use of the function.",
+  panel_description = NA_character_,
   n_samples = 110L,
   sample_groups = c("Positive", "Negative"),
   sample_matrices = c("Serum", "Plasma"),
@@ -91,6 +91,6 @@ build_panel_sheet(
   targets = c("Spike", "Nucleocapsid"),
   qualitative_outcomes = c("Positive", "Negative"),
   semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-  quantitative_units = NULL
+  quantitative_units = NA_character_
 )
 }
