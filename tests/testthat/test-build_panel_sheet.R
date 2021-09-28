@@ -118,7 +118,7 @@ test_that("proper errors are thrown", {
           quantitative_units = NULL
         )
       ),
-    regexp = "n_samples.*zero"
+    regexp = "n_samples.*0"
   )
   expect_error(
     object =
@@ -134,7 +134,7 @@ test_that("proper errors are thrown", {
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
-    regexp = "n_samples.*numeric"
+    regexp = "numeric.*n_samples"
   )
   expect_error(
     object =
@@ -150,7 +150,7 @@ test_that("proper errors are thrown", {
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
         quantitative_units = NA_character_
       ),
-    regexp = "n_samples.*zero"
+    regexp = "n_samples.*0"
   )
   expect_warning(
     object =

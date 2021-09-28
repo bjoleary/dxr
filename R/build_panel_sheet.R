@@ -81,118 +81,56 @@ build_panel_sheet <- function(
   # TODO: add quantitative_comparator
 ) {
   # Check inputs ---------------------------------------------------------------
-  # panel_name must be a character string, not a vector
-  if (
-    !all(
-      is.character(panel_name),
-      length(panel_name) == 1,
-      !is.na(panel_name)
-    )
-  ) {
-    stop("The panel_name parameter must be a character string (not a vector).")
-  }
-  # panel description must be a character string (not a vector) or NULL
-  # TODO: This is broken.
-  if (!all(is.character(panel_description), length(panel_description) == 1)) {
-    stop(
-      "The panel_description parameter must be a character string (not a ",
-      "vector) or it must be NA."
-    )
-  }
-  # n_samples must be numeric, must convert to integer, must be greater than 0
-  if (!is.numeric(n_samples)) {
-    stop(
-      "The n_samples parameter must be numeric."
-    )
-  } else {
-    if (!is.integer(n_samples)) {
-      n_samples <- as.integer(n_samples)
-      warning(
-        "Converting n_samples parameter to an intenger: ", n_samples, "."
-      )
-    }
-    if (any(n_samples <= 0, is.na(n_samples))) {
-      stop(
-        "The n_samples parameter must be greater than zero."
-      )
-    }
-  }
-  # sample_groups is a character vector with at least one level
-  if (
+  stopifnot(
+    # panel_name must be a character string, not a vector
+    is.character(panel_name),
+    length(panel_name) == 1,
+    !is.na(panel_name),
+    !is.null(panel_name),
+    # panel description must be a character string (not a vector)
+    is.character(panel_description),
+    length(panel_description) == 1,
+    !is.null(panel_description),
+    # n_samples must be numeric, must convert to integer, must be greater than 0
+    is.numeric(n_samples),
+    n_samples > 0,
+    !is.na(n_samples),
+    # sample_groups is a character vector with at least one level
+    is.vector(sample_groups, mode = "character"),
+    !is.na(sample_groups),
+    # sample_matrices is a character vector with at least one level
+    is.vector(sample_matrices, mode = "character"),
+    !is.na(sample_matrices),
+    # analytes is a character vector with at least one level
+    is.vector(analytes, mode = "character"),
+    !is.na(analytes),
+    # targets is a character vector with at least one level
+    is.vector(targets, mode = "character"),
+    !is.na(targets),
+    # qualitative_outcomes is a character vector with at least one level
+    is.vector(qualitative_outcomes, mode = "character"),
+    !is.na(qualitative_outcomes),
+    # semiquantitative_outcomes must be a character vector or NA
     any(
-      !is.vector(sample_groups, mode = "character"),
-      is.na(sample_groups)
-      )
-    ) {
-    stop(
-      "The sample_groups parameter must be a character vector and must ",
-      "not be NA."
-    )
-  }
-  # sample_matrices is a character vector with at least one level
-  if (
+      is.vector(semiquantitative_outcomes, mode = "character"),
+      is.na(semiquantitative_outcomes)
+    ),
+    # quantitative_units must be a character string (not a vector) or NA
     any(
-      !is.vector(sample_matrices, mode = "character"),
-      is.na(sample_matrices)
+      all(
+        is.character(quantitative_units),
+        length(quantitative_units) == 1
+        ),
+      is.na(quantitative_units)
     )
-  ) {
-    stop(
-      "The sample_matrices parameter must be a character vector and must ",
-      "not be NA."
-    )
-  }
-  # analytes is a character vector with at least one level
-  if (
-    any(
-      !is.vector(analytes, mode = "character"),
-      is.na(analytes)
-      )
-    ) {
-    stop(
-      "The analytes parameter must be a character vector and must ",
-      "not be NA."
+  )
+  if (!is.integer(n_samples)) {
+    n_samples <- as.integer(n_samples)
+    warning(
+      "Converting n_samples parameter to an intenger: ", n_samples, "."
     )
   }
-  # targets is a character vector with at least one level
-  if (
-    any(
-      !is.vector(targets, mode = "character"),
-      is.na(targets)
-    )
-  ) {
-    stop(
-      "The targets parameter must be a character vector and must ",
-      "not be NA."
-    )
-  }
-  # qualitative_outcomes is a character vector with at least one level
-  if (
-    any(
-      !is.vector(qualitative_outcomes, mode = "character"),
-      is.na(qualitative_outcomes)
-    )
-  ) {
-    stop(
-      "The qualitative_outcomes parameter must be a character vector and must ",
-      "not be NA."
-    )
-  }
-  # semiquantitative_outcomes must be a character vector or NA
-  if (!is.vector(semiquantitative_outcomes, mode = "character")) {
-    if (!is.na(semiquantitative_outcomes)) {
-      stop(
-        "The semiquantitative_outcomes parameter must be a character vector, ",
-        "or it must be NA."
-      )
-    }
-  }
-  # quantitative_units must be a character string (not a vector) or NA
-  if (!all(is.character(quantitative_units), length(quantitative_units) == 1)) {
-      stop(
-        "The quantitative_units parameter must be a character string (not a ",
-        "vector) or it must be NA."
-      )
-  }
+
   # Build sheet ----------------------------------------------------------------
 
   metadata <-
