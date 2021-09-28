@@ -67,18 +67,18 @@
 #' )
 build_panel_sheet <- function(
   panel_name,
-  panel_description = NULL,
+  panel_description = NA_character_,
   n_samples,
   sample_groups = c("Positive", "Negative"),
   sample_matrices,
   analytes,
   targets,
   qualitative_outcomes = c("Positive", "Negative"),
-  semiquantitative_outcomes = NULL,
-  quantitative_units = NULL
+  semiquantitative_outcomes = NA_character_,
+  quantitative_units = NA_character_
 ) {
   # panel_name = "Panel 1"
-  # panel_description = NULL
+  # panel_description = NA_character_
   # n_samples = 110
   # sample_groups = c("Positive", "Negative", "HIV+")
   # sample_matrices = c("Serum", "EDTA Plasma")
@@ -86,7 +86,7 @@ build_panel_sheet <- function(
   # targets = c("Spike")
   # qualitative_outcomes = c("Positive", "Negative")
   # semiquantitative_outcomes = c("0", "100", "400", "1600", "6400")
-  # quantitative_units = NULL
+  # quantitative_units = NA_character_
 
   # Check inputs ---------------------------------------------------------------
   # panel_name must be a character string, not a vector
@@ -101,12 +101,10 @@ build_panel_sheet <- function(
   }
   # panel description must be a character string (not a vector) or NULL
   if (!all(is.character(panel_description), length(panel_description) == 1)) {
-    if (!is.null(panel_description)) {
-      stop(
-        "The panel_description parameter must be a character string (not a ",
-        "vector), or it must be NULL, or it must be NA."
-      )
-    }
+    stop(
+      "The panel_description parameter must be a character string (not a ",
+      "vector) or it must be NA."
+    )
   }
   # n_samples must be numeric, must convert to integer, must be greater than 0
   if (!is.numeric(n_samples)) {
@@ -186,25 +184,37 @@ build_panel_sheet <- function(
       "not be NA."
     )
   }
-  # semiquantitative_outcomes must be a character vector or NULL
+  # semiquantitative_outcomes must be a character vector or NA
   if (!is.vector(semiquantitative_outcomes, mode = "character")) {
-    if (!is.null(semiquantitative_outcomes)) {
+    if (!is.na(semiquantitative_outcomes)) {
       stop(
         "The semiquantitative_outcomes parameter must be a character vector, ",
-        "or it must be NULL, or it must be NA."
+        "or it must be NA."
       )
     }
   }
-  # quantitative_units must be a character string (not a vector) or NULL or NA
+  # quantitative_units must be a character string (not a vector) or NA
   if (!all(is.character(quantitative_units), length(quantitative_units) == 1)) {
-    if (!is.null(quantitative_units)) {
       stop(
         "The quantitative_units parameter must be a character string (not a ",
-        "vector), or it must be NULL, or it must be NA."
+        "vector) or it must be NA."
       )
-    }
   }
   # Build sheet ----------------------------------------------------------------
+
+metadata <-
+  list(
+    panel_name = panel_name,
+    panel_description = panel_description,
+    n_samples = n_samples,
+    sample_groups = sample_groups,
+    sample_matrices = sample_matrices,
+    analytes = analytes,
+    targets = targets,
+    qualitative_outcomes = qualitative_outcomes,
+    semiquantitative_outcomes = semiquantitative_outcomes,
+    quantitative_units = quantitative_units
+  )
 
   # Write results? -------------------------------------------------------------
 

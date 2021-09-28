@@ -81,7 +81,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "panel_description"
   )
@@ -97,7 +97,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "panel_description"
   )
@@ -107,7 +107,7 @@ test_that("proper errors are thrown", {
       suppressWarnings(
         build_panel_sheet(
           panel_name = "test",
-          panel_description = NULL,
+          panel_description = NA_character_,
           n_samples = -110,
           sample_groups = c("Positive", "Negative"),
           sample_matrices = c("Serum", "Plasma"),
@@ -124,7 +124,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = "110",
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -132,7 +132,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "n_samples.*numeric"
   )
@@ -140,7 +140,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = NA_integer_,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -148,7 +148,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "n_samples.*zero"
   )
@@ -156,7 +156,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 113.212,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -164,7 +164,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "Converting n_samples.*"
   )
@@ -173,7 +173,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = NA_character_,
         sample_matrices = c("Serum", "Plasma"),
@@ -181,7 +181,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "sample_groups"
   )
@@ -189,7 +189,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = 113,
         sample_matrices = c("Serum", "Plasma"),
@@ -197,7 +197,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "sample_groups"
   )
@@ -206,7 +206,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = NA_character_,
@@ -214,7 +214,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "sample_matrices"
   )
@@ -222,7 +222,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = 0,
@@ -230,7 +230,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "sample_matrices"
   )
@@ -239,7 +239,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -247,7 +247,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "analytes"
   )
@@ -255,7 +255,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -263,7 +263,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "analytes"
   )
@@ -272,7 +272,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -280,7 +280,7 @@ test_that("proper errors are thrown", {
         targets = NA_character_,
         qualitative_outcomes = c("Positive", "Negative"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "targets"
   )
@@ -288,7 +288,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -297,7 +297,7 @@ test_that("proper errors are thrown", {
         targets = 0,
         qualitative_outcomes = c("Positive", "Negative"),
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "targets"
   )
@@ -306,7 +306,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -314,7 +314,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = NA_character_,
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "qualitative_outcomes"
   )
@@ -322,7 +322,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -330,7 +330,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = 0,
         semiquantitative_outcomes = c("0", "100", "400", "1600", "6400"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "qualitative_outcomes"
   )
@@ -339,7 +339,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -347,7 +347,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
         semiquantitative_outcomes = list("hi"),
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "semiquantitative_outcomes"
   )
@@ -355,7 +355,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -363,7 +363,7 @@ test_that("proper errors are thrown", {
         targets = c("Spike", "Nucleocapsid"),
         qualitative_outcomes = c("Positive", "Negative"),
         semiquantitative_outcomes = 42,
-        quantitative_units = NULL
+        quantitative_units = NA_character_
       ),
     regexp = "semiquantitative_outcomes"
   )
@@ -372,7 +372,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
@@ -388,7 +388,7 @@ test_that("proper errors are thrown", {
     object =
       build_panel_sheet(
         panel_name = "test",
-        panel_description = NULL,
+        panel_description = NA_character_,
         n_samples = 110L,
         sample_groups = c("Positive", "Negative"),
         sample_matrices = c("Serum", "Plasma"),
