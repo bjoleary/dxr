@@ -52,6 +52,9 @@
 #'   provided as a character vector. For example: \code{c("0", "100", "400",
 #'   "1600", "6400")} (where \code{0} corresponds to a sample with a negative
 #'   qualitative result).
+#' @param semiquantitative_comparators The semi-quantitative comparator methods
+#'   used to determine qualitative ground truth for the panel. Works similarly
+#'   to \code{qualitative_comparators} above.
 #' @param quantitative_units If quantitative outcomes have been established for
 #'   the panel, this is a character string describing the units of those
 #'   quantitative results. Defaults to \code{NA}, indicating that no
@@ -90,6 +93,7 @@ build_panel_sheet <- function(
   qualitative_outcomes = c("Positive", "Negative"),
   qualitative_comparators,
   semiquantitative_outcomes = NA_character_,
+  semiquantitative_comparators,
   # TODO: add semiquantitative_comparator
   quantitative_units = NA_character_
   # TODO: add quantitative_comparator
@@ -132,6 +136,11 @@ build_panel_sheet <- function(
       is.vector(semiquantitative_outcomes, mode = "character"),
       is.na(semiquantitative_outcomes)
     ),
+    # semiquantitative_comparators must be a character vector or NA
+    any(
+      is.vector(semiquantitative_comparators, mode = "character"),
+      is.na(semiquantitative_comparators)
+    ),
     # quantitative_units must be a character string (not a vector) or NA
     any(
       all(
@@ -145,6 +154,13 @@ build_panel_sheet <- function(
     n_samples <- as.integer(n_samples)
     warning(
       "Converting n_samples parameter to an intenger: ", n_samples, "."
+    )
+  }
+  # If we have semi-quantitative outcomes, we must have semi-quantitative
+  # comparators
+  if (!all(is.na(semiquantitative_outcomes))) {
+    stopifnot(
+      !all(is.na(semiquantitative_comparators))
     )
   }
 
@@ -162,6 +178,7 @@ build_panel_sheet <- function(
       qualitative_outcomes = qualitative_outcomes,
       qualitative_comparators = qualitative_comparators,
       semiquantitative_outcomes = semiquantitative_outcomes,
+      semiquantitative_comparators = semiquantitative_comparators,
       quantitative_units = quantitative_units
     ) %>%
     tibble::enframe()
