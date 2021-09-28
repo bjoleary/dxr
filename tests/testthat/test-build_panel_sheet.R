@@ -1,5 +1,124 @@
-test_that("building a panel sheet works", {
-  testthat::skip("Need to write this test.")
+test_that("building a panel sheet works (case 1)", {
+  case_1 <-
+    build_panel_sheet(
+      panel_name = "Case 1",
+      panel_description = "A test case.",
+      n_samples = 5L,
+      sample_groups = "Case 1 Samples",
+      sample_matrices = "Sputum",
+      analytes = "SARS-CoV-2 Antigen",
+      targets = "RBD",
+      qualitative_outcomes = c("Positive", "Negative"),
+      qualitative_comparators = "Authorized NAAT",
+      semiquantitative_outcomes = NA,
+      semiquantitative_comparators = NA,
+      quantitative_units = NA,
+      quantitative_comparators = NA
+    )
+  expect_equal(
+    object = colnames(case_1$panel_table),
+    expected =
+      c("sample", "analyte", "target", "group", "matrix", "qualitative_result",
+        "qualitative_comparator")
+  )
+  expect_equal(
+    object = case_1$panel_table$sample[[1]],
+    expected = "case_1_1"
+  )
+  expect_equal(
+    object = case_1$panel_table$analyte %>% unique(),
+    expected = "SARS-CoV-2 Antigen"
+  )
+  expect_equal(
+    object = case_1$panel_table$target %>% unique(),
+    expected = "RBD"
+  )
+  expect_equal(
+    object = case_1$panel_table$group %>% unique(),
+    expected = "Case 1 Samples"
+  )
+  expect_equal(
+    object = case_1$panel_table$matrix %>% unique(),
+    expected = "Sputum"
+  )
+  expect_true(
+    all(is.na(case_1$panel_table$qualitative_result))
+  )
+  expect_equal(
+    object = case_1$panel_table$qualitative_comparator %>% unique(),
+    expected = "Authorized NAAT"
+  )
+})
+
+test_that("building a panel sheet works (case 2)", {
+  case_2 <-
+    build_panel_sheet(
+      panel_name = "Case 2",
+      panel_description = "A test case.",
+      n_samples = 5L,
+      sample_groups = c("Group A", "Group B"),
+      sample_matrices = c("Sputum", "NP Swab"),
+      analytes = "SARS-CoV-2 Antigen",
+      targets = "RBD",
+      qualitative_outcomes = c("Positive", "Negative"),
+      qualitative_comparators = c("Authorized NAAT"),
+      semiquantitative_outcomes = c("Negative", "Weak Positive",
+                                    "Medium Positive", "Strong Positive"),
+      semiquantitative_comparators = "Authorized NAAT Ct Values",
+      quantitative_units = "Unitless",
+      quantitative_comparators = "Authorized NAAT Ct Values"
+    )
+  expect_equal(
+    object = colnames(case_2$panel_table),
+    expected =
+      c("sample", "analyte", "target", "group", "matrix", "qualitative_result",
+        "qualitative_comparator", "semiquantitative_result",
+        "semiquantitative_comparator", "quantitative_result",
+        "quantitative_units", "quantitative_comparator")
+  )
+  expect_equal(
+    object = case_2$panel_table$sample[[5]],
+    expected = "case_2_5"
+  )
+  expect_equal(
+    object = case_2$panel_table$analyte %>% unique(),
+    expected = "SARS-CoV-2 Antigen"
+  )
+  expect_equal(
+    object = case_2$panel_table$target %>% unique(),
+    expected = "RBD"
+  )
+  expect_true(
+    all(is.na(case_2$panel_table$group))
+  )
+  expect_true(
+    all(is.na(case_2$panel_table$matrix))
+  )
+  expect_true(
+    all(is.na(case_2$panel_table$qualitative_result))
+  )
+  expect_equal(
+    object = case_2$panel_table$qualitative_comparator %>% unique(),
+    expected = "Authorized NAAT"
+  )
+  expect_true(
+    all(is.na(case_2$panel_table$semiquantitative_result))
+  )
+  expect_equal(
+    object = case_2$panel_table$semiquantitative_comparator %>% unique(),
+    expected = "Authorized NAAT Ct Values"
+  )
+  expect_true(
+    all(is.na(case_2$panel_table$quantitative_result))
+  )
+  expect_equal(
+    object = case_2$panel_table$quantitative_units %>% unique(),
+    expected = "Unitless"
+  )
+  expect_equal(
+    object = case_2$panel_table$quantitative_comparator %>% unique(),
+    expected = "Authorized NAAT Ct Values"
+  )
 })
 
 test_that("proper errors are thrown", {
