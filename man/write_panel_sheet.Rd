@@ -4,13 +4,13 @@
 \alias{write_panel_sheet}
 \title{Write Panel Sheet}
 \usage{
-write_panel_sheet(filepath, panel_sheet_data, method = "excel")
+write_panel_sheet(panel_sheet_data, filepath, method = "excel")
 }
 \arguments{
-\item{filepath}{The filepath to write the panel sheet to.}
-
 \item{panel_sheet_data}{The panel data, which are the output of
 \code{dxr::build_panel_sheet()}.}
+
+\item{filepath}{The filepath to write the panel sheet to.}
 
 \item{method}{File format to output to. Currently, the only option is the
 default, \code{"excel"}.}

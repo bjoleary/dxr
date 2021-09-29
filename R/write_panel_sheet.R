@@ -3,16 +3,16 @@
 #' Generate a template sample panel sheet to record ground truth for an
 #' evaluation or series of evaluations.
 #'
-#' @param filepath The filepath to write the panel sheet to.
 #' @param panel_sheet_data The panel data, which are the output of
 #'   \code{dxr::build_panel_sheet()}.
+#' @param filepath The filepath to write the panel sheet to.
 #' @param method File format to output to. Currently, the only option is the
 #'   default, \code{"excel"}.
 #'
 #' @return An panel sheet template file, written to disk.
 #' @export
 #'
-write_panel_sheet <- function(filepath, panel_sheet_data, method = "excel") {
+write_panel_sheet <- function(panel_sheet_data, filepath, method = "excel") {
   workbook <- panel_sheet_excel_method(panel_sheet_data = panel_sheet_data)
   openxlsx::saveWorkbook(
     wb = workbook,
@@ -273,6 +273,8 @@ panel_sheet_excel_method <- function(panel_sheet_data) {
     wb = workbook,
     protect = TRUE
   )
+
+  workbook
 }
 
 #' Panel Sheet CSV Method
