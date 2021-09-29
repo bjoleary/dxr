@@ -26,6 +26,8 @@ Imports:
     tibble,
     tidyr,
     snakecase,
-    openxlsx
+    openxlsx,
+    readxl,
+    rlang
 URL: https://github.com/bjoleary/dxr
 BugReports: https://github.com/bjoleary/dxr/issues
