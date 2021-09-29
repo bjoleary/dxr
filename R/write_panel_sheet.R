@@ -1,13 +1,17 @@
-#' Title
+#' Write Panel Sheet
 #'
-#' @param filepath
-#' @param panel_sheet_data
-#' @param method
+#' Generate a template sample panel sheet to record ground truth for an
+#' evaluation or series of evaluations.
 #'
-#' @return
+#' @param filepath The filepath to write the panel sheet to.
+#' @param panel_sheet_data The panel data, which are the output of
+#'   \code{dxr::build_panel_sheet()}.
+#' @param method File format to output to. Currently, the only option is the
+#'   default, \code{"excel"}.
+#'
+#' @return An panel sheet template file, written to disk.
 #' @export
 #'
-#' @examples
 write_panel_sheet <- function(filepath, panel_sheet_data, method = "excel") {
   workbook <- panel_sheet_excel_method(panel_sheet_data = panel_sheet_data)
   openxlsx::saveWorkbook(
@@ -17,13 +21,15 @@ write_panel_sheet <- function(filepath, panel_sheet_data, method = "excel") {
   )
 }
 
-#' Title
+#' Panel Sheet Excel Method
 #'
-#' @param panel_sheet_data
+#' Build an excel workbook, using \code{openxlsx}.
 #'
-#' @return
+#' @param panel_sheet_data The panel data, which are the output of
+#'   \code{dxr::build_panel_sheet()}.
 #'
-#' @examples
+#' @return A workbook object from \code{openxlsx}.
+#'
 panel_sheet_excel_method <- function(panel_sheet_data) {
   metadata <-
     panel_sheet_data$panel_metadata %>%
@@ -262,20 +268,20 @@ panel_sheet_excel_method <- function(panel_sheet_data) {
     lockScenarios = TRUE
   )
 
-  # Workbook protection and saving ----------------------------------------------
+  # Workbook protection and saving ---------------------------------------------
   openxlsx::protectWorkbook(
     wb = workbook,
     protect = TRUE
   )
 }
 
-#' Title
+#' Panel Sheet CSV Method
 #'
-#' @param panel_sheet_data
+#' @param panel_sheet_data The panel data, which are the output of
+#'   \code{dxr::build_panel_sheet()}.
 #'
-#' @return
+#' @return Nothing for now, just an error.
 #'
-#' @examples
 panel_sheet_csv_method <- function(panel_sheet_data) {
   stop("Reserved. This function hasn't been written yet.")
 }
