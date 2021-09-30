@@ -314,7 +314,6 @@ build_panel_sheet <- function(
         )
     }
   }
-  # Write results? -------------------------------------------------------------
 
   # Finish
   list(
