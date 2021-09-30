@@ -20,9 +20,9 @@ test_that("Writing and reading a panel works", {
     semiquantitative_comparators = NA_character_,
     quantitative_units = NA_character_,
     quantitative_comparators = NA_character_
-  ) %T>%
+  )
   write_panel_sheet(
-    panel_sheet_data = .,
+    panel_sheet_data = ps_data_sent,
     filepath = filepath_workbook,
     method = "excel"
   )
