@@ -37,5 +37,32 @@ test_that("Writing and reading a panel works", {
     object = ps_data_returned,
     expected = ps_data_sent
   )
+})
 
+test_that("proper errors are thrown", {
+  expect_error(
+    object = read_panel("bad_filepath.doc"),
+    regexp = ".*\\.xlsx.*"
+  )
+  expect_error(
+    object =
+      read_panel_data(
+        filepath = "okay.xlsx",
+        method = "garbage"
+      ),
+    regexp = ".*excel.*"
+  )
+  expect_error(
+    object =
+      read_panel_metadata(
+        filepath = "okay.xlsx",
+        method = "garbage"
+      ),
+    regexp = ".*excel.*"
+  )
+  expect_error(
+    object =
+      panel_sheet_csv_method("anything"),
+    regexp = "^Reserved.*"
+  )
 })

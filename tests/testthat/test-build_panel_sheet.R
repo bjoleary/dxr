@@ -121,6 +121,74 @@ test_that("building a panel sheet works (case 2)", {
   )
 })
 
+test_that("building a panel sheet works (case 3)", {
+  case_3 <-
+    build_panel_sheet(
+      panel_name = "case 3",
+      panel_description = "A test case.",
+      n_samples = 30L,
+      sample_groups = c("Group A", "Group B"),
+      sample_matrices = c("Sputum", "NP Swab"),
+      analytes = "SARS-CoV-2 Antigen",
+      targets = "RBD",
+      qualitative_outcomes = c("Positive", "Negative"),
+      qualitative_comparators = c("Authorized NAAT"),
+      semiquantitative_outcomes = c("Negative", "Weak Positive",
+                                    "Medium Positive", "Strong Positive"),
+      semiquantitative_comparators = c("Authorized NAAT Ct Values", "Method 2"),
+      quantitative_units = "Unitless",
+      quantitative_comparators = c("Authorized NAAT Ct Values", "Method 2")
+    )
+  expect_equal(
+    object = colnames(case_3$panel_table),
+    expected =
+      c("sample", "analyte", "target", "group", "matrix", "qualitative_result",
+        "qualitative_comparator", "semiquantitative_result",
+        "semiquantitative_comparator", "quantitative_result",
+        "quantitative_units", "quantitative_comparator")
+  )
+  expect_equal(
+    object = case_3$panel_table$sample[[5]],
+    expected = "case_3_05"
+  )
+  expect_equal(
+    object = case_3$panel_table$analyte %>% unique(),
+    expected = "SARS-CoV-2 Antigen"
+  )
+  expect_equal(
+    object = case_3$panel_table$target %>% unique(),
+    expected = "RBD"
+  )
+  expect_true(
+    all(is.na(case_3$panel_table$group))
+  )
+  expect_true(
+    all(is.na(case_3$panel_table$matrix))
+  )
+  expect_true(
+    all(is.na(case_3$panel_table$qualitative_result))
+  )
+  expect_equal(
+    object = case_3$panel_table$qualitative_comparator %>% unique(),
+    expected = "Authorized NAAT"
+  )
+  expect_true(
+    all(is.na(case_3$panel_table$semiquantitative_result))
+  )
+  expect_true(
+    all(is.na(case_3$panel_table$semiquantitative_comparator))
+  )
+  expect_true(
+    all(is.na(case_3$panel_table$quantitative_result))
+  )
+  expect_equal(
+    object = case_3$panel_table$quantitative_units %>% unique(),
+    expected = "Unitless"
+  )
+  expect_true(
+    all(is.na(case_3$panel_table$quantitative_comparator))
+  )
+})
 test_that("proper errors are thrown", {
   # panel_name must not be null, must be char string length 1-------------------
   expect_error(
