@@ -54,7 +54,7 @@
 #'   qualitative result).
 #' @param semiquantitative_comparators The semi-quantitative comparator methods
 #'   used to determine qualitative ground truth for the panel. Works similarly
-#'   to \code{qualitative_comparators} above. If
+#'   to \code{qualitative_comparators} above. Defaults to \code{NA}. If
 #'   \code{semiqquantitative_outcomes} are provide (not all \code{NA}), then
 #'   this must be provided as well. If \code{semiqquantitative_outcomes} are not
 #'   provide (\code{all(is.na(semiqquantitative_outcomes))}), then this must be
@@ -66,9 +66,9 @@
 #'   results are unit-less, \code{"Unit-less"} can be used.
 #' @param quantitative_comparators The quantitative comparator methods used to
 #'   determine qualitative ground truth for the panel. Works similarly to
-#'   \code{qualitative_comparators} above. If \code{quantitative_units} is
-#'   provide (not \code{NA}), then this must be provided as well. If
-#'   \code{quantitative_units} is not provide
+#'   \code{qualitative_comparators} above. Defaults to \code{NA}. If
+#'   \code{quantitative_units} is provide (not \code{NA}), then this must be
+#'   provided as well. If \code{quantitative_units} is not provide
 #'   (\code{is.na(quantitative_units)}), then this must be NA as well.
 #' @return Returns \code{TRUE} if a sample panel sheet is created successfully.
 #' @export
@@ -104,9 +104,9 @@ build_panel_sheet <- function(
   qualitative_outcomes = c("Positive", "Negative"),
   qualitative_comparators,
   semiquantitative_outcomes = NA_character_,
-  semiquantitative_comparators,
+  semiquantitative_comparators = NA_character_,
   quantitative_units = NA_character_,
-  quantitative_comparators
+  quantitative_comparators = NA_character_
 ) {
   # Check inputs ---------------------------------------------------------------
   stopifnot(
