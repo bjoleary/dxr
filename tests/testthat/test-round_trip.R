@@ -1,4 +1,3 @@
-library(magrittr)
 test_that("Writing and reading a panel works", {
   # Create a temporary excel workbook file -------------------------------------
   filepath_workbook <- tempfile(fileext = ".xlsx")
