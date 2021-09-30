@@ -258,7 +258,7 @@ panel_sheet_excel_method <- function(panel_sheet_data) {
     lockFormattingRows = FALSE,
     lockInsertingColumns = TRUE,
     lockInsertingRows = TRUE,
-    lockInsertingHyperlinks = FALSE,
+    lockInsertingHyperlinks = TRUE,
     lockDeletingColumns = TRUE,
     lockDeletingRows = TRUE,
     lockSorting = FALSE,
