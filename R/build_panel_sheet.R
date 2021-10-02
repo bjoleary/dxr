@@ -70,7 +70,8 @@
 #'   \code{quantitative_units} is provide (not \code{NA}), then this must be
 #'   provided as well. If \code{quantitative_units} is not provide
 #'   (\code{is.na(quantitative_units)}), then this must be NA as well.
-#' @return Returns \code{TRUE} if a sample panel sheet is created successfully.
+#' @return Returns a list includint the \code{panel_metadata} and
+#'   \code{panel_table}.
 #' @export
 #'
 #' @examples

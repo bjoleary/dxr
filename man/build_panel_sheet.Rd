@@ -102,7 +102,8 @@ provided as well. If \code{quantitative_units} is not provide
 (\code{is.na(quantitative_units)}), then this must be NA as well.}
 }
 \value{
-Returns \code{TRUE} if a sample panel sheet is created successfully.
+Returns a list includint the \code{panel_metadata} and
+\code{panel_table}.
 }
 \description{
 A function to build an excel file with fill-in-the-blank cells for common
