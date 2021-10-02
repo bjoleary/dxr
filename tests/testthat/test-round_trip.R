@@ -65,3 +65,24 @@ test_that("proper errors are thrown", {
     regexp = "^Reserved.*"
   )
 })
+
+test_that("round-tripping nci_1 works", {
+  # Create a temporary excel workbook file -------------------------------------
+  filepath_workbook <- tempfile(fileext = ".xlsx")
+  # Save and write some panel sheet data ---------------------------------------
+  write_panel_sheet(
+    panel_sheet_data = nci_1,
+    filepath = filepath_workbook,
+    method = "excel"
+  )
+  # Read that file -------------------------------------------------------------
+  ps_data_returned <-
+    read_panel(
+      filepath = filepath_workbook
+    )
+
+  expect_equal(
+    object = ps_data_returned,
+    expected = nci_1
+  )
+})
