@@ -3,6 +3,7 @@
 export("%>%")
 export(agreement)
 export(agreement_fraction)
+export(build_evaluation_sheet)
 export(build_panel_sheet)
 export(confidence)
 export(cross_reactive_subgroup)
