@@ -1,0 +1,106 @@
+read_panel <- function(filepath) {
+  if (
+    stringr::str_detect(
+      string = filepath,
+      pattern = stringr::regex(".*\\.xlsx$"),
+      negate = TRUE
+    )
+  ) {
+    stop("Only \".xlsx\" files are supported at this time.")
+  } else {
+    method <- "excel"
+  }
+  list(
+    panel_metadata =
+      read_panel_metadata(
+        filepath = filepath,
+        method = method
+      ),
+    panel_table =
+      read_panel_data(
+        filepath = filepath,
+        method = method
+      )
+  )
+}
+read_panel_data <- function(filepath, method = "excel") {
+  if (method == "excel") {
+    read_panel_data_excel(filepath)
+  } else {
+    stop("Only method = \"excel\" is supported at this time.")
+  }
+}
+read_panel_data_excel <- function(filepath) {
+  panel_data <-
+    readxl::read_xlsx(
+      path = filepath,
+      sheet = "panel_data",
+      col_types = "text"
+    )
+}
+read_panel_metadata <- function(filepath, method = "excel") {
+  if (method == "excel") {
+    read_panel_metadata_excel(filepath)
+  } else {
+    stop("Only method = \"excel\" is supported at this time.")
+  }
+}
+read_panel_metadata_excel <- function(filepath) {
+  metadata <-
+    readxl::read_xlsx(
+      path = filepath,
+      sheet = "panel_metadata",
+      col_types = c("text", "text")
+    )
+  # Remember what order things were in
+  sort_order <- metadata$name
+  # Set aside some rows that should not be touched
+  do_not_touch <- c("panel_name", "panel_description")
+  parking_lot <-
+    metadata %>%
+    dplyr::filter(.data$name %in% do_not_touch) %>%
+    dplyr::mutate(value = as.list(as.character(.data$value)))
+  # Process the n_samples row
+  numeric_metadata <-
+    metadata %>%
+    dplyr::filter(.data$name == "n_samples") %>%
+    dplyr::mutate(value = as.list(as.integer(.data$value)))
+  # Process the other rows
+  metadata <-
+    metadata %>%
+    dplyr::filter(!(.data$name %in% c(do_not_touch, "n_samples"))) %>%
+    dplyr::mutate(
+      # Replace "None" with NA
+      value = dplyr::case_when(
+        .data$value == "None" ~ NA_character_,
+        TRUE ~ .data$value
+        )
+      ) %>%
+    # # Split strings into vectors by the "; " characters
+    dplyr::mutate(
+      value =
+        strsplit(
+          x = .data$value,
+          split = "; ",
+          fixed = TRUE
+        )
+    )
+
+  # Combine, sort, and return
+  dplyr::left_join(
+    tibble::enframe(
+      x = sort_order,
+      name = NULL,
+      value = "name"
+    ),
+    dplyr::bind_rows(
+      parking_lot,
+      numeric_metadata,
+      metadata
+    ),
+    by = c("name" = "name")
+  )
+}
+read_panel_metadata_csv <- function(filepath) {
+
+}

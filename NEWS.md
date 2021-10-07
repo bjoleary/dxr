@@ -10,6 +10,6 @@
 
 * Fixed installation instructions
 
-* Insured that intermediate calculations used in proportion_difference() are 
+* Ensured that intermediate calculations used in proportion_difference() are 
   performed at full precision. 
   
