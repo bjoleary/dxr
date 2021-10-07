@@ -7,13 +7,18 @@
 build_evaluation_sheet(
   evaluation_name,
   evaluation_description = NA_character_,
+  developer = NA_character_,
+  assay = NA_character_,
+  lot_numbers = NA_character_,
   panel_data = NA,
   panel_data_filepath = NA_character_,
   analytes,
   targets,
   qualitative_outcomes = c("Positive", "Negative"),
   semiquantitative_outcomes = NA_character_,
-  quantitative_units = NA_character_
+  quantitative_units = NA_character_,
+  randomize = TRUE,
+  blind = TRUE
 )
 }
 \arguments{
@@ -24,6 +29,15 @@ not be \code{NA}.}
 \item{evaluation_description}{An optional sentence or paragraph describing
 the evaluation. Defaults to \code{NA}. If provided, it must be a string
 rather than a multi-level vector.}
+
+\item{developer}{The developer of the assay under evaluation. A character
+string. Defaults to \code{NA}}
+
+\item{assay}{The name of the assay under evaluation. A character string.
+Defaults to \code{NA}}
+
+\item{lot_numbers}{All lot numbers associated with the evaluation. May be a
+character vector of length 1 or more.  Defaults to \code{NA}}
 
 \item{panel_data}{The output of \code{build_panel_sheet}. Either this or a
 panel_data_filepath must be provided, but not both. Defaults to \code{NA}.}
@@ -58,10 +72,16 @@ associated with the evaluation. Defaults to \code{NA}.}
 the evaluation, this is a character string describing the units of those
 quantitative results. Defaults to \code{NA}. If the results are unit-less,
 \code{"Unit-less"} can be used.}
+
+\item{randomize}{Defaults to \code{TRUE}, meaning sample IDs from the panel
+data will be put in a random order for this evaluation.}
+
+\item{blind}{Defaults to \code{TRUE}, meaning sample IDs from the panel data
+will be assigned a number unique to this evaluation.}
 }
 \value{
-Returns a list including the \code{evaluation_metadata} and
-\code{evaluation_table}
+Returns a list including the \code{evaluation_metadata},
+\code{sample_blinding}, and \code{evaluation_table}
 }
 \description{
 A function to build an excel file with fill-in-the-blank cells for common
@@ -71,6 +91,9 @@ information needed about a sample evaluation.
 build_evaluation_sheet(
   evaluation_name = "Example Evaluation",
   evaluation_description = NA_character_,
+  developer = "ACME Test Corp.",
+  assay = "Test Assay #1",
+  lot_numbers = "20200101",
   panel_data =
     build_panel_sheet(
       panel_name = "Example Panel",
@@ -91,6 +114,8 @@ build_evaluation_sheet(
   targets = "Spike",
   qualitative_outcomes = c("Positive", "Negative"),
   semiquantitative_outcomes = NA_character_,
-  quantitative_units = NA_character_
+  quantitative_units = NA_character_,
+  randomize = FALSE,
+  blind = FALSE
 )
 }

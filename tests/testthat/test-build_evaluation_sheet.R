@@ -4,6 +4,9 @@ test_that("evaluations and panels must have compatable analytes", {
       build_evaluation_sheet(
         evaluation_name = "Test Evaluation",
         evaluation_description = "A test...",
+        developer = "Test Developer",
+        assay = "The assay Name",
+        lot_numbers = "20200101",
         panel_data =
           build_panel_sheet(
             panel_name = "Just a test",
@@ -34,6 +37,9 @@ test_that("evaluations and panels must have compatable analytes", {
       build_evaluation_sheet(
         evaluation_name = "Test Evaluation",
         evaluation_description = "A test...",
+        developer = "Test Developer",
+        assay = "The assay Name",
+        lot_numbers = "20200101",
         panel_data =
           build_panel_sheet(
             panel_name = "Just a test",
@@ -68,6 +74,9 @@ test_that("evaluations and panels should have compatible qual outcomes", {
       build_evaluation_sheet(
         evaluation_name = "Test Evaluation",
         evaluation_description = "A test...",
+        developer = "Test Developer",
+        assay = "The assay Name",
+        lot_numbers = "20200101",
         panel_data =
           build_panel_sheet(
             panel_name = "Just a test",
