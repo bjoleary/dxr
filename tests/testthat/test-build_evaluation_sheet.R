@@ -699,3 +699,121 @@ test_that("you can't provide panel and panel filepath", {
       "^You supplied both a panel_data object and a panel_data_filepath.*"
   )
 })
+
+test_that("multiple lot numbers results in NA column", {
+  # First, let's build the expected output
+  good_output <-
+    list(
+      evaluation_metadata =
+        structure(
+          list(
+            name =
+              c("evaluation_name", "evaluation_description", "developer",
+                "assay", "lot_numbers", "analytes", "targets",
+                "qualitative_outcomes", "semiquantitative_outcomes",
+                "quantitative_units"),
+            value =
+              list("Test Evaluation", "A test...", "Test Developer",
+                   "The assay Name", c("20200101", "20200102"),
+                   c("IgM", "IgG", "Pan-Ig"),
+                   "RBD", c("Positive", "Negative"), NA_character_,
+                   NA_character_)),
+          class = c("tbl_df", "tbl", "data.frame"),
+          row.names = c(NA, -10L)),
+      sample_blinding =
+        structure(
+          list(
+            evaluation_sample_id =
+              c("just_a_test_1", "just_a_test_2", "just_a_test_3",
+                "just_a_test_4", "just_a_test_5"),
+            panel_sample_id =
+              c("just_a_test_1", "just_a_test_2", "just_a_test_3",
+                "just_a_test_4", "just_a_test_5")),
+          class = c("tbl_df", "tbl", "data.frame"),
+          row.names = c(NA, -5L)),
+      evaluation_table =
+        structure(
+          list(
+            sample =
+              c("just_a_test_1", "just_a_test_1", "just_a_test_1",
+                "just_a_test_2", "just_a_test_2", "just_a_test_2",
+                "just_a_test_3", "just_a_test_3", "just_a_test_3",
+                "just_a_test_4", "just_a_test_4", "just_a_test_4",
+                "just_a_test_5", "just_a_test_5", "just_a_test_5"),
+            analyte =
+              c("IgM", "IgG", "Pan-Ig", "IgM", "IgG", "Pan-Ig", "IgM", "IgG",
+                "Pan-Ig", "IgM", "IgG", "Pan-Ig", "IgM", "IgG", "Pan-Ig"),
+            target =
+              c("RBD", "RBD", "RBD", "RBD", "RBD", "RBD", "RBD", "RBD", "RBD",
+                "RBD", "RBD", "RBD", "RBD", "RBD", "RBD"),
+            lot_number =
+              c(NA_character_, NA_character_, NA_character_, NA_character_,
+                NA_character_, NA_character_, NA_character_, NA_character_,
+                NA_character_, NA_character_, NA_character_, NA_character_,
+                NA_character_, NA_character_, NA_character_),
+            datetime_observation =
+              structure(
+                c(NA_real_, NA_real_, NA_real_, NA_real_, NA_real_, NA_real_,
+                  NA_real_, NA_real_, NA_real_, NA_real_, NA_real_, NA_real_,
+                  NA_real_, NA_real_, NA_real_),
+                tzone = "UTC",
+                class = c("POSIXct", "POSIXt")),
+            qualitative_result =
+              c(NA_character_, NA_character_, NA_character_, NA_character_,
+                NA_character_, NA_character_, NA_character_, NA_character_,
+                NA_character_, NA_character_, NA_character_, NA_character_,
+                NA_character_, NA_character_, NA_character_),
+            notes_and_anomalies =
+              c(NA_character_, NA_character_, NA_character_, NA_character_,
+                NA_character_, NA_character_, NA_character_, NA_character_,
+                NA_character_, NA_character_, NA_character_, NA_character_,
+                NA_character_, NA_character_, NA_character_)),
+          row.names = c(NA, -15L),
+          class = c("tbl_df", "tbl", "data.frame")
+        )
+    )
+  expect_equal(
+    # Working example -- no error
+    object =
+      build_evaluation_sheet(
+        evaluation_name = "Test Evaluation",
+        evaluation_description = "A test...",
+        developer = "Test Developer",
+        assay = "The assay Name",
+        lot_numbers = c("20200101", "20200102"),
+        panel_data =
+          build_panel_sheet(
+            panel_name = "Just a test",
+            panel_description = "A test case.",
+            n_samples = 5L,
+            sample_groups = "Samples",
+            sample_matrices = "Serum",
+            analytes = c("IgM", "IgG", "Pan-Ig"),
+            targets = "Spike",
+            qualitative_outcomes = c("Positive", "Negative"),
+            qualitative_comparators = "Authorized NAAT and CDC Assay",
+            semiquantitative_outcomes = NA,
+            semiquantitative_comparators = NA,
+            quantitative_units = NA,
+            quantitative_comparators = NA
+          ),
+        panel_data_filepath = NA,
+        analytes = c("IgM", "IgG", "Pan-Ig"),
+        targets = "RBD",
+        qualitative_outcomes = c("Positive", "Negative"),
+        semiquantitative_outcomes = NA_character_,
+        quantitative_units = NA_character_,
+        randomize = FALSE,
+        blind = FALSE
+      ),
+    expected = good_output
+  )
+})
+
+test_that("semiquantitative_outcomes behave as expected", {
+  skip("TODO")
+})
+
+test_that("quantitative_units behaves as expected", {
+  skip("TODO")
+})
