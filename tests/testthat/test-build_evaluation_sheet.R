@@ -508,5 +508,194 @@ test_that("input checking works", {
 })
 
 test_that("building the evaluation sheet works", {
-  skip("Need to write this test.")
+  # First, let's build the expected output
+  good_output <-
+    list(
+      evaluation_metadata =
+        structure(
+          list(
+            name =
+              c("evaluation_name", "evaluation_description", "developer",
+                "assay", "lot_numbers", "analytes", "targets",
+                "qualitative_outcomes", "semiquantitative_outcomes",
+                "quantitative_units"),
+            value =
+              list("Test Evaluation", "A test...", "Test Developer",
+                   "The assay Name", "20200101", c("IgM", "IgG", "Pan-Ig"),
+                   "RBD", c("Positive", "Negative"), NA_character_,
+                   NA_character_)),
+          class = c("tbl_df", "tbl", "data.frame"),
+          row.names = c(NA, -10L)),
+      sample_blinding =
+        structure(
+          list(
+            evaluation_sample_id =
+              c("just_a_test_1", "just_a_test_2", "just_a_test_3",
+                "just_a_test_4", "just_a_test_5"),
+            panel_sample_id =
+              c("just_a_test_1", "just_a_test_2", "just_a_test_3",
+                "just_a_test_4", "just_a_test_5")),
+          class = c("tbl_df", "tbl", "data.frame"),
+          row.names = c(NA, -5L)),
+      evaluation_table =
+        structure(
+          list(
+            sample =
+              c("just_a_test_1", "just_a_test_1", "just_a_test_1",
+                "just_a_test_2", "just_a_test_2", "just_a_test_2",
+                "just_a_test_3", "just_a_test_3", "just_a_test_3",
+                "just_a_test_4", "just_a_test_4", "just_a_test_4",
+                "just_a_test_5", "just_a_test_5", "just_a_test_5"),
+            analyte =
+              c("IgM", "IgG", "Pan-Ig", "IgM", "IgG", "Pan-Ig", "IgM", "IgG",
+                "Pan-Ig", "IgM", "IgG", "Pan-Ig", "IgM", "IgG", "Pan-Ig"),
+            target =
+              c("RBD", "RBD", "RBD", "RBD", "RBD", "RBD", "RBD", "RBD", "RBD",
+                "RBD", "RBD", "RBD", "RBD", "RBD", "RBD"),
+            lot_number =
+              c("20200101", "20200101", "20200101", "20200101", "20200101",
+                "20200101", "20200101", "20200101", "20200101", "20200101",
+                "20200101", "20200101", "20200101", "20200101", "20200101"),
+            datetime_observation =
+              structure(
+                c(NA_real_, NA_real_, NA_real_, NA_real_, NA_real_, NA_real_,
+                  NA_real_, NA_real_, NA_real_, NA_real_, NA_real_, NA_real_,
+                  NA_real_, NA_real_, NA_real_),
+                tzone = "UTC",
+                class = c("POSIXct", "POSIXt")),
+            qualitative_result =
+              c(NA_character_, NA_character_, NA_character_, NA_character_,
+                NA_character_, NA_character_, NA_character_, NA_character_,
+                NA_character_, NA_character_, NA_character_, NA_character_,
+                NA_character_, NA_character_, NA_character_),
+            notes_and_anomalies =
+              c(NA_character_, NA_character_, NA_character_, NA_character_,
+                NA_character_, NA_character_, NA_character_, NA_character_,
+                NA_character_, NA_character_, NA_character_, NA_character_,
+                NA_character_, NA_character_, NA_character_)),
+          row.names = c(NA, -15L),
+          class = c("tbl_df", "tbl", "data.frame")
+        )
+    )
+
+  # Save the panel data to a temporary location
+  filepath_temp_panel <- tempfile(fileext = ".xlsx")
+  write_panel_sheet(
+    panel_sheet_data =
+      build_panel_sheet(
+        panel_name = "Just a test",
+        panel_description = "A test case.",
+        n_samples = 5L,
+        sample_groups = "Samples",
+        sample_matrices = "Serum",
+        analytes = c("IgM", "IgG", "Pan-Ig"),
+        targets = "Spike",
+        qualitative_outcomes = c("Positive", "Negative"),
+        qualitative_comparators = "Authorized NAAT and CDC Assay",
+        semiquantitative_outcomes = NA,
+        semiquantitative_comparators = NA,
+        quantitative_units = NA,
+        quantitative_comparators = NA
+      ),
+    filepath = filepath_temp_panel
+  )
+
+  # Now let's put it all in using standard functions
+  expect_equal(
+    # Working example -- no error
+    object =
+      build_evaluation_sheet(
+        evaluation_name = "Test Evaluation",
+        evaluation_description = "A test...",
+        developer = "Test Developer",
+        assay = "The assay Name",
+        lot_numbers = "20200101",
+        panel_data =
+          build_panel_sheet(
+            panel_name = "Just a test",
+            panel_description = "A test case.",
+            n_samples = 5L,
+            sample_groups = "Samples",
+            sample_matrices = "Serum",
+            analytes = c("IgM", "IgG", "Pan-Ig"),
+            targets = "Spike",
+            qualitative_outcomes = c("Positive", "Negative"),
+            qualitative_comparators = "Authorized NAAT and CDC Assay",
+            semiquantitative_outcomes = NA,
+            semiquantitative_comparators = NA,
+            quantitative_units = NA,
+            quantitative_comparators = NA
+          ),
+        panel_data_filepath = NA,
+        analytes = c("IgM", "IgG", "Pan-Ig"),
+        targets = "RBD",
+        qualitative_outcomes = c("Positive", "Negative"),
+        semiquantitative_outcomes = NA_character_,
+        quantitative_units = NA_character_,
+        randomize = FALSE,
+        blind = FALSE
+      ),
+    expected = good_output
+  )
+  # And again using the panel filepath
+  expect_equal(
+    # Working example -- no error
+    object =
+      build_evaluation_sheet(
+        evaluation_name = "Test Evaluation",
+        evaluation_description = "A test...",
+        developer = "Test Developer",
+        assay = "The assay Name",
+        lot_numbers = "20200101",
+        panel_data = NA,
+        panel_data_filepath = filepath_temp_panel,
+        analytes = c("IgM", "IgG", "Pan-Ig"),
+        targets = "RBD",
+        qualitative_outcomes = c("Positive", "Negative"),
+        semiquantitative_outcomes = NA_character_,
+        quantitative_units = NA_character_,
+        randomize = FALSE,
+        blind = FALSE
+      ),
+    expected = good_output
+  )
+})
+
+test_that("you can't provide panel and panel filepath", {
+  expect_error(
+    object =
+      build_evaluation_sheet(
+        evaluation_name = "Test Evaluation",
+        evaluation_description = "A test...",
+        developer = "Test Developer",
+        assay = "The assay Name",
+        lot_numbers = "20200101",
+        panel_data =
+          build_panel_sheet(
+            panel_name = "Just a test",
+            panel_description = "A test case.",
+            n_samples = 5L,
+            sample_groups = "Samples",
+            sample_matrices = "Serum",
+            analytes = c("IgM", "IgG", "Pan-Ig"),
+            targets = "Spike",
+            qualitative_outcomes = c("Positive", "Negative"),
+            qualitative_comparators = "Authorized NAAT and CDC Assay",
+            semiquantitative_outcomes = NA,
+            semiquantitative_comparators = NA,
+            quantitative_units = NA,
+            quantitative_comparators = NA
+          ),
+        panel_data_filepath = "bad_move_there_friend.xlsx",
+        analytes = c("IgM", "IgG", "Pan-Ig"),
+        targets = "RBD",
+        qualitative_outcomes = c("Positive", "Negative"),
+        semiquantitative_outcomes = NA_character_,
+        quantitative_units = NA_character_,
+        randomize = FALSE,
+        blind = FALSE
+      ),
+    regexp =
+      "^You supplied both a panel_data object and a panel_data_filepath.*"
+  )
 })

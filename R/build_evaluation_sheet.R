@@ -215,7 +215,7 @@ build_evaluation_sheet <- function(
     )
     # And I guess now is as good a time as any to grab the panel data from that
     # file:
-    panel_data <- read_panel_data_excel(filepath = panel_data_filepath)
+    panel_data <- read_panel(filepath = panel_data_filepath)
   }
 
   # Make panel_data$panel_metadata a list for easier access
@@ -281,8 +281,6 @@ build_evaluation_sheet <- function(
       )
   }
 
-
-
   # Warn and Stop for compatibility issues -------------------------------------
   if (!identical(possible_problems, character(0L))) {
     possible_problems <-  paste(possible_problems, collapse = "\n  ")
@@ -294,7 +292,6 @@ build_evaluation_sheet <- function(
       problems
     )
   }
-
 
   # Randomize and blind --------------------------------------------------------
   all_samples <- panel_data$panel_table$sample %>% unique()
