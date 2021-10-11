@@ -1,3 +1,4 @@
+# Error checking ---------------------------------------------------------------
 test_that("evaluations and panels must have compatable analytes", {
   expect_error(
     object =
@@ -507,6 +508,7 @@ test_that("input checking works", {
   )
 })
 
+# Build sheet ------------------------------------------------------------------
 test_that("building the evaluation sheet works", {
   # First, let's build the expected output
   good_output <-
@@ -518,14 +520,14 @@ test_that("building the evaluation sheet works", {
               c("evaluation_name", "evaluation_description", "developer",
                 "assay", "lot_numbers", "analytes", "targets",
                 "qualitative_outcomes", "semiquantitative_outcomes",
-                "quantitative_units"),
+                "quantitative_units", "blinded"),
             value =
               list("Test Evaluation", "A test...", "Test Developer",
                    "The assay Name", "20200101", c("IgM", "IgG", "Pan-Ig"),
                    "RBD", c("Positive", "Negative"), NA_character_,
-                   NA_character_)),
+                   NA_character_, FALSE)),
           class = c("tbl_df", "tbl", "data.frame"),
-          row.names = c(NA, -10L)),
+          row.names = c(NA, -11L)),
       sample_blinding =
         structure(
           list(
@@ -711,15 +713,15 @@ test_that("multiple lot numbers results in NA column", {
               c("evaluation_name", "evaluation_description", "developer",
                 "assay", "lot_numbers", "analytes", "targets",
                 "qualitative_outcomes", "semiquantitative_outcomes",
-                "quantitative_units"),
+                "quantitative_units", "blinded"),
             value =
               list("Test Evaluation", "A test...", "Test Developer",
                    "The assay Name", c("20200101", "20200102"),
                    c("IgM", "IgG", "Pan-Ig"),
                    "RBD", c("Positive", "Negative"), NA_character_,
-                   NA_character_)),
+                   NA_character_, FALSE)),
           class = c("tbl_df", "tbl", "data.frame"),
-          row.names = c(NA, -10L)),
+          row.names = c(NA, -11L)),
       sample_blinding =
         structure(
           list(

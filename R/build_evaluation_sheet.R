@@ -331,7 +331,8 @@ build_evaluation_sheet <- function(
       targets = targets,
       qualitative_outcomes = qualitative_outcomes,
       semiquantitative_outcomes = semiquantitative_outcomes,
-      quantitative_units = quantitative_units
+      quantitative_units = quantitative_units,
+      blinded = blind
     ) %>%
     tibble::enframe()
 
