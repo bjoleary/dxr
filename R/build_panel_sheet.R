@@ -51,7 +51,7 @@
 #'   If titers or other information are available, the relevant levels must be
 #'   provided as a character vector. For example: \code{c("0", "100", "400",
 #'   "1600", "6400")} (where \code{0} corresponds to a sample with a negative
-#'   qualitative result).
+#'   qualitative truth).
 #' @param semiquantitative_comparators The semi-quantitative comparator methods
 #'   used to determine qualitative ground truth for the panel. Works similarly
 #'   to \code{qualitative_comparators} above. Defaults to \code{NA}. If
@@ -61,9 +61,9 @@
 #'   NA as well.
 #' @param quantitative_units If quantitative outcomes have been established for
 #'   the panel, this is a character string describing the units of those
-#'   quantitative results. Defaults to \code{NA}, indicating that no
+#'   quantitative outcomes. Defaults to \code{NA}, indicating that no
 #'   quantitative ground truth has been established for the sample panel. If the
-#'   results are unit-less, \code{"Unit-less"} can be used.
+#'   outcomes are unit-less, \code{"Unit-less"} can be used.
 #' @param quantitative_comparators The quantitative comparator methods used to
 #'   determine qualitative ground truth for the panel. Works similarly to
 #'   \code{qualitative_comparators} above. Defaults to \code{NA}. If
@@ -235,7 +235,7 @@ build_panel_sheet <- function(
     dplyr::mutate(
       group = NA_character_,
       matrix = NA_character_,
-      qualitative_result = NA_character_
+      qualitative_truth = NA_character_
     )
   # If there is only one group:
   if (length(sample_groups) == 1) {
@@ -269,12 +269,12 @@ build_panel_sheet <- function(
       )
   }
 
-  # Add the semiquantitative result column if applicable
+  # Add the semiquantitative truth column if applicable
   if (!all(is.na(semiquantitative_outcomes))) {
     panel_table <-
       panel_table %>%
       dplyr::mutate(
-        semiquantitative_result = NA_character_
+        semiquantitative_truth = NA_character_
       )
     # If there is only one semi-quantitative comparator, populate that column
     # with it. Otherwise, use NA_character.
@@ -293,12 +293,12 @@ build_panel_sheet <- function(
     }
   }
 
-  # Add the quantitative result column if applicable
+  # Add the quantitative truth column if applicable
   if (!all(is.na(quantitative_units))) {
     panel_table <-
       panel_table %>%
       dplyr::mutate(
-        quantitative_result = NA_complex_,
+        quantitative_truth = NA_complex_,
         quantitative_units = quantitative_units[[1]]
       )
     if (length(quantitative_comparators) == 1) {

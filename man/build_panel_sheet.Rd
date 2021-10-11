@@ -78,7 +78,7 @@ semi-quantitative ground truth has been established for the sample panel.
 If titers or other information are available, the relevant levels must be
 provided as a character vector. For example: \code{c("0", "100", "400",
   "1600", "6400")} (where \code{0} corresponds to a sample with a negative
-qualitative result).}
+qualitative truth).}
 
 \item{semiquantitative_comparators}{The semi-quantitative comparator methods
 used to determine qualitative ground truth for the panel. Works similarly
@@ -90,9 +90,9 @@ NA as well.}
 
 \item{quantitative_units}{If quantitative outcomes have been established for
 the panel, this is a character string describing the units of those
-quantitative results. Defaults to \code{NA}, indicating that no
+quantitative outcomes. Defaults to \code{NA}, indicating that no
 quantitative ground truth has been established for the sample panel. If the
-results are unit-less, \code{"Unit-less"} can be used.}
+outcomes are unit-less, \code{"Unit-less"} can be used.}
 
 \item{quantitative_comparators}{The quantitative comparator methods used to
 determine qualitative ground truth for the panel. Works similarly to
