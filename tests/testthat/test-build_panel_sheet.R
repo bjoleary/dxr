@@ -18,7 +18,7 @@ test_that("building a panel sheet works (case 1)", {
   expect_equal(
     object = colnames(case_1$panel_table),
     expected =
-      c("sample", "analyte", "target", "group", "matrix", "qualitative_result",
+      c("sample", "analyte", "target", "group", "matrix", "qualitative_truth",
         "qualitative_comparator")
   )
   expect_equal(
@@ -42,7 +42,7 @@ test_that("building a panel sheet works (case 1)", {
     expected = "Sputum"
   )
   expect_true(
-    all(is.na(case_1$panel_table$qualitative_result))
+    all(is.na(case_1$panel_table$qualitative_truth))
   )
   expect_equal(
     object = case_1$panel_table$qualitative_comparator %>% unique(),
@@ -71,9 +71,9 @@ test_that("building a panel sheet works (case 2)", {
   expect_equal(
     object = colnames(case_2$panel_table),
     expected =
-      c("sample", "analyte", "target", "group", "matrix", "qualitative_result",
-        "qualitative_comparator", "semiquantitative_result",
-        "semiquantitative_comparator", "quantitative_result",
+      c("sample", "analyte", "target", "group", "matrix", "qualitative_truth",
+        "qualitative_comparator", "semiquantitative_truth",
+        "semiquantitative_comparator", "quantitative_truth",
         "quantitative_units", "quantitative_comparator")
   )
   expect_equal(
@@ -95,21 +95,21 @@ test_that("building a panel sheet works (case 2)", {
     all(is.na(case_2$panel_table$matrix))
   )
   expect_true(
-    all(is.na(case_2$panel_table$qualitative_result))
+    all(is.na(case_2$panel_table$qualitative_truth))
   )
   expect_equal(
     object = case_2$panel_table$qualitative_comparator %>% unique(),
     expected = "Authorized NAAT"
   )
   expect_true(
-    all(is.na(case_2$panel_table$semiquantitative_result))
+    all(is.na(case_2$panel_table$semiquantitative_truth))
   )
   expect_equal(
     object = case_2$panel_table$semiquantitative_comparator %>% unique(),
     expected = "Authorized NAAT Ct Values"
   )
   expect_true(
-    all(is.na(case_2$panel_table$quantitative_result))
+    all(is.na(case_2$panel_table$quantitative_truth))
   )
   expect_equal(
     object = case_2$panel_table$quantitative_units %>% unique(),
@@ -142,9 +142,9 @@ test_that("building a panel sheet works (case 3)", {
   expect_equal(
     object = colnames(case_3$panel_table),
     expected =
-      c("sample", "analyte", "target", "group", "matrix", "qualitative_result",
-        "qualitative_comparator", "semiquantitative_result",
-        "semiquantitative_comparator", "quantitative_result",
+      c("sample", "analyte", "target", "group", "matrix", "qualitative_truth",
+        "qualitative_comparator", "semiquantitative_truth",
+        "semiquantitative_comparator", "quantitative_truth",
         "quantitative_units", "quantitative_comparator")
   )
   expect_equal(
@@ -166,20 +166,20 @@ test_that("building a panel sheet works (case 3)", {
     all(is.na(case_3$panel_table$matrix))
   )
   expect_true(
-    all(is.na(case_3$panel_table$qualitative_result))
+    all(is.na(case_3$panel_table$qualitative_truth))
   )
   expect_equal(
     object = case_3$panel_table$qualitative_comparator %>% unique(),
     expected = "Authorized NAAT"
   )
   expect_true(
-    all(is.na(case_3$panel_table$semiquantitative_result))
+    all(is.na(case_3$panel_table$semiquantitative_truth))
   )
   expect_true(
     all(is.na(case_3$panel_table$semiquantitative_comparator))
   )
   expect_true(
-    all(is.na(case_3$panel_table$quantitative_result))
+    all(is.na(case_3$panel_table$quantitative_truth))
   )
   expect_equal(
     object = case_3$panel_table$quantitative_units %>% unique(),

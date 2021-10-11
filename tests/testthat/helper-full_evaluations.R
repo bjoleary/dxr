@@ -110,9 +110,9 @@ nci_1$panel_table$sample <- nci_sero_panel_1_details$sample
 nci_1$panel_table$analyte <- nci_sero_panel_1_details$analyte
 nci_1$panel_table$matrix <- nci_sero_panel_1_details$matrix
 nci_1$panel_table$group <- nci_sero_panel_1_details$group
-nci_1$panel_table$qualitative_result <-
+nci_1$panel_table$qualitative_truth <-
   nci_sero_panel_1_details$qualitative_result
-nci_1$panel_table$semiquantitative_result <-
+nci_1$panel_table$semiquantitative_truth <-
   nci_sero_panel_1_details$semiquantitative_result %>%
   as.character()
 nci_1$panel_table <-
@@ -120,12 +120,12 @@ nci_1$panel_table <-
   dplyr::mutate(
     qualitative_comparator =
       dplyr::case_when(
-        .data$qualitative_result == "Positive" ~
+        .data$qualitative_truth == "Positive" ~
           paste0(
             "PCR-confirmed and positive on CDC Spike Antigen Assays and ",
             "Krammer RBD assay at NCI"
           ),
-        .data$qualitative_result != "Positive" ~
+        .data$qualitative_truth != "Positive" ~
           "Collected prior to 2020"
       )
   )
