@@ -75,6 +75,11 @@ evaluation_sheet_excel_method <- function(evaluation_sheet_data) {
     openxlsx::createStyle(
       locked = TRUE
     )
+  style_datetime <-
+    openxlsx::createStyle(
+      numFmt = "LONGDATE",
+      locked = FALSE
+    )
 
   # Create Workbook ------------------------------------------------------------
   workbook <-
@@ -309,13 +314,13 @@ evaluation_sheet_excel_method <- function(evaluation_sheet_data) {
     orientation = "landscape",
     gridLines = FALSE
   )
-  # Write data -----------------------------------------------------------------
+  ## Write data ----------------------------------------------------------------
   openxlsx::writeDataTable(
     wb = workbook,
     sheet = "evaluation_data",
     x = evaluation_sheet_data$evaluation_table
   )
-  # Apply styles ---------------------------------------------------------------
+  ## Apply styles --------------------------------------------------------------
   # Lock header row
   openxlsx::addStyle(
     wb = workbook,
@@ -338,6 +343,20 @@ evaluation_sheet_excel_method <- function(evaluation_sheet_data) {
     rows = data_cells$rows,
     cols = data_cells$cols
   )
+  # Format datetime column
+  datetime_column <-
+    which(
+      colnames(evaluation_sheet_data$evaluation_table) == "datetime_observation"
+    )
+  openxlsx::addStyle(
+    wb = workbook,
+    sheet = "evaluation_data",
+    style = style_datetime,
+    rows = seq_along(evaluation_sheet_data$evaluation_table$sample) + 1,
+    cols = datetime_column,
+    gridExpand = TRUE
+  )
+  # Set column widths
   openxlsx::setColWidths(
     wb = workbook,
     sheet = "evaluation_data",
@@ -352,8 +371,8 @@ evaluation_sheet_excel_method <- function(evaluation_sheet_data) {
     lockSelectingLockedCells = TRUE,
     lockSelectingUnlockedCells = FALSE,
     lockFormattingCells = TRUE,
-    lockFormattingColumns = FALSE,
-    lockFormattingRows = FALSE,
+    lockFormattingColumns = TRUE,
+    lockFormattingRows = TRUE,
     lockInsertingColumns = TRUE,
     lockInsertingRows = TRUE,
     lockInsertingHyperlinks = TRUE,
