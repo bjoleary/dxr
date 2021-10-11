@@ -122,8 +122,7 @@ print(sample_panel$panel_metadata)
 #> 11 semiquantitative_comparators <chr [1]>
 #> 12 quantitative_units           <chr [1]>
 #> 13 quantitative_comparators     <chr [1]>
-message("This will be written to excel to facilitate data entry:")
-#> This will be written to excel to facilitate data entry:
+# This will be written to excel to facilitate data entry:
 print(sample_panel$panel_table)
 #> # A tibble: 330 × 9
 #>    sample            analyte target group matrix qualitative_res… qualitative_com…
@@ -177,10 +176,15 @@ evaluation_one <-
 #> Positive, Negative. The evaluation outcome(s) that do not match those that are
 #> valid for this panel (Equivocal) will be called as false results.
 
-message("Evaluation metadata:")
-#> Evaluation metadata:
+# To save it: 
+# write_evaluation_sheet(
+#   evaluation_sheet_data = evaluation_one,
+#   filepath = "evaluation_one.xlsx"
+# )
+
+# Evaluation metadata:
 print(evaluation_one$evaluation_metadata)
-#> # A tibble: 10 × 2
+#> # A tibble: 11 × 2
 #>    name                      value    
 #>    <chr>                     <list>   
 #>  1 evaluation_name           <chr [1]>
@@ -193,8 +197,8 @@ print(evaluation_one$evaluation_metadata)
 #>  8 qualitative_outcomes      <chr [3]>
 #>  9 semiquantitative_outcomes <chr [1]>
 #> 10 quantitative_units        <chr [1]>
-message("This one is not randomized or blinded, so the IDs match:")
-#> This one is not randomized or blinded, so the IDs match:
+#> 11 blinded                   <lgl [1]>
+# This one is not randomized or blinded, so the IDs match:
 print(evaluation_one$sample_blinding)
 #> # A tibble: 110 × 2
 #>    evaluation_sample_id panel_sample_id  
@@ -210,8 +214,7 @@ print(evaluation_one$sample_blinding)
 #>  9 example_panel_009    example_panel_009
 #> 10 example_panel_010    example_panel_010
 #> # … with 100 more rows
-message("This will be written to excel to facilitate data entry:")
-#> This will be written to excel to facilitate data entry:
+# This will be written to excel to facilitate data entry:
 print(evaluation_one$evaluation_table)
 #> # A tibble: 330 × 7
 #>    sample            analyte target lot_number datetime_observati… qualitative_res…
@@ -227,8 +230,4 @@ print(evaluation_one$evaluation_table)
 #>  9 example_panel_003 Pan-Ig  Spike  20200101   NA                  <NA>            
 #> 10 example_panel_004 IgM     Spike  20200101   NA                  <NA>            
 #> # … with 320 more rows, and 1 more variable: notes_and_anomalies <chr>
-
-
-
-# TODO: Code to write this to excel still needs to be developed. 
 ```

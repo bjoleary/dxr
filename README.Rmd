@@ -85,7 +85,7 @@ sample_panel <-
 # )
 
 print(sample_panel$panel_metadata)
-message("This will be written to excel to facilitate data entry:")
+# This will be written to excel to facilitate data entry:
 print(sample_panel$panel_table)
 ```
 
@@ -118,14 +118,16 @@ evaluation_one <-
     blind = FALSE
   )
 
-message("Evaluation metadata:")
+# To save it: 
+# write_evaluation_sheet(
+#   evaluation_sheet_data = evaluation_one,
+#   filepath = "evaluation_one.xlsx"
+# )
+
+# Evaluation metadata:
 print(evaluation_one$evaluation_metadata)
-message("This one is not randomized or blinded, so the IDs match:")
+# This one is not randomized or blinded, so the IDs match:
 print(evaluation_one$sample_blinding)
-message("This will be written to excel to facilitate data entry:")
+# This will be written to excel to facilitate data entry:
 print(evaluation_one$evaluation_table)
-
-
-
-# TODO: Code to write this to excel still needs to be developed. 
 ```

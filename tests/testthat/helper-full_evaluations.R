@@ -2,7 +2,7 @@ url_root <- "https://www.accessdata.fda.gov/cdrh_docs/presentations/maf/"
 # A Panel 1 evaluation:
 ex_eval <-
   readr::read_csv(
-    file = paste0(url_root, "maf3246-a001.csv" ),
+    file = paste0(url_root, "maf3246-a001.csv"),
     col_types =
       readr::cols(
         manufacturer = readr::col_character(),
@@ -146,4 +146,3 @@ suppressWarnings(
       blind = TRUE
     )
 )
-
