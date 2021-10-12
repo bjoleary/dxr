@@ -125,7 +125,7 @@ print(sample_panel$panel_metadata)
 # This will be written to excel to facilitate data entry:
 print(sample_panel$panel_table)
 #> # A tibble: 330 × 9
-#>    sample            analyte target group matrix qualitative_res… qualitative_com…
+#>    sample            analyte target group matrix qualitative_tru… qualitative_com…
 #>    <chr>             <chr>   <chr>  <chr> <chr>  <chr>            <chr>           
 #>  1 example_panel_001 IgM     Spike  <NA>  <NA>   <NA>             <NA>            
 #>  2 example_panel_001 IgG     Spike  <NA>  <NA>   <NA>             <NA>            
@@ -137,7 +137,7 @@ print(sample_panel$panel_table)
 #>  8 example_panel_003 IgG     Spike  <NA>  <NA>   <NA>             <NA>            
 #>  9 example_panel_003 Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>            
 #> 10 example_panel_004 IgM     Spike  <NA>  <NA>   <NA>             <NA>            
-#> # … with 320 more rows, and 2 more variables: semiquantitative_result <chr>,
+#> # … with 320 more rows, and 2 more variables: semiquantitative_truth <chr>,
 #> #   semiquantitative_comparator <chr>
 ```
 
@@ -231,3 +231,20 @@ print(evaluation_one$evaluation_table)
 #> 10 example_panel_004 IgM     Spike  20200101   NA                  <NA>            
 #> # … with 320 more rows, and 1 more variable: notes_and_anomalies <chr>
 ```
+
+## Enter data
+
+At this point, you’ll need to fill in those files with some data: Ground
+truth in the one for the panel and the results from the assay under
+consideration in the one for the evaluation.
+
+## Read in data
+
+You can now read in the data you’ve entered using `read_panel()` and
+`read_evaluation()`.
+
+## Score the evaluation
+
+Once you’ve read in the data from the panel and the evaluation, you can
+score the evaluation (qualitatively, future work needed for
+semi-quantitative and quantitative) using `score_evaluation()`.

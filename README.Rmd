@@ -131,3 +131,20 @@ print(evaluation_one$sample_blinding)
 # This will be written to excel to facilitate data entry:
 print(evaluation_one$evaluation_table)
 ```
+
+## Enter data
+
+At this point, you'll need to fill in those files with some data: Ground truth 
+in the one for the panel and the results from the assay under consideration in 
+the one for the evaluation. 
+
+## Read in data
+
+You can now read in the data you've entered using `read_panel()` and 
+`read_evaluation()`.
+
+## Score the evaluation
+
+Once you've read in the data from the panel and the evaluation, you can score 
+the evaluation (qualitatively, future work needed for semi-quantitative and 
+quantitative) using `score_evaluation()`. 
