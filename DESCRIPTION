@@ -1,6 +1,6 @@
 Package: dxr
 Title: Diagnostic Product Evaluation in R
-Version: 0.0.0.9003
+Version: 0.0.0.9004
 Authors@R: 
     person(given = "Brendan",
            family = "O'Leary",
@@ -32,6 +32,7 @@ Imports:
     rlang,
     lubridate,
     readr,
-    tidyselect
+    tidyselect,
+    purrr
 URL: https://github.com/bjoleary/dxr
 BugReports: https://github.com/bjoleary/dxr/issues
