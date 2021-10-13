@@ -44,14 +44,35 @@ read_evaluation_data <- function(filepath, method = "excel") {
   }
 }
 read_evaluation_data_excel <- function(filepath) {
+  # Set column type to "text" for every column except datetime observation
+  # Start by grabbing the column names
+  suppressMessages(
+    column_types <-
+      readxl::read_xlsx(
+        path = filepath,
+        sheet = "evaluation_data",
+        col_types = "text",
+        col_names = FALSE,
+        n_max = 1,
+        .name_repair = "universal"
+      ) %>%
+      tidyr::pivot_longer(
+        cols = dplyr::everything()
+      ) %>%
+      dplyr::pull(.data$value)
+  )
+  # Which one is a date?
+  datetime_column <- which(column_types == "datetime_observation")
+  # Set them all to text
+  column_types <- rep("text", max(seq_along(column_types)))
+  # Set the datetime column to date
+  column_types[[datetime_column]] <- "date"
+  # Read in the data
   evaluation_data <-
     readxl::read_xlsx(
       path = filepath,
       sheet = "evaluation_data",
-      col_types = "text"
-    ) %>%
-    dplyr::mutate(
-      datetime_observation = lubridate::as_datetime(.data$datetime_observation)
+      col_types = column_types
     )
 }
 read_evaluation_metadata <- function(filepath, method = "excel") {

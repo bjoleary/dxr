@@ -1,3 +1,4 @@
+# Download and read the data ---------------------------------------------------
 url_root <- "https://www.accessdata.fda.gov/cdrh_docs/presentations/maf/"
 # A Panel 1 evaluation:
 ex_eval <-
@@ -74,6 +75,8 @@ nci_sero_panel_1_details <-
         "analyte" = "analyte"
       )
   )
+
+# Build the panel sheet --------------------------------------------------------
 nci_1 <-
   build_panel_sheet(
     panel_name = "NCI Panel 1",
@@ -107,9 +110,9 @@ nci_1$panel_table$sample <- nci_sero_panel_1_details$sample
 nci_1$panel_table$analyte <- nci_sero_panel_1_details$analyte
 nci_1$panel_table$matrix <- nci_sero_panel_1_details$matrix
 nci_1$panel_table$group <- nci_sero_panel_1_details$group
-nci_1$panel_table$qualitative_result <-
+nci_1$panel_table$qualitative_truth <-
   nci_sero_panel_1_details$qualitative_result
-nci_1$panel_table$semiquantitative_result <-
+nci_1$panel_table$semiquantitative_truth <-
   nci_sero_panel_1_details$semiquantitative_result %>%
   as.character()
 nci_1$panel_table <-
@@ -117,16 +120,17 @@ nci_1$panel_table <-
   dplyr::mutate(
     qualitative_comparator =
       dplyr::case_when(
-        .data$qualitative_result == "Positive" ~
+        .data$qualitative_truth == "Positive" ~
           paste0(
             "PCR-confirmed and positive on CDC Spike Antigen Assays and ",
             "Krammer RBD assay at NCI"
           ),
-        .data$qualitative_result != "Positive" ~
+        .data$qualitative_truth != "Positive" ~
           "Collected prior to 2020"
       )
   )
 
+# Build the evaluation sheet ---------------------------------------------------
 suppressWarnings(
   test_eval <-
     build_evaluation_sheet(
@@ -142,7 +146,11 @@ suppressWarnings(
       qualitative_outcomes = c("Positive", "Borderline", "Negative"),
       semiquantitative_outcomes = NA_character_,
       quantitative_units = NA_character_,
-      randomize = TRUE,
-      blind = TRUE
+      randomize = FALSE,
+      blind = FALSE
     )
 )
+
+test_eval$evaluation_table$sample <- ex_eval$sample_id
+test_eval$evaluation_table$datetime_observation <- ex_eval$date_performed
+test_eval$evaluation_table$qualitative_result <- ex_eval$igg_result

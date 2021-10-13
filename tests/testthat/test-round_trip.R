@@ -87,6 +87,40 @@ test_that("round-tripping nci_1 works", {
   )
 })
 
+test_that("round-tripping test_eval works", {
+  # Create a temporary excel workbook file -------------------------------------
+  filepath_workbook <- tempfile(fileext = ".xlsx")
+  # Save and write some panel sheet data ---------------------------------------
+  write_evaluation_sheet(
+    evaluation_sheet_data = test_eval,
+    filepath = filepath_workbook,
+    method = "excel"
+  )
+  # Read that file -------------------------------------------------------------
+  eval_data_returned <-
+    read_evaluation(
+      filepath = filepath_workbook
+    )
+  # Some funky stuff happens with datetimes. Timezones and stuff. We're going
+  # to fudge it a bit and change them to character vectors and just compare
+  # those.
+  eval_data_returned$evaluation_table <-
+    eval_data_returned$evaluation_table %>%
+    dplyr::mutate(
+      datetime_observation = as.character(.data$datetime_observation)
+    )
+  test_eval_expected <- test_eval
+  test_eval_expected$evaluation_table <-
+    test_eval_expected$evaluation_table %>%
+    dplyr::mutate(
+      datetime_observation = as.character(.data$datetime_observation)
+    )
+  expect_equal(
+    object = eval_data_returned,
+    expected = test_eval_expected
+  )
+})
+
 test_that("writing and reading an evaluation works", {
   # Create a temporary excel workbook file -------------------------------------
   filepath_workbook <- tempfile(fileext = ".xlsx")
