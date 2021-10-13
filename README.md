@@ -16,6 +16,9 @@ status](https://www.r-pkg.org/badges/version/dxr)](https://CRAN.R-project.org/pa
 This package provides functions to support evaluations of diagnostic
 products using R.
 
+It’s under development and should not be used “in production.” Feedback
+is welcome.
+
 ## Installation
 
 You can install the development version of dxr from
@@ -28,17 +31,24 @@ devtools::install_github("bjoleary/dxr")
 
 ## Example
 
-This library includes many basic statistics functions that are
-consistent with CLSI standards for confidence interval estimation using
-Wilson Scores. Results are output in a convenient list format.
+This library includes many basic statistics functions You can find
+references to the sources of the methods used in the documentation for
+each function. Generally, they are based on [Statistics with
+Confidence](https://www.wiley.com/en-us/Statistics+with+Confidence%3A+Confidence+Intervals+and+Statistical+Guidelines%2C+2nd+Edition-p-9780727913753),
+edited by Altman, Machin, Bryant, and Gardner. References are to the
+Kindle edition of that book.
+
+Results are output in a list format for convenience. There are probably
+better versions of these functions available in `stats::` and elsewhere
+if they are all you are looking for.
 
 ``` r
 library(dxr)
 sensitivity(
   true_positives = 29,
   false_negatives = 1,
-  digits = 0.1, 
-  interval = 0.95
+  digits = 0.1, # Round to here
+  interval = 0.95 # Give a 95% confidence interval
   )
 #> $estimate
 #> [1] 0.9666667
@@ -69,13 +79,70 @@ sensitivity(
 #> 
 #> $string
 #> [1] "29/30 = 96.7% (95% CI: 83.3%; 99.4%)"
+
+ppv_with_confidence(
+  sensitivity = 
+    sensitivity_fraction(
+      numerator = 29,
+      denominator = 30,
+      digits = 0.1, # This only affects rounding for the formatted output.
+                    # The PPV function will use the full-precision estimate. 
+      interval = 0.95 # Give a 95% confidence interval
+    ),
+  specificity_fraction(
+    numerator = 79,
+    denominator = 80,
+    digits = 0.1,
+    interval = 0.95 # Give a 95% confidence interval
+  ),
+  prevalence = 0.2, # 20%,
+  interval = 0.95 # Give a 95% confidence interval
+)
+#> $estimate
+#> [1] 0.9508197
+#> 
+#> $estimate_percent
+#> [1] "95.1%"
+#> 
+#> $lower
+#> [1] 0.7553809
+#> 
+#> $lower_percent
+#> [1] "75.5%"
+#> 
+#> $upper
+#> [1] 0.9911859
+#> 
+#> $upper_percent
+#> [1] "99.1%"
+#> 
+#> $confidence_interval
+#> [1] "(95% CI: 75.5%; 99.1%)"
+#> 
+#> $string_two_line
+#> [1] "95.1%\n(95% CI: 75.5%; 99.1%)"
+#> 
+#> $string
+#> [1] "95.1% (95% CI: 75.5%; 99.1%)"
 ```
 
 ## Build a panel of samples
 
-Create an excel data entry sheet for information about a
-well-characterized sample panel to be used to evaluate diagnostic
-assays.
+The first step in the types of experiments this is intended for is to
+build a panel of well-characterized samples that will be used to
+evaluate all of the assays under consideration. This package provides
+`build_panel_sheet()` and `write_panel_sheet()` to generate an excel
+template where you can record ground truth for those samples, as well as
+additional information.
+
+At the moment, it really expects the qualitative truth to be “Positive”
+or “Negative”. There should not be “Equivocal” or similar outcomes for
+samples included in the panel.
+
+It provides some facility for recording semi-quantitative (e.g. titers)
+and quantitative truths for the sample panel, but there is no scoring or
+assessment based on this at this time. The current focus is on
+assessment of qualitative performance.
 
 ``` r
 sample_panel <-
@@ -105,25 +172,52 @@ sample_panel <-
 #   filepath = "sample_panel.xlsx"
 # )
 
-print(sample_panel$panel_metadata)
-#> # A tibble: 13 × 2
-#>    name                         value    
-#>    <chr>                        <list>   
-#>  1 panel_name                   <chr [1]>
-#>  2 panel_description            <chr [1]>
-#>  3 n_samples                    <int [1]>
-#>  4 sample_groups                <chr [2]>
-#>  5 sample_matrices              <chr [2]>
-#>  6 analytes                     <chr [3]>
-#>  7 targets                      <chr [1]>
-#>  8 qualitative_outcomes         <chr [2]>
-#>  9 qualitative_comparators      <chr [2]>
-#> 10 semiquantitative_outcomes    <chr [5]>
-#> 11 semiquantitative_comparators <chr [1]>
-#> 12 quantitative_units           <chr [1]>
-#> 13 quantitative_comparators     <chr [1]>
+sample_panel$panel_metadata %>% 
+  tidyr::pivot_wider() %>%
+  purrr::map(unlist) %>%
+  as.list()
+#> $panel_name
+#> [1] "Example Panel"
+#> 
+#> $panel_description
+#> [1] NA
+#> 
+#> $n_samples
+#> [1] 110
+#> 
+#> $sample_groups
+#> [1] "Positive" "Negative"
+#> 
+#> $sample_matrices
+#> [1] "Serum"  "Plasma"
+#> 
+#> $analytes
+#> [1] "IgM"    "IgG"    "Pan-Ig"
+#> 
+#> $targets
+#> [1] "Spike"
+#> 
+#> $qualitative_outcomes
+#> [1] "Positive" "Negative"
+#> 
+#> $qualitative_comparators
+#> [1] "Comparator Serology Assay with PCR confirmed infection"
+#> [2] "Collected Pre-2020"                                    
+#> 
+#> $semiquantitative_outcomes
+#> [1] "0"    "100"  "400"  "1600" "6400"
+#> 
+#> $semiquantitative_comparators
+#> [1] "Comparator Serology Assay"
+#> 
+#> $quantitative_units
+#> [1] NA
+#> 
+#> $quantitative_comparators
+#> [1] NA
+
 # This will be written to excel to facilitate data entry:
-print(sample_panel$panel_table)
+sample_panel$panel_table
 #> # A tibble: 330 × 9
 #>    sample            analyte target group matrix qualitative_tru… qualitative_com…
 #>    <chr>             <chr>   <chr>  <chr> <chr>  <chr>            <chr>           
@@ -143,9 +237,16 @@ print(sample_panel$panel_table)
 
 ## Set up a data entry sheet for an evaluation
 
+Once you have your panel set up, it’s time to evaluate your first assay.
+
 Evaluations should be associated with an existing panel. The code that
 sets up an evaluation sheet will perform some sanity checks to make sure
 the evaluation is compatible with the panel.
+
+Two functions, `build_evaluation_sheet()` and `write_evaluation_sheet()`
+work similarly to the functions for building and writing panels above
+and create a template excel file you can use to record the data from
+your first assay evaluation.
 
 ``` r
 evaluation_one <- 
@@ -183,23 +284,45 @@ evaluation_one <-
 # )
 
 # Evaluation metadata:
-print(evaluation_one$evaluation_metadata)
-#> # A tibble: 11 × 2
-#>    name                      value    
-#>    <chr>                     <list>   
-#>  1 evaluation_name           <chr [1]>
-#>  2 evaluation_description    <chr [1]>
-#>  3 developer                 <chr [1]>
-#>  4 assay                     <chr [1]>
-#>  5 lot_numbers               <chr [1]>
-#>  6 analytes                  <chr [3]>
-#>  7 targets                   <chr [1]>
-#>  8 qualitative_outcomes      <chr [3]>
-#>  9 semiquantitative_outcomes <chr [1]>
-#> 10 quantitative_units        <chr [1]>
-#> 11 blinded                   <lgl [1]>
+evaluation_one$evaluation_metadata %>% 
+    tidyr::pivot_wider() %>%
+    purrr::map(unlist) %>%
+    as.list()
+#> $evaluation_name
+#> [1] "Example Evaluation"
+#> 
+#> $evaluation_description
+#> [1] NA
+#> 
+#> $developer
+#> [1] "ACME Test Corp."
+#> 
+#> $assay
+#> [1] "Test Assay #1"
+#> 
+#> $lot_numbers
+#> [1] "20200101"
+#> 
+#> $analytes
+#> [1] "IgM"    "IgG"    "Pan-Ig"
+#> 
+#> $targets
+#> [1] "Spike"
+#> 
+#> $qualitative_outcomes
+#> [1] "Positive"  "Equivocal" "Negative" 
+#> 
+#> $semiquantitative_outcomes
+#> [1] NA
+#> 
+#> $quantitative_units
+#> [1] NA
+#> 
+#> $blinded
+#> [1] FALSE
+
 # This one is not randomized or blinded, so the IDs match:
-print(evaluation_one$sample_blinding)
+evaluation_one$sample_blinding
 #> # A tibble: 110 × 2
 #>    evaluation_sample_id panel_sample_id  
 #>    <chr>                <chr>            
@@ -214,8 +337,9 @@ print(evaluation_one$sample_blinding)
 #>  9 example_panel_009    example_panel_009
 #> 10 example_panel_010    example_panel_010
 #> # … with 100 more rows
+
 # This will be written to excel to facilitate data entry:
-print(evaluation_one$evaluation_table)
+evaluation_one$evaluation_table
 #> # A tibble: 330 × 7
 #>    sample            analyte target lot_number datetime_observati… qualitative_res…
 #>    <chr>             <chr>   <chr>  <chr>      <dttm>              <chr>           
@@ -232,15 +356,18 @@ print(evaluation_one$evaluation_table)
 #> # … with 320 more rows, and 1 more variable: notes_and_anomalies <chr>
 ```
 
-## Enter data
-
-At this point, you’ll need to fill in those files with some data: Ground
-truth in the one for the panel and the results from the assay under
-consideration in the one for the evaluation.
+If you set `randomize` and/or `blind` to `TRUE`, the software will
+scramble the order of the samples in the panel and/or rename them. Be
+warned: it’s a pretty weak blind at the moment. The link back to the
+panel sample IDs is stored in a “hidden” excel worksheet in the
+evaluation workbook without any significant protection. Simply right
+click any of the worksheet tabs and select “unhide” to see it. This is
+on my list of things to improve…
 
 ## Read in data
 
-You can now read in the data you’ve entered using `read_panel()` and
+Once you’ve conducted an evaluation, you can read in the data you’ve
+entered in the template excel workbooks using `read_panel()` and
 `read_evaluation()`.
 
 ## Score the evaluation
@@ -248,3 +375,72 @@ You can now read in the data you’ve entered using `read_panel()` and
 Once you’ve read in the data from the panel and the evaluation, you can
 score the evaluation (qualitatively, future work needed for
 semi-quantitative and quantitative) using `score_evaluation()`.
+
+I’m actively working on code to calculate summary performance metrics
+based on this.
+
+## Roadmap and other notes
+
+There is much to do:
+
+-   Calculating summary statistics
+
+-   Printing snazzy tables
+
+-   Improving the approach to blinding
+
+-   Using data validation features to prevent improper inputs in Excel
+
+-   Checking the data-entry for obvious errors
+
+-   Enabling double-entry and checking for consistency between entries
+
+-   Providing template reports
+
+-   Making a nice R/Shiny frontend (I think I will call it “Dexter”.
+    This package sounds like “dexer” in my head already…)
+
+This and more to come. As my weekends permit.
+
+**Hey–that reminds me**: This is a hobby project and is built on my own
+time. It is not from my employer and it is *definitely* not endorsed by
+my employer. For that matter, it’s not even endorsed by me. (Also, see
+the license for some important disclaimers.) The government ethics
+experts I checked in with told me that open sourcing a hobby project
+isn’t a problem though, so here we go.
+
+They also said it was important that it is not intended for therapeutic
+use: So, don’t try to use this to make any health decisions or anything,
+okay? I’m not sure how you could, but I’m pretty sure anything you could
+come up with along those lines would be a pretty bad idea…
+
+This is currently in the “experimental” stage. I don’t mean this as
+“it’s fit for use in experiments.” It’s not: It’s under development, it
+has significant testing and verification gaps, and it has not been
+validated.
+
+I got the itch to build this after doing [some
+work](https://open.fda.gov/apis/device/covid19serology/) to evaluate the
+performance of serology assays. I incorporated some of the public data
+from that for tests and examples here, but this software is independent
+from that effort, and anything you see here that looks similar to that
+is not meaningful. What’s the *Law and Order* disclaimer? “Although
+inspired in part by a true incident, the following story is fictional
+and does not depict any actual person or event.” Think of the examples
+you see here like that.
+
+Anyway, in the course of that effort, I learned a lot from some really
+smart people, and I was able to automate some tasks that otherwise would
+have had to be done manually. You know how it is though: You build
+something and *then* you see all the ways you could have designed it
+differently or more flexibly. I’m starting from scratch here and have
+tried to make things a bit more general-purpose and configurable for a
+wider variety of diagnostic assay evaluations.
+
+I’ll be happy if this never does more than solidify some of what I
+learned from that effort. And, of course, I would like to take it a bit
+further than that if I can. Someday, I hope to get this to a point where
+you might be able to validate it and use it to improve the reliability
+of some of the analyses you do in your lab. Go ahead and give it a test
+run, be sure to let me know how it can be improved, and thanks for your
+interest! :-)
