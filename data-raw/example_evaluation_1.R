@@ -116,7 +116,8 @@ documentation_text <-
     "@source ",
     "Contrived based on the data from ",
     paste0("[", maf, "](", url_root, maf, ")"),
-    paste0("accessed ", lubridate::today(), ".")
+    paste0("accessed ", lubridate::today(), "."),
+    " "
   ) %>%
   paste0("#' ", .) %>%
   c(
