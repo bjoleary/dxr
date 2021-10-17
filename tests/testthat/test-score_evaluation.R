@@ -15,3 +15,17 @@ test_that("score an example evaluation", {
     class = "tbl_df"
   )
 })
+
+test_that("we get proper errors", {
+  nci_1_wrong <- nci_1
+  nci_1_wrong$panel_table$qualitative_truth[[2]] <- "Not a real outcome"
+  nci_1_wrong$panel_table$qualitative_truth[[5]] <- "Another bad one"
+  expect_error(
+    object =
+      score_evaluation(
+        panel_data = nci_1_wrong,
+        evaluation_data = test_eval
+      ),
+    regexp = ".*Not a real outcome, Another bad one$"
+  )
+})
