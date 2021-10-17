@@ -33,6 +33,10 @@ Imports:
     lubridate,
     readr,
     tidyselect,
-    purrr
+    purrr,
+    forcats,
+    janitor
 URL: https://github.com/bjoleary/dxr
 BugReports: https://github.com/bjoleary/dxr/issues
+Depends: 
+    R (>= 2.10)
