@@ -84,4 +84,3 @@ test_that("crossed_outcomes works", {
     expected = c("IgG+", "IgG Equivocal", "IgG-")
   )
 })
-
