@@ -19,6 +19,6 @@ Come up with all the permutations of qualitative outcomes for each sample,
 including all analytes.
 }
 \examples{
-crossed_outcomes(c("IgM", "IgG"), c("Positive", "Negative"))
+dxr:::crossed_outcomes(c("IgM", "IgG"), c("Positive", "Negative"))
 
 }

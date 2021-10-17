@@ -66,7 +66,7 @@ replace_pos_neg <- function(string) {
 #' @return A vector of all permutations of analytes and qualitative outcomes.
 #'
 #' @examples
-#' crossed_outcomes(c("IgM", "IgG"), c("Positive", "Negative"))
+#' dxr:::crossed_outcomes(c("IgM", "IgG"), c("Positive", "Negative"))
 #'
 crossed_outcomes <- function(analytes, qualitative_outcomes) {
   # Gosh. There has to be a simpler way to do this.
