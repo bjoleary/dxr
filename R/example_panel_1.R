@@ -1,0 +1,38 @@
+# Do not hand edit this file. Edit data-raw/example_panel_1.R instead.
+#' Example Panel 1
+#'
+#' A panel used in Spring - Summer 2020 to evaluate serology assays for
+#' SARS-CoV-2. Use in this package is for testing and illustration
+#' purposes only. See https://open.fda.gov/apis/device/covid19serology/
+#' for more information.
+#'
+#' @format A list of tibbles.
+#'
+#' \describe{
+#' \item{panel_metadata}{: tibble 13 × 2 (S3: tbl_df/tbl/data.frame)}
+#' \item{name}{: chr 1:13 "panel_name" "panel_description" "n_samples"
+#' "sample_groups" ...}
+#' \item{value}{:List of 13}
+#' \item{panel_table}{: tibble 330 × 9 (S3: tbl_df/tbl/data.frame)}
+#' \item{sample}{: chr 1:330 "C0001" "C0001" "C0001" "C0002" ...}
+#' \item{analyte}{: chr 1:330 "IgM" "IgG" "Pan-Ig" "IgM" ...}
+#' \item{target}{: chr 1:330 "Spike" "Spike" "Spike" "Spike" ...}
+#' \item{group}{: chr 1:330 "Negatives" "Negatives" "Negatives"
+#' "Negatives" ...}
+#' \item{matrix}{: chr 1:330 "Serum" "Serum" "Serum" "Serum" ...}
+#' \item{qualitative_truth}{: chr 1:330 "Negative" "Negative" "Negative"
+#' "Negative" ...}
+#' \item{qualitative_comparator}{: chr 1:330 "Collected prior to 2020"
+#' "Collected prior to 2020" "Collected prior to 2020" "Collected prior to
+#' 2020" ...}
+#' \item{semiquantitative_truth}{: chr 1:330 "0" "0" "0" "0" ...}
+#' \item{semiquantitative_comparator}{: chr 1:330 "CDC Spike Antigen Assay"
+#' "CDC Spike Antigen Assay" "CDC Spike Antigen Assay" "CDC Spike Antigen
+#' Assay" ...}
+#' }
+#'
+#' @source
+#' Contrived based on the data from
+#' [maf3246-a001.csv](https://www.accessdata.fda.gov/cdrh_docs/presentations/maf/maf3246-a001.csv)
+#' accessed 2021-10-17.
+"example_panel_1"
