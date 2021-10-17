@@ -6,34 +6,9 @@ ex_eval <-
     file = paste0(url_root, "maf3246-a001.csv"),
     col_types =
       readr::cols(
-        manufacturer = readr::col_character(),
-        device = readr::col_character(),
         date_performed = readr::col_date(format = ""),
-        lot_number = readr::col_character(),
-        panel = readr::col_character(),
-        sample_no = readr::col_double(),
-        sample_id = readr::col_character(),
-        type = readr::col_character(),
-        group = readr::col_character(),
         days_from_symptom = readr::col_double(),
-        igm_result = readr::col_logical(),
-        igg_result = readr::col_character(),
-        iga_result = readr::col_logical(),
-        pan_result = readr::col_logical(),
-        igm_igg_result = readr::col_logical(),
-        control = readr::col_character(),
-        pan_titer = readr::col_double(),
-        igm_titer = readr::col_double(),
-        igg_titer = readr::col_double(),
-        igm_truth = readr::col_character(),
-        igg_truth = readr::col_character(),
-        antibody_truth = readr::col_character(),
-        igm_agree = readr::col_logical(),
-        igg_agree = readr::col_character(),
-        iga_agree = readr::col_logical(),
-        pan_agree = readr::col_logical(),
-        igm_igg_agree = readr::col_logical(),
-        antibody_agree = readr::col_character()
+        .default = readr::col_character()
       )
     )
 

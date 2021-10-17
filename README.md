@@ -374,7 +374,67 @@ entered in the template excel workbooks using `read_panel()` and
 
 Once you’ve read in the data from the panel and the evaluation, you can
 score the evaluation (qualitatively, future work needed for
-semi-quantitative and quantitative) using `score_evaluation()`.
+semi-quantitative and quantitative) using `score_evaluation()`. This
+generates the un-blinded line data table.
+
+``` r
+score_evaluation(
+  panel_data = dxr::example_panel_1,
+  evaluation_data = dxr::example_evaluation_1
+) %>% print()
+#> # A tibble: 220 × 17
+#>    panel_sample_id evaluation_sample_id lot_number matrix group     analyte
+#>    <chr>           <chr>                <chr>      <chr>  <chr>     <chr>  
+#>  1 C0001           C0001                E200330DT  Serum  Negatives IgM    
+#>  2 C0001           C0001                E200330DT  Serum  Negatives IgG    
+#>  3 C0002           C0002                E200330DT  Serum  Negatives IgM    
+#>  4 C0002           C0002                E200330DT  Serum  Negatives IgG    
+#>  5 C0004           C0004                E200330DT  Plasma Negatives IgM    
+#>  6 C0004           C0004                E200330DT  Plasma Negatives IgG    
+#>  7 C0005           C0005                E200330DT  Plasma Negatives IgM    
+#>  8 C0005           C0005                E200330DT  Plasma Negatives IgG    
+#>  9 C0008           C0008                E200330DT  Plasma Negatives IgM    
+#> 10 C0008           C0008                E200330DT  Plasma Negatives IgG    
+#> # … with 210 more rows, and 11 more variables: evaluation_target <chr>,
+#> #   datetime_observation <date>, qualitative_result <chr>,
+#> #   qualitative_truth <chr>, qualitative_match <lgl>,
+#> #   qualitative_outcome_strict <chr>, semiquantitative_truth <chr>,
+#> #   notes_and_anomalies <chr>, comparator_target <chr>,
+#> #   qualitative_comparator <chr>, semiquantitative_comparator <chr>
+```
+
+You can also generate a standard “two-by-two” style table to understand
+how the evaluation outcomes compared to the truth established in the
+panel.
+
+``` r
+two_by_two(
+  panel_data = dxr::example_panel_1,
+  evaluation_data = dxr::example_evaluation_1
+) 
+#>          SARS-COV-2 ELISA (IgG) IgM+, IgG+ IgM-, IgG+ IgM+, IgG- IgM-, IgG-
+#>                      IgM+, IgG+         27         NA         NA         NA
+#>            IgM Borderline, IgG+         NA         NA         NA         NA
+#>                      IgM-, IgG+         NA         NA         NA         NA
+#>            IgM+, IgG Borderline         NA         NA         NA         NA
+#>  IgM Borderline, IgG Borderline          2         NA         NA         NA
+#>            IgM-, IgG Borderline         NA         NA         NA         NA
+#>                      IgM+, IgG-         NA         NA         NA         NA
+#>            IgM Borderline, IgG-         NA         NA         NA         NA
+#>                      IgM-, IgG-          1         NA         NA         80
+#>                           Total         30          0          0         80
+#>  Total
+#>     27
+#>      0
+#>      0
+#>      0
+#>      2
+#>      0
+#>      0
+#>      0
+#>     81
+#>    110
+```
 
 I’m actively working on code to calculate summary performance metrics
 based on this.
