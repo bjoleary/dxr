@@ -39,7 +39,7 @@ test_that("scoring evaluations works", {
 })
 
 test_that("score an example evaluation", {
-  # For now, let's at least make sure the function runs and returns a tibble
+  # Let's make sure the function runs and returns a tibble
   results_table <-
     score_evaluation(
       panel_data = nci_1,
