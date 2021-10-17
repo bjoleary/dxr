@@ -413,30 +413,25 @@ panel.
 two_by_two(
   panel_data = dxr::example_panel_1,
   evaluation_data = dxr::example_evaluation_1
-) 
-#>          SARS-COV-2 ELISA (IgG) IgM+, IgG+ IgM-, IgG+ IgM+, IgG- IgM-, IgG-
-#>                      IgM+, IgG+         27         NA         NA         NA
-#>            IgM Borderline, IgG+         NA         NA         NA         NA
-#>                      IgM-, IgG+         NA         NA         NA         NA
-#>            IgM+, IgG Borderline         NA         NA         NA         NA
-#>  IgM Borderline, IgG Borderline          2         NA         NA         NA
-#>            IgM-, IgG Borderline         NA         NA         NA         NA
-#>                      IgM+, IgG-         NA         NA         NA         NA
-#>            IgM Borderline, IgG-         NA         NA         NA         NA
-#>                      IgM-, IgG-          1         NA         NA         80
-#>                           Total         30          0          0         80
-#>  Total
-#>     27
-#>      0
-#>      0
-#>      0
-#>      2
-#>      0
-#>      0
-#>      0
-#>     81
-#>    110
+) %>% 
+  dplyr::mutate_all(
+    .funs = ~ tidyr::replace_na(., replace = "")
+  ) %>% 
+  knitr::kable() 
 ```
+
+| SARS-COV-2 ELISA (IgG)         | IgM+, IgG+ | IgM-, IgG+ | IgM+, IgG- | IgM-, IgG- | Total |
+|:-------------------------------|:-----------|:-----------|:-----------|:-----------|:------|
+| IgM+, IgG+                     | 27         |            |            |            | 27    |
+| IgM Borderline, IgG+           |            |            |            |            | 0     |
+| IgM-, IgG+                     |            |            |            |            | 0     |
+| IgM+, IgG Borderline           |            |            |            |            | 0     |
+| IgM Borderline, IgG Borderline | 2          |            |            |            | 2     |
+| IgM-, IgG Borderline           |            |            |            |            | 0     |
+| IgM+, IgG-                     |            |            |            |            | 0     |
+| IgM Borderline, IgG-           |            |            |            |            | 0     |
+| IgM-, IgG-                     | 1          |            |            | 80         | 81    |
+| Total                          | 30         | 0          | 0          | 80         | 110   |
 
 I’m actively working on code to calculate summary performance metrics
 based on this.
