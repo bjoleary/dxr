@@ -111,7 +111,7 @@ crossed_outcomes <- function(analytes, qualitative_outcomes) {
   # it, and a column for each analyte. Each analyte column contains a list,
   # like c("IgM Positive", "IgM Negative") in an IgM column. Let's unnest those.
     tidyr::unnest(
-      cols = analytes
+      cols = tidyselect::all_of(analytes)
     ) %>%
   # Alright, now we have a row for each outcome type. Let's get rid of the
   # name column.

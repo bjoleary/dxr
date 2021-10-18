@@ -81,7 +81,7 @@ score_qualitative <- function(results_table) {
       "qualitative ground truths in ",
       "the panel are limited to \"Positive\" and \"Negative\". Your panel ",
       "includes one or more additional levels: ",
-      unsupported_outcomes
+      paste(unsupported_outcomes, collapse = ", ")
     )
   }
   results_table <-
