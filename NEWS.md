@@ -13,3 +13,14 @@
 * Ensured that intermediate calculations used in proportion_difference() are 
   performed at full precision. 
   
+# dxr 0.0.9006
+
+We're getting there: 
+
+* Can round-trip data to excel and back
+
+* Can calculate line data
+
+* Can calculate "2x2" style table
+
+* Can calculate PPA and NPA by analyte and output it to a human readable table

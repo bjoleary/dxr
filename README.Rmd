@@ -230,16 +230,22 @@ two_by_two(
   knitr::kable() 
 ```
 
-I'm actively working on code to calculate summary performance metrics based 
-on this. 
+And, finally, you can calculate summary statistics using 
+`calculate_performance()`. This will return a list of three tables: one for PPA 
+(sensitivity), one for NPA (specificity), and a summary table with better 
+formatting. There are still some enhancements to make here, such as 
+adding prevalence estimates to PPV and NPV can be calculated and better 
+configuring the sort order of the analytes. 
 
+```{r summary_stats}
+calculate_performance(dxr::example_panel_1, dxr::example_evaluation_1) %>% 
+  magrittr::extract2("summary") %>% 
+  dplyr::rename_all(snakecase::to_title_case) %>% 
+  knitr::kable() 
+```
 ## Roadmap and other notes
 
 There is much to do: 
-
-* Calculating summary statistics
-
-* Printing snazzy tables
 
 * Improving the approach to blinding
 

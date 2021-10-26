@@ -221,18 +221,18 @@ sample_panel$panel_metadata %>%
 # This will be written to excel to facilitate data entry:
 sample_panel$panel_table
 #> # A tibble: 330 × 9
-#>    sample            analyte target group matrix qualitative_tru… qualitative_com…
-#>    <chr>             <chr>   <chr>  <chr> <chr>  <chr>            <chr>           
-#>  1 example_panel_001 IgM     Spike  <NA>  <NA>   <NA>             <NA>            
-#>  2 example_panel_001 IgG     Spike  <NA>  <NA>   <NA>             <NA>            
-#>  3 example_panel_001 Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>            
-#>  4 example_panel_002 IgM     Spike  <NA>  <NA>   <NA>             <NA>            
-#>  5 example_panel_002 IgG     Spike  <NA>  <NA>   <NA>             <NA>            
-#>  6 example_panel_002 Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>            
-#>  7 example_panel_003 IgM     Spike  <NA>  <NA>   <NA>             <NA>            
-#>  8 example_panel_003 IgG     Spike  <NA>  <NA>   <NA>             <NA>            
-#>  9 example_panel_003 Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>            
-#> 10 example_panel_004 IgM     Spike  <NA>  <NA>   <NA>             <NA>            
+#>    sample       analyte target group matrix qualitative_tru… qualitative_compar…
+#>    <chr>        <chr>   <chr>  <chr> <chr>  <chr>            <chr>              
+#>  1 example_pan… IgM     Spike  <NA>  <NA>   <NA>             <NA>               
+#>  2 example_pan… IgG     Spike  <NA>  <NA>   <NA>             <NA>               
+#>  3 example_pan… Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>               
+#>  4 example_pan… IgM     Spike  <NA>  <NA>   <NA>             <NA>               
+#>  5 example_pan… IgG     Spike  <NA>  <NA>   <NA>             <NA>               
+#>  6 example_pan… Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>               
+#>  7 example_pan… IgM     Spike  <NA>  <NA>   <NA>             <NA>               
+#>  8 example_pan… IgG     Spike  <NA>  <NA>   <NA>             <NA>               
+#>  9 example_pan… Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>               
+#> 10 example_pan… IgM     Spike  <NA>  <NA>   <NA>             <NA>               
 #> # … with 320 more rows, and 2 more variables: semiquantitative_truth <chr>,
 #> #   semiquantitative_comparator <chr>
 ```
@@ -343,18 +343,18 @@ evaluation_one$sample_blinding
 # This will be written to excel to facilitate data entry:
 evaluation_one$evaluation_table
 #> # A tibble: 330 × 7
-#>    sample            analyte target lot_number datetime_observati… qualitative_res…
-#>    <chr>             <chr>   <chr>  <chr>      <dttm>              <chr>           
-#>  1 example_panel_001 IgM     Spike  20200101   NA                  <NA>            
-#>  2 example_panel_001 IgG     Spike  20200101   NA                  <NA>            
-#>  3 example_panel_001 Pan-Ig  Spike  20200101   NA                  <NA>            
-#>  4 example_panel_002 IgM     Spike  20200101   NA                  <NA>            
-#>  5 example_panel_002 IgG     Spike  20200101   NA                  <NA>            
-#>  6 example_panel_002 Pan-Ig  Spike  20200101   NA                  <NA>            
-#>  7 example_panel_003 IgM     Spike  20200101   NA                  <NA>            
-#>  8 example_panel_003 IgG     Spike  20200101   NA                  <NA>            
-#>  9 example_panel_003 Pan-Ig  Spike  20200101   NA                  <NA>            
-#> 10 example_panel_004 IgM     Spike  20200101   NA                  <NA>            
+#>    sample        analyte target lot_number datetime_observati… qualitative_resu…
+#>    <chr>         <chr>   <chr>  <chr>      <dttm>              <chr>            
+#>  1 example_pane… IgM     Spike  20200101   NA                  <NA>             
+#>  2 example_pane… IgG     Spike  20200101   NA                  <NA>             
+#>  3 example_pane… Pan-Ig  Spike  20200101   NA                  <NA>             
+#>  4 example_pane… IgM     Spike  20200101   NA                  <NA>             
+#>  5 example_pane… IgG     Spike  20200101   NA                  <NA>             
+#>  6 example_pane… Pan-Ig  Spike  20200101   NA                  <NA>             
+#>  7 example_pane… IgM     Spike  20200101   NA                  <NA>             
+#>  8 example_pane… IgG     Spike  20200101   NA                  <NA>             
+#>  9 example_pane… Pan-Ig  Spike  20200101   NA                  <NA>             
+#> 10 example_pane… IgM     Spike  20200101   NA                  <NA>             
 #> # … with 320 more rows, and 1 more variable: notes_and_anomalies <chr>
 ```
 
@@ -433,16 +433,30 @@ two_by_two(
 | IgM-, IgG-                     | 1          |            |            | 80         | 81    |
 | Total                          | 30         | 0          | 0          | 80         | 110   |
 
-I’m actively working on code to calculate summary performance metrics
-based on this.
+And, finally, you can calculate summary statistics using
+`calculate_performance()`. This will return a list of three tables: one
+for PPA (sensitivity), one for NPA (specificity), and a summary table
+with better formatting. There are still some enhancements to make here,
+such as adding prevalence estimates to PPV and NPV can be calculated and
+better configuring the sort order of the analytes.
+
+``` r
+calculate_performance(dxr::example_panel_1, dxr::example_evaluation_1) %>% 
+  magrittr::extract2("summary") %>% 
+  dplyr::rename_all(snakecase::to_title_case) %>% 
+  knitr::kable() 
+```
+
+| Performance Measure | Estimate                             |
+|:--------------------|:-------------------------------------|
+| IgG PPA             | 27/30 = 90.0% (95% CI: 74.4%; 96.5%) |
+| IgG NPA             | 80/80 = 100% (95% CI: 95.4%; 100%)   |
+| IgM PPA             | 27/30 = 90.0% (95% CI: 74.4%; 96.5%) |
+| IgM NPA             | 80/80 = 100% (95% CI: 95.4%; 100%)   |
 
 ## Roadmap and other notes
 
 There is much to do:
-
--   Calculating summary statistics
-
--   Printing snazzy tables
 
 -   Improving the approach to blinding
 
