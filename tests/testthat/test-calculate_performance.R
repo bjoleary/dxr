@@ -1,6 +1,6 @@
 test_that("calculate_performance works", {
   expect_equal(
-    object = calculate_performance(nci_1, test_eval) ,
+    object = calculate_performance(nci_1, test_eval),
     expected =
       list(
         ppa =
@@ -44,4 +44,3 @@ test_that("calculate_performance works", {
 test_that("calculate_performance works with multiple analytes", {
   skip("TODO")
 })
-
