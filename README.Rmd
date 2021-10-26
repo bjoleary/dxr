@@ -247,10 +247,6 @@ calculate_performance(dxr::example_panel_1, dxr::example_evaluation_1) %>%
 
 There is much to do: 
 
-* Calculating summary statistics
-
-* Printing snazzy tables
-
 * Improving the approach to blinding
 
 * Using data validation features to prevent improper inputs in Excel

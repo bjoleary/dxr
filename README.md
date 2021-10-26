@@ -436,7 +436,9 @@ two_by_two(
 And, finally, you can calculate summary statistics using
 `calculate_performance()`. This will return a list of three tables: one
 for PPA (sensitivity), one for NPA (specificity), and a summary table
-with better formatting.
+with better formatting. There are still some enhancements to make here,
+such as adding prevalence estimates to PPV and NPV can be calculated and
+better configuring the sort order of the analytes.
 
 ``` r
 calculate_performance(dxr::example_panel_1, dxr::example_evaluation_1) %>% 
@@ -455,10 +457,6 @@ calculate_performance(dxr::example_panel_1, dxr::example_evaluation_1) %>%
 ## Roadmap and other notes
 
 There is much to do:
-
--   Calculating summary statistics
-
--   Printing snazzy tables
 
 -   Improving the approach to blinding
 
