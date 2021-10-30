@@ -112,7 +112,7 @@ evaluation_sheet_excel_method <- function(evaluation_sheet_data) {
     orientation = "portrait",
     gridLines = FALSE
   )
-  ## Write data ----------------------------------------------------------------
+  ## Write metadata ------------------------------------------------------------
   openxlsx::writeData(
     wb = workbook,
     sheet = "evaluation_metadata",
@@ -363,7 +363,7 @@ evaluation_sheet_excel_method <- function(evaluation_sheet_data) {
     cols = seq_along(colnames(evaluation_sheet_data$evaluation_table)),
     widths = "auto"
   )
-  # Lock it down.
+  ## Lock down worksheet -------------------------------------------------------
   openxlsx::protectWorksheet(
     wb = workbook,
     sheet = "evaluation_data",

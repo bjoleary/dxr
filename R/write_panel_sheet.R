@@ -103,7 +103,7 @@ panel_sheet_excel_method <- function(panel_sheet_data) {
     orientation = "portrait",
     gridLines = FALSE
   )
-  ## Write data ----------------------------------------------------------------
+  ## Write metadata ------------------------------------------------------------
   openxlsx::writeData(
     wb = workbook,
     sheet = "panel_metadata",
@@ -211,14 +211,14 @@ panel_sheet_excel_method <- function(panel_sheet_data) {
     orientation = "landscape",
     gridLines = FALSE
   )
-  # Write data -----------------------------------------------------------------
+  ## Write data ----------------------------------------------------------------
   openxlsx::writeDataTable(
     wb = workbook,
     sheet = "panel_data",
     x = panel_sheet_data$panel_table
   )
-  # Apply styles ---------------------------------------------------------------
-  # Lock header row
+  ## Apply styles --------------------------------------------------------------
+  ### Lock header row ----------------------------------------------------------
   openxlsx::addStyle(
     wb = workbook,
     sheet = "panel_data",
@@ -227,7 +227,7 @@ panel_sheet_excel_method <- function(panel_sheet_data) {
     cols = seq_along(colnames(panel_sheet_data$panel_table)),
     gridExpand = TRUE
   )
-  # Unlock data cells
+  ### Unlock data cells---------------------------------------------------------
   data_cells <-
     tidyr::crossing(
       rows = seq_along(panel_sheet_data$panel_table$sample) + 1,
@@ -246,7 +246,7 @@ panel_sheet_excel_method <- function(panel_sheet_data) {
     cols = seq_along(colnames(panel_sheet_data$panel_table)),
     widths = "auto"
   )
-  # Lock it down.
+  ## Lock down worksheet -------------------------------------------------------
   openxlsx::protectWorksheet(
     wb = workbook,
     sheet = "panel_data",
