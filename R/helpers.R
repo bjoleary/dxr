@@ -130,3 +130,20 @@ crossed_outcomes <- function(analytes, qualitative_outcomes) {
     # Replace the words positive and negative with symbols
     replace_pos_neg()
 }
+
+#' Lengthen
+#'
+#' Pad a vector to the desired length by adding \code{NA}.
+#'
+#' @param vec The vector
+#' @param desired_length The length of the final vector
+#'
+#' @return A the input vector with \code{NA} appended until it reaches
+#'   \code{desired_length}.
+#'
+lengthen <- function(vec, desired_length) {
+  c(
+    vec,
+    rep(NA, desired_length - length(vec))
+  )
+}

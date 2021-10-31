@@ -318,13 +318,6 @@ panel_sheet_excel_method <- function(panel_sheet_data) {
       length(quant_comparator_validation)
     )
 
-  # Make a function to lengthen vectors to a desired length
-  lengthen <- function(vec, desired_length) {
-    c(
-      vec,
-      rep(NA, desired_length - length(vec))
-    )
-  }
   # Bind a lengthened version of each of those vectors as a column in the
   # new input_validation table
   input_validation <-
