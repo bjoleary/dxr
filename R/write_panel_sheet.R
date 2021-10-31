@@ -377,28 +377,7 @@ panel_sheet_excel_method <- function(panel_sheet_data) {
     na.string = ""
   )
   ## Apply input validation ----------------------------------------------------
-  # Build a string describing where the valid values are in Excel
-  validation_string <- function(input_validation, column_vector) {
-      # we get an sprintf warning here
-      column_letter <-
-        LETTERS[[
-          which(
-            colnames(input_validation) ==
-              as.character(substitute(column_vector))
-          )
-        ]]
-    paste0(
-      "\'input_validation\'!$",
-      column_letter,
-      "$2:$",
-      column_letter,
-      "$",
-      length(column_vector) + 1
-    )
-  }
-
   # TODO: No doubt this could be a map function instead.
-
   ### Analyte ------------------------------------------------------------------
   suppressWarnings(
     openxlsx::dataValidation(
@@ -617,7 +596,6 @@ panel_sheet_excel_method <- function(panel_sheet_data) {
     )
   }
   ## Apply Styles --------------------------------------------------------------
-  # First two columns, all data rows
   openxlsx::addStyle(
     wb = workbook,
     sheet = "input_validation",

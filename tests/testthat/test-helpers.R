@@ -84,3 +84,18 @@ test_that("crossed_outcomes works", {
     expected = c("IgG+", "IgG Equivocal", "IgG-")
   )
 })
+
+test_that("lengthen works", {
+  expect_equal(
+    object = lengthen(vec = c(1:5), desired_length = 10L),
+    expected = c(c(1:5), NA, NA, NA, NA, NA)
+  )
+  expect_equal(
+    object = lengthen(vec = c(1:5), desired_length = 5L),
+    expected = c(1:5)
+  )
+})
+
+test_that("validation_string works", {
+  skip("TODO")
+})
