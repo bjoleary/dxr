@@ -66,7 +66,7 @@ example_panel_1 <-
         "for more information."
       ),
     n_samples = 110L,
-    sample_groups = c("Positive", "Negative", "HIV+"),
+    sample_groups = c("Positives", "Negatives", "HIV+"),
     sample_matrices = c("Serum", "Plasma"),
     analytes = c("IgM", "IgG", "Pan-Ig"),
     targets = "Spike",

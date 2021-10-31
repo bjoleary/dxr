@@ -24,3 +24,7 @@ We're getting there:
 * Can calculate "2x2" style table
 
 * Can calculate PPA and NPA by analyte and output it to a human readable table
+
+# dxr 0.0.9007
+
+* Enable input validation for the data entry sheets for panels and evaluations.

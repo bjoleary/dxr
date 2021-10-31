@@ -34,6 +34,6 @@
 #' @source
 #' Contrived based on the data from
 #' [maf3246-a001.csv](https://www.accessdata.fda.gov/cdrh_docs/presentations/maf/maf3246-a001.csv)
-#' accessed 2021-10-17.
+#' accessed 2021-10-30.
 #'
 "example_panel_1"

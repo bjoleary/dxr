@@ -130,3 +130,56 @@ crossed_outcomes <- function(analytes, qualitative_outcomes) {
     # Replace the words positive and negative with symbols
     replace_pos_neg()
 }
+
+#' Lengthen
+#'
+#' Pad a vector to the desired length by adding \code{NA}.
+#'
+#' @param vec The vector
+#' @param desired_length The length of the final vector
+#'
+#' @return A the input vector with \code{NA} appended until it reaches
+#'   \code{desired_length}.
+#'
+lengthen <- function(vec, desired_length) {
+  c(
+    vec,
+    rep(NA, desired_length - length(vec))
+  )
+}
+
+#' Validation String
+#'
+#' Build a string describing where the valid values are in Excel. Do this by
+#' extracting the column number of \code{column_vector} in
+#' \code{input_validation} and converting it to a letter per Excel's column
+#' naming convention. Then use the length of the vector used to form that column
+#' to set the relevant rows.
+#'
+#' @param input_validation The table used to validate inputs in
+#'   \code{panel_sheet_excel_method()} and
+#'   \code{evaluation_sheet_excel_method()}.
+#' @param column_vector The vector used to create the relevant column of
+#'   \code{input_validation}.
+#'
+#' @return A string describing the location of the list of valid inputs in the
+#'   excel file.
+#'
+validation_string <- function(input_validation, column_vector) {
+  # we get an sprintf warning here
+  column_letter <-
+    LETTERS[[
+      which(
+        colnames(input_validation) ==
+          as.character(substitute(column_vector))
+      )
+    ]]
+  paste0(
+    "\'input_validation\'!$",
+    column_letter,
+    "$2:$",
+    column_letter,
+    "$",
+    length(column_vector) + 1
+  )
+}

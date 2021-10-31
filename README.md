@@ -237,6 +237,10 @@ sample_panel$panel_table
 #> #   semiquantitative_comparator <chr>
 ```
 
+Excel’s input validation features are used as data is entered. The valid
+values are stored on a hidden sheet, `input_validation`, which should
+have information equivalent to that in the metadata sheet.
+
 ## Set up a data entry sheet for an evaluation
 
 Once you have your panel set up, it’s time to evaluate your first assay.
@@ -366,6 +370,10 @@ evaluation workbook without any significant protection. Simply right
 click any of the worksheet tabs and select “unhide” to see it. This is
 on my list of things to improve…
 
+Excel’s input validation features are used as data is entered. The valid
+values are stored on a hidden sheet, `input_validation`, which should
+have information equivalent to that in the metadata sheet.
+
 ## Read in data
 
 Once you’ve conducted an evaluation, you can read in the data you’ve
@@ -459,8 +467,6 @@ calculate_performance(dxr::example_panel_1, dxr::example_evaluation_1) %>%
 There is much to do:
 
 -   Improving the approach to blinding
-
--   Using data validation features to prevent improper inputs in Excel
 
 -   Checking the data-entry for obvious errors
 
