@@ -39,11 +39,13 @@ two_by_two <- function(panel_data, evaluation_data) {
     # Group by result and truth, then count the associated results
     dplyr::group_by(
       .data$qualitative_result,
-      .data$qualitative_truth
+      .data$qualitative_truth,
+      .drop = FALSE
     ) %>%
     dplyr::tally() %>%
     # Expand the table to include all possible permutations of results and
     # truths
+    dplyr::ungroup() %>%
     tidyr::complete(
       qualitative_result =
         crossed_outcomes(
