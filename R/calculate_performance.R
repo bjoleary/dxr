@@ -26,9 +26,11 @@ calculate_performance <- function(panel_data, evaluation_data) {
     line_data %>%
     dplyr::group_by(
       .data$analyte,
-      .data$qualitative_outcome_strict
+      .data$qualitative_outcome_strict,
+      .drop = FALSE
     ) %>%
     dplyr::tally() %>%
+    dplyr::ungroup() %>%
     tidyr::complete(
       analyte = evaluation_metadata$analytes,
       qualitative_outcome_strict =

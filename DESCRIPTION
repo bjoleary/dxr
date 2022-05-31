@@ -1,6 +1,6 @@
 Package: dxr
 Title: Diagnostic Product Evaluation in R
-Version: 0.0.0.9007
+Version: 0.0.0.9008
 Authors@R: 
     person(given = "Brendan",
            family = "O'Leary",
@@ -18,7 +18,7 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Imports: 
     dplyr,
     plyr,
@@ -30,7 +30,6 @@ Imports:
     snakecase,
     openxlsx,
     readxl,
-    rlang,
     lubridate,
     readr,
     tidyselect,

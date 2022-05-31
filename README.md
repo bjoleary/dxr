@@ -221,18 +221,18 @@ sample_panel$panel_metadata %>%
 # This will be written to excel to facilitate data entry:
 sample_panel$panel_table
 #> # A tibble: 330 × 9
-#>    sample       analyte target group matrix qualitative_tru… qualitative_compar…
-#>    <chr>        <chr>   <chr>  <chr> <chr>  <chr>            <chr>              
-#>  1 example_pan… IgM     Spike  <NA>  <NA>   <NA>             <NA>               
-#>  2 example_pan… IgG     Spike  <NA>  <NA>   <NA>             <NA>               
-#>  3 example_pan… Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>               
-#>  4 example_pan… IgM     Spike  <NA>  <NA>   <NA>             <NA>               
-#>  5 example_pan… IgG     Spike  <NA>  <NA>   <NA>             <NA>               
-#>  6 example_pan… Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>               
-#>  7 example_pan… IgM     Spike  <NA>  <NA>   <NA>             <NA>               
-#>  8 example_pan… IgG     Spike  <NA>  <NA>   <NA>             <NA>               
-#>  9 example_pan… Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>               
-#> 10 example_pan… IgM     Spike  <NA>  <NA>   <NA>             <NA>               
+#>    sample          analyte target group matrix qualitative_tru… qualitative_com…
+#>    <chr>           <chr>   <chr>  <chr> <chr>  <chr>            <chr>           
+#>  1 example_panel_… IgM     Spike  <NA>  <NA>   <NA>             <NA>            
+#>  2 example_panel_… IgG     Spike  <NA>  <NA>   <NA>             <NA>            
+#>  3 example_panel_… Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>            
+#>  4 example_panel_… IgM     Spike  <NA>  <NA>   <NA>             <NA>            
+#>  5 example_panel_… IgG     Spike  <NA>  <NA>   <NA>             <NA>            
+#>  6 example_panel_… Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>            
+#>  7 example_panel_… IgM     Spike  <NA>  <NA>   <NA>             <NA>            
+#>  8 example_panel_… IgG     Spike  <NA>  <NA>   <NA>             <NA>            
+#>  9 example_panel_… Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>            
+#> 10 example_panel_… IgM     Spike  <NA>  <NA>   <NA>             <NA>            
 #> # … with 320 more rows, and 2 more variables: semiquantitative_truth <chr>,
 #> #   semiquantitative_comparator <chr>
 ```
@@ -347,18 +347,18 @@ evaluation_one$sample_blinding
 # This will be written to excel to facilitate data entry:
 evaluation_one$evaluation_table
 #> # A tibble: 330 × 7
-#>    sample        analyte target lot_number datetime_observati… qualitative_resu…
-#>    <chr>         <chr>   <chr>  <chr>      <dttm>              <chr>            
-#>  1 example_pane… IgM     Spike  20200101   NA                  <NA>             
-#>  2 example_pane… IgG     Spike  20200101   NA                  <NA>             
-#>  3 example_pane… Pan-Ig  Spike  20200101   NA                  <NA>             
-#>  4 example_pane… IgM     Spike  20200101   NA                  <NA>             
-#>  5 example_pane… IgG     Spike  20200101   NA                  <NA>             
-#>  6 example_pane… Pan-Ig  Spike  20200101   NA                  <NA>             
-#>  7 example_pane… IgM     Spike  20200101   NA                  <NA>             
-#>  8 example_pane… IgG     Spike  20200101   NA                  <NA>             
-#>  9 example_pane… Pan-Ig  Spike  20200101   NA                  <NA>             
-#> 10 example_pane… IgM     Spike  20200101   NA                  <NA>             
+#>    sample         analyte target lot_number datetime_observati… qualitative_res…
+#>    <chr>          <chr>   <chr>  <chr>      <dttm>              <chr>           
+#>  1 example_panel… IgM     Spike  20200101   NA                  <NA>            
+#>  2 example_panel… IgG     Spike  20200101   NA                  <NA>            
+#>  3 example_panel… Pan-Ig  Spike  20200101   NA                  <NA>            
+#>  4 example_panel… IgM     Spike  20200101   NA                  <NA>            
+#>  5 example_panel… IgG     Spike  20200101   NA                  <NA>            
+#>  6 example_panel… Pan-Ig  Spike  20200101   NA                  <NA>            
+#>  7 example_panel… IgM     Spike  20200101   NA                  <NA>            
+#>  8 example_panel… IgG     Spike  20200101   NA                  <NA>            
+#>  9 example_panel… Pan-Ig  Spike  20200101   NA                  <NA>            
+#> 10 example_panel… IgM     Spike  20200101   NA                  <NA>            
 #> # … with 320 more rows, and 1 more variable: notes_and_anomalies <chr>
 ```
 
@@ -418,28 +418,26 @@ how the evaluation outcomes compared to the truth established in the
 panel.
 
 ``` r
+options(knitr.kable.NA = "")
 two_by_two(
   panel_data = dxr::example_panel_1,
   evaluation_data = dxr::example_evaluation_1
 ) %>% 
-  dplyr::mutate_all(
-    .funs = ~ tidyr::replace_na(., replace = "")
-  ) %>% 
   knitr::kable() 
 ```
 
 | SARS-COV-2 ELISA (IgG)         | IgM+, IgG+ | IgM-, IgG+ | IgM+, IgG- | IgM-, IgG- | Total |
-|:-------------------------------|:-----------|:-----------|:-----------|:-----------|:------|
-| IgM+, IgG+                     | 27         |            |            |            | 27    |
-| IgM Borderline, IgG+           |            |            |            |            | 0     |
-| IgM-, IgG+                     |            |            |            |            | 0     |
-| IgM+, IgG Borderline           |            |            |            |            | 0     |
-| IgM Borderline, IgG Borderline | 2          |            |            |            | 2     |
-| IgM-, IgG Borderline           |            |            |            |            | 0     |
-| IgM+, IgG-                     |            |            |            |            | 0     |
-| IgM Borderline, IgG-           |            |            |            |            | 0     |
-| IgM-, IgG-                     | 1          |            |            | 80         | 81    |
-| Total                          | 30         | 0          | 0          | 80         | 110   |
+|:-------------------------------|-----------:|-----------:|-----------:|-----------:|------:|
+| IgM+, IgG+                     |         27 |            |            |            |    27 |
+| IgM Borderline, IgG+           |            |            |            |            |     0 |
+| IgM-, IgG+                     |            |            |            |            |     0 |
+| IgM+, IgG Borderline           |            |            |            |            |     0 |
+| IgM Borderline, IgG Borderline |          2 |            |            |            |     2 |
+| IgM-, IgG Borderline           |            |            |            |            |     0 |
+| IgM+, IgG-                     |            |            |            |            |     0 |
+| IgM Borderline, IgG-           |            |            |            |            |     0 |
+| IgM-, IgG-                     |          1 |            |            |         80 |    81 |
+| Total                          |         30 |          0 |          0 |         80 |   110 |
 
 And, finally, you can calculate summary statistics using
 `calculate_performance()`. This will return a list of three tables: one

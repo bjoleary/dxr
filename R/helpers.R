@@ -87,7 +87,7 @@ crossed_outcomes <- function(analytes, qualitative_outcomes) {
       name = NULL,
       value = "outcome"
     ) %>%
-  # Now that vector is a single column tibble, with the colum named outcome
+  # Now that vector is a single column tibble, with the column named outcome
     dplyr::mutate(
       analyte =
         stringr::str_extract(
