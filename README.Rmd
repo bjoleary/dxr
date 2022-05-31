@@ -228,13 +228,11 @@ You can also generate a standard "two-by-two" style table to understand
 how the evaluation outcomes compared to the truth established in the panel.
 
 ```{r two_by_two}
+options(knitr.kable.NA = "")
 two_by_two(
   panel_data = dxr::example_panel_1,
   evaluation_data = dxr::example_evaluation_1
 ) %>% 
-  dplyr::mutate_all(
-    .funs = ~ tidyr::replace_na(., replace = "")
-  ) %>% 
   knitr::kable() 
 ```
 
