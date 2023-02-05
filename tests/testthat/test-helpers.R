@@ -73,7 +73,13 @@ test_that("crossed_outcomes works", {
         analytes = c("IgM", "IgG"),
         qualitative_outcomes = c("Positive", "Negative")
       ),
-    expected = c("IgM+, IgG+", "IgM-, IgG+", "IgM+, IgG-", "IgM-, IgG-")
+    expected =
+      c(
+        "IgM+, IgG+",
+        "IgM+, IgG-",
+        "IgM-, IgG+",
+        "IgM-, IgG-"
+      )
   )
   expect_equal(
     object =
@@ -82,6 +88,25 @@ test_that("crossed_outcomes works", {
         qualitative_outcomes = c("Positive", "Equivocal", "Negative")
       ),
     expected = c("IgG+", "IgG Equivocal", "IgG-")
+  )
+  expect_equal(
+    object =
+      crossed_outcomes(
+        analytes = c("IgM", "IgG"),
+        qualitative_outcomes = c("Positive", "Equivocal", "Negative")
+      ),
+    expected =
+      c(
+        "IgM+, IgG+",
+        "IgM+, IgG Equivocal",
+        "IgM+, IgG-",
+        "IgM Equivocal, IgG+",
+        "IgM Equivocal, IgG Equivocal",
+        "IgM Equivocal, IgG-",
+        "IgM-, IgG+",
+        "IgM-, IgG Equivocal",
+        "IgM-, IgG-"
+      )
   )
 })
 

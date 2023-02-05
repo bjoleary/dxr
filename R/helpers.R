@@ -73,38 +73,30 @@ crossed_outcomes <- function(analytes, qualitative_outcomes) {
   # TODO: Take a look at simplifying this. But only after you write some good
   # unit tests, okay?
   # All individual analyte outcomes
-  purrr::cross2(
+  tidyr::expand_grid(
     analytes,
     qualitative_outcomes
   ) %>%
-    purrr::map_chr(
-      paste,
-      collapse = " "
-    ) %>%
-  # At this point, we have a character vector of analytes and outcomes, such as
-  # "IgM Positive", "IgG Positive", "IgM Negative", "IgG Negative"
-    tibble::enframe(
-      name = NULL,
-      value = "outcome"
-    ) %>%
-  # Now that vector is a single column tibble, with the column named outcome
+  tidyr::unite(col = "outcome", sep = " ") %>%
+    # At this point, we have a single column tibble, with the column named outcome
+    # that is a character vector of analytes and outcomes, such as
+    # "IgM Positive", "IgG Positive", "IgM Negative", "IgG Negative"
+    # Now that vector is a single column tibble, with the column named outcome
     dplyr::mutate(
-      analyte =
+      analytes =
         stringr::str_extract(
           string = .data$outcome,
-          pattern = analytes
+          pattern = stringr::regex(paste(analytes, collapse = "|"))
         )
     ) %>%
-    # Now we've added an analyte column, extracting the analyte from the
-    # outcome column
     tidyr::pivot_longer(
-      cols = .data$analyte
+      cols = "analytes"
     ) %>%
     # I'm honestly not sure we needed to do that, but this function seems to be
     # working, so...
     tidyr::pivot_wider(
-      names_from = .data$value,
-      values_from = .data$outcome,
+      names_from = "value",
+      values_from = "outcome",
       values_fn = list
     ) %>%
   # Okay, now we have a tibble with a name column, which just has "analyte" in
@@ -116,15 +108,15 @@ crossed_outcomes <- function(analytes, qualitative_outcomes) {
   # Alright, now we have a row for each outcome type. Let's get rid of the
   # name column.
     dplyr::select(
-      -.data$name
+      -"name"
     ) %>%
     # Now cross all the values in the table, expanding their permutations to
     # include things like "IgM Positive, IgG Negative":
-    purrr::cross() %>%
-    purrr::map_chr(
-      paste,
-      collapse = ", "
-    ) %>%
+    tidyr::expand_grid(!!!.) %>%
+    # Paste all the columns together
+    tidyr::unite(col = "outcomes", sep = ", ") %>%
+    # Pull out the result to a character vector
+    dplyr::pull("outcomes") %>%
     # Cool. Now we have a character vector with all the possible outcomes
     # for each sample, including all analytes.
     # Replace the words positive and negative with symbols
