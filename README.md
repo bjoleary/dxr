@@ -9,8 +9,8 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/dxr)](https://CRAN.R-project.org/package=dxr)
-[![R-CMD-check](https://github.com/bjoleary/dxr/workflows/R-CMD-check/badge.svg)](https://github.com/bjoleary/dxr/actions?query=workflow%3AR-CMD-check)
-[![lint](https://github.com/bjoleary/dxr/workflows/lint/badge.svg)](https://github.com/bjoleary/dxr/actions?query=workflow%3Alint)
+[![R-CMD-check](https://github.com/bjoleary/dxr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bjoleary/dxr/actions/workflows/R-CMD-check.yaml)
+[![lint](https://github.com/bjoleary/dxr/workflows/lint/badge.svg)](https://github.com/bjoleary/dxr/actions/workflows/lint.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/bjoleary/dxr/branch/main/graph/badge.svg)](https://codecov.io/gh/bjoleary/dxr?branch=main)
 <!-- badges: end -->
