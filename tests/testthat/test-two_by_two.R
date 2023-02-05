@@ -12,6 +12,10 @@ test_that("two_by_two works", {
         "IgG Borderline", 2L, NA_integer_, 2L,
         "IgG-", 1L, 80L, 81L,
         "Total", 30L, 80L, 110L
+      ) %>%
+      dplyr::mutate(
+        `SARS-COV-2 ELISA (IgG)` =
+          forcats::as_factor(.data$`SARS-COV-2 ELISA (IgG)`)
       ),
     ignore_attr = TRUE
   )
