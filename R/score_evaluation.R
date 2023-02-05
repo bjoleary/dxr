@@ -20,10 +20,10 @@ score_evaluation <- function(panel_data, evaluation_data) {
           y = evaluation_data$evaluation_table,
           by = c("evaluation_sample_id" = "sample")
         ) %>%
-        dplyr::rename(evaluation_target = .data$target),
+        dplyr::rename(evaluation_target = "target"),
       y =
         panel_data$panel_table %>%
-        dplyr::rename(comparator_target = .data$target),
+        dplyr::rename(comparator_target = "target"),
       by =
         c(
           "panel_sample_id" = "sample",

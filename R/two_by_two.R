@@ -72,11 +72,25 @@ two_by_two <- function(panel_data, evaluation_data) {
             evaluation_metadata$analytes,
             evaluation_metadata$qualitative_outcomes
           )
+        ) %>%
+        forcats::fct_relevel(
+          .f = .,
+          crossed_outcomes(
+            evaluation_metadata$analytes,
+            evaluation_metadata$qualitative_outcomes
+          )
         ),
       qualitative_truth =
         .data$qualitative_truth %>%
         forcats::as_factor() %>%
         forcats::lvls_expand(
+          crossed_outcomes(
+            evaluation_metadata$analytes,
+            panel_metadata$qualitative_outcomes
+          )
+        ) %>%
+        forcats::fct_relevel(
+          .f = .,
           crossed_outcomes(
             evaluation_metadata$analytes,
             panel_metadata$qualitative_outcomes
@@ -89,8 +103,8 @@ two_by_two <- function(panel_data, evaluation_data) {
     ) %>%
     # Pivot the truth out to the right as columns, keeping the results as rows
     tidyr::pivot_wider(
-      names_from = .data$qualitative_truth,
-      values_from = .data$n
+      names_from = "qualitative_truth",
+      values_from = "n"
     ) %>%
     # Add a total row and column
     janitor::adorn_totals(
@@ -100,6 +114,6 @@ two_by_two <- function(panel_data, evaluation_data) {
     ) %>%
     # Add the assay name
     dplyr::rename(
-      !!evaluation_metadata$assay := .data$qualitative_result
+      !!evaluation_metadata$assay := "qualitative_result"
     )
 }

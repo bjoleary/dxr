@@ -15,12 +15,12 @@ ex_eval <-
 nci_sero_panel_1_details <-
   ex_eval %>%
   dplyr::select(
-    sample = .data$sample_id,
-    .data$group,
-    matrix = .data$type,
-    truth_IgM = .data$igm_truth,
-    truth_IgG = .data$igg_truth,
-    `truth_Pan-Ig` = .data$antibody_truth
+    sample = "sample_id",
+    "group",
+    matrix = "type",
+    truth_IgM = "igm_truth",
+    truth_IgG = "igg_truth",
+    `truth_Pan-Ig` = "antibody_truth"
   ) %>%
   tidyr::pivot_longer(
     cols = tidyselect::starts_with("truth_"),
@@ -33,10 +33,10 @@ nci_sero_panel_1_details <-
     y =
       ex_eval %>%
       dplyr::select(
-        sample = .data$sample_id,
-        titer_IgM = .data$igm_titer,
-        titer_IgG = .data$igg_titer,
-        `titer_Pan-Ig` = .data$pan_titer
+        sample = "sample_id",
+        titer_IgM = "igm_titer",
+        titer_IgG = "igg_titer",
+        `titer_Pan-Ig` = "pan_titer"
       ) %>%
       tidyr::pivot_longer(
         cols = tidyselect::starts_with("titer_"),

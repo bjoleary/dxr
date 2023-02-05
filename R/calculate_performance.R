@@ -42,8 +42,8 @@ calculate_performance <- function(panel_data, evaluation_data) {
     ) %>%
     dplyr::distinct() %>%
     tidyr::pivot_wider(
-      names_from = .data$qualitative_outcome_strict,
-      values_from = .data$n
+      names_from = "qualitative_outcome_strict",
+      values_from = "n"
     ) %>%
     janitor::clean_names() %>%
     as.list()
@@ -61,7 +61,7 @@ calculate_performance <- function(panel_data, evaluation_data) {
       analyte = results$analyte
     ) %>%
     dplyr::select(
-      .data$analyte,
+      "analyte",
       dplyr::everything()
     )
 
@@ -78,7 +78,7 @@ calculate_performance <- function(panel_data, evaluation_data) {
       analyte = results$analyte
     ) %>%
     dplyr::select(
-      .data$analyte,
+      "analyte",
       dplyr::everything()
     )
 
@@ -88,7 +88,7 @@ calculate_performance <- function(panel_data, evaluation_data) {
     dplyr::bind_rows(
       ppa %>%
         dplyr::select(
-          .data$analyte,
+          "analyte",
           estimate = tidyselect::ends_with("_string")
         ) %>%
         dplyr::mutate(
@@ -96,7 +96,7 @@ calculate_performance <- function(panel_data, evaluation_data) {
         ),
       npa %>%
         dplyr::select(
-          .data$analyte,
+          "analyte",
           estimate = tidyselect::ends_with("_string")
         ) %>%
         dplyr::mutate(
@@ -105,10 +105,10 @@ calculate_performance <- function(panel_data, evaluation_data) {
     ) %>%
     # TODO: It would be nice to make sure the sort order matches that used
     # in the panel or the evaluation.
-    dplyr::arrange(.data$analyte) %>%
+    dplyr::arrange("analyte") %>%
     dplyr::select(
-      .data$performance_measure,
-      .data$estimate
+      "performance_measure",
+      "estimate"
     )
   list(
     ppa = ppa,

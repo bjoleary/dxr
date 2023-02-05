@@ -9,8 +9,8 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/dxr)](https://CRAN.R-project.org/package=dxr)
-[![R-CMD-check](https://github.com/bjoleary/dxr/workflows/R-CMD-check/badge.svg)](https://github.com/bjoleary/dxr/actions?query=workflow%3AR-CMD-check)
-[![lint](https://github.com/bjoleary/dxr/workflows/lint/badge.svg)](https://github.com/bjoleary/dxr/actions?query=workflow%3Alint)
+[![R-CMD-check](https://github.com/bjoleary/dxr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bjoleary/dxr/actions/workflows/R-CMD-check.yaml)
+[![lint](https://github.com/bjoleary/dxr/workflows/lint/badge.svg)](https://github.com/bjoleary/dxr/actions/workflows/lint.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/bjoleary/dxr/branch/main/graph/badge.svg)](https://codecov.io/gh/bjoleary/dxr?branch=main)
 <!-- badges: end -->
@@ -221,20 +221,21 @@ sample_panel$panel_metadata %>%
 # This will be written to excel to facilitate data entry:
 sample_panel$panel_table
 #> # A tibble: 330 × 9
-#>    sample          analyte target group matrix qualitative_tru… qualitative_com…
-#>    <chr>           <chr>   <chr>  <chr> <chr>  <chr>            <chr>           
-#>  1 example_panel_… IgM     Spike  <NA>  <NA>   <NA>             <NA>            
-#>  2 example_panel_… IgG     Spike  <NA>  <NA>   <NA>             <NA>            
-#>  3 example_panel_… Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>            
-#>  4 example_panel_… IgM     Spike  <NA>  <NA>   <NA>             <NA>            
-#>  5 example_panel_… IgG     Spike  <NA>  <NA>   <NA>             <NA>            
-#>  6 example_panel_… Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>            
-#>  7 example_panel_… IgM     Spike  <NA>  <NA>   <NA>             <NA>            
-#>  8 example_panel_… IgG     Spike  <NA>  <NA>   <NA>             <NA>            
-#>  9 example_panel_… Pan-Ig  Spike  <NA>  <NA>   <NA>             <NA>            
-#> 10 example_panel_… IgM     Spike  <NA>  <NA>   <NA>             <NA>            
-#> # … with 320 more rows, and 2 more variables: semiquantitative_truth <chr>,
-#> #   semiquantitative_comparator <chr>
+#>    sample            analyte target group matrix quali…¹ quali…² semiq…³ semiq…⁴
+#>    <chr>             <chr>   <chr>  <chr> <chr>  <chr>   <chr>   <chr>   <chr>  
+#>  1 example_panel_001 IgM     Spike  <NA>  <NA>   <NA>    <NA>    <NA>    Compar…
+#>  2 example_panel_001 IgG     Spike  <NA>  <NA>   <NA>    <NA>    <NA>    Compar…
+#>  3 example_panel_001 Pan-Ig  Spike  <NA>  <NA>   <NA>    <NA>    <NA>    Compar…
+#>  4 example_panel_002 IgM     Spike  <NA>  <NA>   <NA>    <NA>    <NA>    Compar…
+#>  5 example_panel_002 IgG     Spike  <NA>  <NA>   <NA>    <NA>    <NA>    Compar…
+#>  6 example_panel_002 Pan-Ig  Spike  <NA>  <NA>   <NA>    <NA>    <NA>    Compar…
+#>  7 example_panel_003 IgM     Spike  <NA>  <NA>   <NA>    <NA>    <NA>    Compar…
+#>  8 example_panel_003 IgG     Spike  <NA>  <NA>   <NA>    <NA>    <NA>    Compar…
+#>  9 example_panel_003 Pan-Ig  Spike  <NA>  <NA>   <NA>    <NA>    <NA>    Compar…
+#> 10 example_panel_004 IgM     Spike  <NA>  <NA>   <NA>    <NA>    <NA>    Compar…
+#> # … with 320 more rows, and abbreviated variable names ¹​qualitative_truth,
+#> #   ²​qualitative_comparator, ³​semiquantitative_truth,
+#> #   ⁴​semiquantitative_comparator
 ```
 
 Excel’s input validation features are used as data is entered. The valid
@@ -276,8 +277,8 @@ evaluation_one <-
     randomize = FALSE,
     blind = FALSE
   )
-#> Warning in build_evaluation_sheet(evaluation_name = "Example Evaluation", :
-#> At least one of the qualitative outcomes you identified for this evaluation
+#> Warning in build_evaluation_sheet(evaluation_name = "Example Evaluation", : At
+#> least one of the qualitative outcomes you identified for this evaluation
 #> (Positive, Equivocal, Negative) is not a valid qualitative outcome for the
 #> panel: "Example Panel". Valid qualitative outcomes for this panel include:
 #> Positive, Negative. The evaluation outcome(s) that do not match those that are
@@ -347,19 +348,20 @@ evaluation_one$sample_blinding
 # This will be written to excel to facilitate data entry:
 evaluation_one$evaluation_table
 #> # A tibble: 330 × 7
-#>    sample         analyte target lot_number datetime_observati… qualitative_res…
-#>    <chr>          <chr>   <chr>  <chr>      <dttm>              <chr>           
-#>  1 example_panel… IgM     Spike  20200101   NA                  <NA>            
-#>  2 example_panel… IgG     Spike  20200101   NA                  <NA>            
-#>  3 example_panel… Pan-Ig  Spike  20200101   NA                  <NA>            
-#>  4 example_panel… IgM     Spike  20200101   NA                  <NA>            
-#>  5 example_panel… IgG     Spike  20200101   NA                  <NA>            
-#>  6 example_panel… Pan-Ig  Spike  20200101   NA                  <NA>            
-#>  7 example_panel… IgM     Spike  20200101   NA                  <NA>            
-#>  8 example_panel… IgG     Spike  20200101   NA                  <NA>            
-#>  9 example_panel… Pan-Ig  Spike  20200101   NA                  <NA>            
-#> 10 example_panel… IgM     Spike  20200101   NA                  <NA>            
-#> # … with 320 more rows, and 1 more variable: notes_and_anomalies <chr>
+#>    sample            analyte target lot_nu…¹ datetime_observat…² quali…³ notes…⁴
+#>    <chr>             <chr>   <chr>  <chr>    <dttm>              <chr>   <chr>  
+#>  1 example_panel_001 IgM     Spike  20200101 NA                  <NA>    <NA>   
+#>  2 example_panel_001 IgG     Spike  20200101 NA                  <NA>    <NA>   
+#>  3 example_panel_001 Pan-Ig  Spike  20200101 NA                  <NA>    <NA>   
+#>  4 example_panel_002 IgM     Spike  20200101 NA                  <NA>    <NA>   
+#>  5 example_panel_002 IgG     Spike  20200101 NA                  <NA>    <NA>   
+#>  6 example_panel_002 Pan-Ig  Spike  20200101 NA                  <NA>    <NA>   
+#>  7 example_panel_003 IgM     Spike  20200101 NA                  <NA>    <NA>   
+#>  8 example_panel_003 IgG     Spike  20200101 NA                  <NA>    <NA>   
+#>  9 example_panel_003 Pan-Ig  Spike  20200101 NA                  <NA>    <NA>   
+#> 10 example_panel_004 IgM     Spike  20200101 NA                  <NA>    <NA>   
+#> # … with 320 more rows, and abbreviated variable names ¹​lot_number,
+#> #   ²​datetime_observation, ³​qualitative_result, ⁴​notes_and_anomalies
 ```
 
 If you set `randomize` and/or `blind` to `TRUE`, the software will
@@ -393,24 +395,25 @@ score_evaluation(
   evaluation_data = dxr::example_evaluation_1
 ) %>% print()
 #> # A tibble: 220 × 17
-#>    panel_sample_id evaluation_sample_id lot_number matrix group     analyte
-#>    <chr>           <chr>                <chr>      <chr>  <chr>     <chr>  
-#>  1 C0001           C0001                E200330DT  Serum  Negatives IgM    
-#>  2 C0001           C0001                E200330DT  Serum  Negatives IgG    
-#>  3 C0002           C0002                E200330DT  Serum  Negatives IgM    
-#>  4 C0002           C0002                E200330DT  Serum  Negatives IgG    
-#>  5 C0004           C0004                E200330DT  Plasma Negatives IgM    
-#>  6 C0004           C0004                E200330DT  Plasma Negatives IgG    
-#>  7 C0005           C0005                E200330DT  Plasma Negatives IgM    
-#>  8 C0005           C0005                E200330DT  Plasma Negatives IgG    
-#>  9 C0008           C0008                E200330DT  Plasma Negatives IgM    
-#> 10 C0008           C0008                E200330DT  Plasma Negatives IgG    
-#> # … with 210 more rows, and 11 more variables: evaluation_target <chr>,
-#> #   datetime_observation <date>, qualitative_result <chr>,
-#> #   qualitative_truth <chr>, qualitative_match <lgl>,
-#> #   qualitative_outcome_strict <chr>, semiquantitative_truth <chr>,
-#> #   notes_and_anomalies <chr>, comparator_target <chr>,
-#> #   qualitative_comparator <chr>, semiquantitative_comparator <chr>
+#>    panel_sampl…¹ evalu…² lot_n…³ matrix group analyte evalu…⁴ datetime…⁵ quali…⁶
+#>    <chr>         <chr>   <chr>   <chr>  <chr> <chr>   <chr>   <date>     <chr>  
+#>  1 C0001         C0001   E20033… Serum  Nega… IgM     Spike   2020-04-21 Negati…
+#>  2 C0001         C0001   E20033… Serum  Nega… IgG     Spike   2020-04-21 Negati…
+#>  3 C0002         C0002   E20033… Serum  Nega… IgM     Spike   2020-04-21 Negati…
+#>  4 C0002         C0002   E20033… Serum  Nega… IgG     Spike   2020-04-21 Negati…
+#>  5 C0004         C0004   E20033… Plasma Nega… IgM     Spike   2020-04-21 Negati…
+#>  6 C0004         C0004   E20033… Plasma Nega… IgG     Spike   2020-04-21 Negati…
+#>  7 C0005         C0005   E20033… Plasma Nega… IgM     Spike   2020-04-21 Negati…
+#>  8 C0005         C0005   E20033… Plasma Nega… IgG     Spike   2020-04-21 Negati…
+#>  9 C0008         C0008   E20033… Plasma Nega… IgM     Spike   2020-04-21 Negati…
+#> 10 C0008         C0008   E20033… Plasma Nega… IgG     Spike   2020-04-21 Negati…
+#> # … with 210 more rows, 8 more variables: qualitative_truth <chr>,
+#> #   qualitative_match <lgl>, qualitative_outcome_strict <chr>,
+#> #   semiquantitative_truth <chr>, notes_and_anomalies <chr>,
+#> #   comparator_target <chr>, qualitative_comparator <chr>,
+#> #   semiquantitative_comparator <chr>, and abbreviated variable names
+#> #   ¹​panel_sample_id, ²​evaluation_sample_id, ³​lot_number, ⁴​evaluation_target,
+#> #   ⁵​datetime_observation, ⁶​qualitative_result
 ```
 
 You can also generate a standard “two-by-two” style table to understand
@@ -426,16 +429,16 @@ two_by_two(
   knitr::kable() 
 ```
 
-| SARS-COV-2 ELISA (IgG)         | IgM+, IgG+ | IgM-, IgG+ | IgM+, IgG- | IgM-, IgG- | Total |
+| SARS-COV-2 ELISA (IgG)         | IgM+, IgG+ | IgM+, IgG- | IgM-, IgG+ | IgM-, IgG- | Total |
 |:-------------------------------|-----------:|-----------:|-----------:|-----------:|------:|
 | IgM+, IgG+                     |         27 |            |            |            |    27 |
-| IgM Borderline, IgG+           |            |            |            |            |     0 |
-| IgM-, IgG+                     |            |            |            |            |     0 |
 | IgM+, IgG Borderline           |            |            |            |            |     0 |
-| IgM Borderline, IgG Borderline |          2 |            |            |            |     2 |
-| IgM-, IgG Borderline           |            |            |            |            |     0 |
 | IgM+, IgG-                     |            |            |            |            |     0 |
+| IgM Borderline, IgG+           |            |            |            |            |     0 |
+| IgM Borderline, IgG Borderline |          2 |            |            |            |     2 |
 | IgM Borderline, IgG-           |            |            |            |            |     0 |
+| IgM-, IgG+                     |            |            |            |            |     0 |
+| IgM-, IgG Borderline           |            |            |            |            |     0 |
 | IgM-, IgG-                     |          1 |            |            |         80 |    81 |
 | Total                          |         30 |          0 |          0 |         80 |   110 |
 
@@ -456,24 +459,24 @@ calculate_performance(dxr::example_panel_1, dxr::example_evaluation_1) %>%
 | Performance Measure | Estimate                             |
 |:--------------------|:-------------------------------------|
 | IgG PPA             | 27/30 = 90.0% (95% CI: 74.4%; 96.5%) |
-| IgG NPA             | 80/80 = 100% (95% CI: 95.4%; 100%)   |
 | IgM PPA             | 27/30 = 90.0% (95% CI: 74.4%; 96.5%) |
+| IgG NPA             | 80/80 = 100% (95% CI: 95.4%; 100%)   |
 | IgM NPA             | 80/80 = 100% (95% CI: 95.4%; 100%)   |
 
 ## Roadmap and other notes
 
 There is much to do:
 
--   Improving the approach to blinding
+- Improving the approach to blinding
 
--   Checking the data-entry for obvious errors
+- Checking the data-entry for obvious errors
 
--   Enabling double-entry and checking for consistency between entries
+- Enabling double-entry and checking for consistency between entries
 
--   Providing template reports
+- Providing template reports
 
--   Making a nice R/Shiny frontend (I think I will call it “Dexter”.
-    This package sounds like “dexer” in my head already…)
+- Making a nice R/Shiny frontend (I think I will call it “Dexter”. This
+  package sounds like “dexer” in my head already…)
 
 This and more to come. As my weekends permit.
 
