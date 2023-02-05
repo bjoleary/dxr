@@ -78,8 +78,8 @@ crossed_outcomes <- function(analytes, qualitative_outcomes) {
     qualitative_outcomes
   ) %>%
   tidyr::unite(col = "outcome", sep = " ") %>%
-    # At this point, we have a single column tibble, with the column named outcome
-    # that is a character vector of analytes and outcomes, such as
+    # At this point, we have a single column tibble, with the column named
+    # outcome that is a character vector of analytes and outcomes, such as
     # "IgM Positive", "IgG Positive", "IgM Negative", "IgG Negative"
     # Now that vector is a single column tibble, with the column named outcome
     dplyr::mutate(
