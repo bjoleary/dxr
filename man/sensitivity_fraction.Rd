@@ -4,7 +4,13 @@
 \alias{sensitivity_fraction}
 \title{Calculate an agreement proportion for Sensitivity from a Fraction}
 \usage{
-sensitivity_fraction(numerator, denominator, digits = 0.1, interval = 0.95)
+sensitivity_fraction(
+  numerator,
+  denominator,
+  digits = 0.1,
+  interval = 0.95,
+  ...
+)
 }
 \arguments{
 \item{numerator}{The numerator. The number of true positive calls.}
@@ -15,6 +21,8 @@ sensitivity_fraction(numerator, denominator, digits = 0.1, interval = 0.95)
 
 \item{interval}{The confidence interval to calculate. Defaults to
 \code{0.95} for 95\%.}
+
+\item{...}{Parameters passed to \code{agreement()}.}
 }
 \value{
 A formatted agreement proportion.

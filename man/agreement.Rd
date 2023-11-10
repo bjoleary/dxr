@@ -4,7 +4,13 @@
 \alias{agreement}
 \title{Calculate an agreement proportion}
 \usage{
-agreement(true_calls, false_calls, digits = 0.1, interval = 0.95)
+agreement(
+  true_calls,
+  false_calls,
+  digits = 0.1,
+  interval = 0.95,
+  format_big = FALSE
+)
 }
 \arguments{
 \item{true_calls}{The number of correct calls (true positives or true
@@ -15,8 +21,12 @@ negatives).}
 
 \item{digits}{The number of digits to round to. Defaults to \code{0.1}.}
 
-\item{interval}{The confidence interval to calculate. Defaults to
-\code{0.95} for 95\%.}
+\item{interval}{The confidence interval to calculate. Defaults to \code{0.95}
+for 95\%.}
+
+\item{format_big}{A boolean indicating whether or not to format large numbers
+in string outputs to include commas as a big mark and to avoid scientific
+notation. Defaults to \code{FALSE}.}
 }
 \value{
 A formatted agreement proportion.

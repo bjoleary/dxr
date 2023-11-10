@@ -133,3 +133,35 @@ test_that("specificity_fraction works", {
       )
   )
 })
+
+test_that("agreement fractions work with big_format", {
+  expect_equal(
+    agreement_fraction(1000, 10^8, format_big = TRUE)$string,
+    "1,000/100,000,000 = 0.0% (95% CI: 0.0%; 0.0%)"
+  )
+  expect_equal(
+    agreement(1000, 1000, format_big = TRUE)$string,
+    "1,000/2,000 = 50.0% (95% CI: 47.8%; 52.2%)"
+  )
+  expect_equal(
+    specificity(1000, 1000, format_big = TRUE)$string,
+    "1,000/2,000 = 50.0% (95% CI: 47.8%; 52.2%)"
+  )
+  expect_equal(
+    specificity(1000, 1000, format_big = TRUE)$string,
+    "1,000/2,000 = 50.0% (95% CI: 47.8%; 52.2%)"
+  )
+  expect_equal(
+    agreement_fraction(1000, 2000, format_big = TRUE)$string,
+    "1,000/2,000 = 50.0% (95% CI: 47.8%; 52.2%)"
+  )
+  expect_equal(
+    sensitivity_fraction(1000, 2000, format_big = TRUE)$string,
+    "1,000/2,000 = 50.0% (95% CI: 47.8%; 52.2%)"
+  )
+  expect_equal(
+    specificity_fraction(1000, 2000, format_big = TRUE)$string,
+    "1,000/2,000 = 50.0% (95% CI: 47.8%; 52.2%)"
+  )
+
+})

@@ -4,7 +4,7 @@
 \alias{agreement_fraction}
 \title{Calculate an agreement proportion}
 \usage{
-agreement_fraction(numerator, denominator, digits = 0.1, interval = 0.95)
+agreement_fraction(numerator, denominator, digits = 0.1, interval = 0.95, ...)
 }
 \arguments{
 \item{numerator}{The numerator. Typically the number of true calls for a
@@ -16,6 +16,8 @@ proportion such as PPA or NPA.}
 
 \item{interval}{The confidence interval to calculate. Defaults to
 \code{0.95} for 95\%.}
+
+\item{...}{Parameters passed to \code{agreement()}.}
 }
 \value{
 A formatted agreement proportion.
