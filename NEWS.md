@@ -1,3 +1,5 @@
+# dxr (development version)
+
 # dxr 0.0.0.9000
 
 * Added a `NEWS.md` file to track changes to the package.
@@ -28,3 +30,7 @@ We're getting there:
 # dxr 0.0.9007
 
 * Enable input validation for the data entry sheets for panels and evaluations.
+
+# dxr 0.0.9010
+
+* Add format_big() function. 
