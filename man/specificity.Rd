@@ -4,7 +4,13 @@
 \alias{specificity}
 \title{Calculate an agreement proportion for Specificity}
 \usage{
-specificity(true_negatives, false_positives, digits = 0.1, interval = 0.95)
+specificity(
+  true_negatives,
+  false_positives,
+  digits = 0.1,
+  interval = 0.95,
+  ...
+)
 }
 \arguments{
 \item{true_negatives}{The number of correct calls.}
@@ -15,6 +21,8 @@ specificity(true_negatives, false_positives, digits = 0.1, interval = 0.95)
 
 \item{interval}{The confidence interval to calculate. Defaults to
 \code{0.95} for 95\%.}
+
+\item{...}{Parameters passed to \code{agreement()}.}
 }
 \value{
 A formatted agreement proportion.

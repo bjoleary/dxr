@@ -4,7 +4,13 @@
 \alias{sensitivity}
 \title{Calculate an agreement proportion for Sensitivity}
 \usage{
-sensitivity(true_positives, false_negatives, digits = 0.1, interval = 0.95)
+sensitivity(
+  true_positives,
+  false_negatives,
+  digits = 0.1,
+  interval = 0.95,
+  ...
+)
 }
 \arguments{
 \item{true_positives}{The number of correct calls.}
@@ -15,6 +21,8 @@ sensitivity(true_positives, false_negatives, digits = 0.1, interval = 0.95)
 
 \item{interval}{The confidence interval to calculate. Defaults to
 \code{0.95} for 95\%.}
+
+\item{...}{Parameters passed to \code{agreement()}.}
 }
 \value{
 A formatted agreement proportion.

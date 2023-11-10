@@ -1,12 +1,15 @@
 #' Calculate an agreement proportion
 #'
 #' @param true_calls The number of correct calls (true positives or true
-#' negatives).
+#'   negatives).
 #' @param false_calls The number of incorrect calls (false positives or false
-#' negatives).
+#'   negatives).
 #' @param digits The number of digits to round to. Defaults to \code{0.1}.
-#' @param interval The confidence interval to calculate. Defaults to
-#' \code{0.95} for 95%.
+#' @param interval The confidence interval to calculate. Defaults to \code{0.95}
+#'   for 95%.
+#' @param format_big A boolean indicating whether or not to format large numbers
+#'   in string outputs to include commas as a big mark and to avoid scientific
+#'   notation. Defaults to \code{FALSE}.
 #'
 #' @return A formatted agreement proportion.
 #' @export
@@ -15,7 +18,7 @@
 #' agreement(100, 0)
 #' agreement(100, 0, 0.01, 0.99)
 agreement <- function(true_calls, false_calls, digits = 0.1,
-                      interval = 0.95) {
+                      interval = 0.95, format_big = FALSE) {
   ci <- confidence(true_calls = true_calls,
                    false_calls = false_calls,
                    interval = interval)
@@ -31,7 +34,15 @@ agreement <- function(true_calls, false_calls, digits = 0.1,
       percent = true_calls / (true_calls + false_calls),
       digits = digits
     )
-  ratio <- paste0(true_calls, "/", true_calls + false_calls)
+  if (format_big) {
+    ratio <-
+      paste0(
+        format_big(true_calls), "/",
+        format_big(true_calls + false_calls)
+      )
+  } else {
+    ratio <- paste0(true_calls, "/", true_calls + false_calls)
+  }
   list(
     estimate = true_calls / (true_calls + false_calls),
     estimate_percent = percent,
@@ -66,6 +77,7 @@ agreement <- function(true_calls, false_calls, digits = 0.1,
 #' @param digits The number of digits to round to. Defaults to \code{0.1}.
 #' @param interval The confidence interval to calculate. Defaults to
 #' \code{0.95} for 95%.
+#' @param ... Parameters passed to \code{agreement()}.
 #'
 #' @return A formatted agreement proportion.
 #' @export
@@ -74,12 +86,13 @@ agreement <- function(true_calls, false_calls, digits = 0.1,
 #' agreement_fraction(100, 100)
 #' agreement_fraction(100, 100, 0.01, 0.99)
 agreement_fraction <- function(numerator, denominator, digits = 0.1,
-                               interval = 0.95) {
+                               interval = 0.95, ...) {
   false_calls <- denominator - numerator
   agreement(true_calls = numerator,
             false_calls = false_calls,
             digits = digits,
-            interval = interval)
+            interval = interval,
+            ...)
 }
 
 #' Calculate an agreement proportion for Sensitivity
@@ -92,6 +105,7 @@ agreement_fraction <- function(numerator, denominator, digits = 0.1,
 #' @param digits The number of digits to round to. Defaults to \code{0.1}.
 #' @param interval The confidence interval to calculate. Defaults to
 #' \code{0.95} for 95%.
+#' @param ... Parameters passed to \code{agreement()}.
 #'
 #' @return A formatted agreement proportion.
 #' @export
@@ -100,11 +114,12 @@ agreement_fraction <- function(numerator, denominator, digits = 0.1,
 #' sensitivity(100, 0)
 #' sensitivity(100, 0, 0.01, 0.99)
 sensitivity <- function(true_positives, false_negatives, digits = 0.1,
-                        interval = 0.95) {
+                        interval = 0.95, ...) {
   agreement(true_calls = true_positives,
             false_calls = false_negatives,
             digits = digits,
-            interval = interval)
+            interval = interval,
+            ...)
 }
 
 #' Calculate an agreement proportion for Specificity
@@ -117,6 +132,7 @@ sensitivity <- function(true_positives, false_negatives, digits = 0.1,
 #' @param digits The number of digits to round to. Defaults to \code{0.1}.
 #' @param interval The confidence interval to calculate. Defaults to
 #' \code{0.95} for 95%.
+#' @param ... Parameters passed to \code{agreement()}.
 #'
 #' @return A formatted agreement proportion.
 #' @export
@@ -125,11 +141,12 @@ sensitivity <- function(true_positives, false_negatives, digits = 0.1,
 #' specificity(100, 0)
 #' specificity(100, 0, 0.01, 0.99)
 specificity <- function(true_negatives, false_positives, digits = 0.1,
-                        interval = 0.95) {
+                        interval = 0.95, ...) {
   agreement(true_calls = true_negatives,
             false_calls = false_positives,
             digits = digits,
-            interval = interval)
+            interval = interval,
+            ...)
 }
 
 #' Calculate an agreement proportion for Sensitivity from a Fraction
@@ -142,6 +159,7 @@ specificity <- function(true_negatives, false_positives, digits = 0.1,
 #' @param digits The number of digits to round to. Defaults to \code{0.1}.
 #' @param interval The confidence interval to calculate. Defaults to
 #' \code{0.95} for 95%.
+#' @param ... Parameters passed to \code{agreement()}.
 #'
 #' @return A formatted agreement proportion.
 #' @export
@@ -150,11 +168,12 @@ specificity <- function(true_negatives, false_positives, digits = 0.1,
 #' sensitivity_fraction(100, 100)
 #' sensitivity_fraction(100, 100, 0.01, 0.99)
 sensitivity_fraction <- function(numerator, denominator, digits = 0.1,
-                                 interval = 0.95) {
+                                 interval = 0.95, ...) {
   agreement_fraction(numerator = numerator,
                      denominator = denominator,
                      digits = 0.1,
-                     interval = interval)
+                     interval = interval,
+                     ...)
 }
 
 #' Calculate an agreement proportion for Specificity from a Fraction
@@ -167,6 +186,7 @@ sensitivity_fraction <- function(numerator, denominator, digits = 0.1,
 #' @param digits The number of digits to round to. Defaults to \code{0.1}.
 #' @param interval The confidence interval to calculate. Defaults to
 #' \code{0.95} for 95%.
+#' @param ... Parameters passed to \code{agreement()}.
 #'
 #' @return A formatted agreement proportion.
 #' @export
@@ -175,9 +195,10 @@ sensitivity_fraction <- function(numerator, denominator, digits = 0.1,
 #' specificity_fraction(100, 100)
 #' specificity_fraction(100, 100, 0.01, 0.99)
 specificity_fraction <- function(numerator, denominator, digits = 0.1,
-                                 interval = 0.95) {
+                                 interval = 0.95, ...) {
   agreement_fraction(numerator = numerator,
                      denominator = denominator,
                      digits = 0.1,
-                     interval = interval)
+                     interval = interval,
+                     ...)
 }
