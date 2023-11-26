@@ -39,12 +39,11 @@ read_panel_data <- function(filepath, method = "excel") {
   }
 }
 read_panel_data_excel <- function(filepath) {
-  panel_data <-
-    readxl::read_xlsx(
-      path = filepath,
-      sheet = "panel_data",
-      col_types = "text"
-    )
+  readxl::read_xlsx(
+    path = filepath,
+    sheet = "panel_data",
+    col_types = "text"
+  )
 }
 read_panel_metadata <- function(filepath, method = "excel") {
   if (method == "excel") {

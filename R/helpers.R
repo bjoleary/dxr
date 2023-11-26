@@ -9,8 +9,7 @@
 #' @return The panel metadata as a list.
 #'
 get_panel_metadata <- function(panel_data) {
-  metadata <-
-    panel_data$panel_metadata %>%
+  panel_data$panel_metadata %>%
     tidyr::pivot_wider() %>%
     purrr::map(unlist) %>%
     as.list()
@@ -27,8 +26,7 @@ get_panel_metadata <- function(panel_data) {
 #' @return The evaluation metadata as a list.
 #'
 get_evaluation_metadata <- function(evaluation_data) {
-  metadata <-
-    evaluation_data$evaluation_metadata %>%
+  evaluation_data$evaluation_metadata %>%
     tidyr::pivot_wider() %>%
     purrr::map(unlist) %>%
     as.list()

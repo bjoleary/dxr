@@ -16,7 +16,7 @@
 #' format_percent(0.95)
 #' format_percent(0.9521231251, 0.0001)
 format_percent <- function(percent, digits = 0.1) {
-  value <-
+  value <- # nolint: object_usage_linter. ---- used in case_when
     scales::number(
         x = percent,
         accuracy = digits,

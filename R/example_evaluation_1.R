@@ -28,7 +28,7 @@
 #'
 #' @source
 #' Contrived based on the data from
-#' [maf3246-a001.csv](https://www.accessdata.fda.gov/cdrh_docs/presentations/maf/maf3246-a001.csv)
+#' [maf3246-a001.csv](https://www.accessdata.fda.gov/cdrh_docs/presentations/maf/maf3246-a001.csv) # nolint: line_length_linter. ---- this line overflows the default 80 chars line length
 #' accessed 2021-10-17.
 #'
 "example_evaluation_1"
