@@ -68,12 +68,11 @@ read_evaluation_data_excel <- function(filepath) {
   # Set the datetime column to date
   column_types[[datetime_column]] <- "date"
   # Read in the data
-  evaluation_data <-
-    readxl::read_xlsx(
-      path = filepath,
-      sheet = "evaluation_data",
-      col_types = column_types
-    )
+  readxl::read_xlsx(
+    path = filepath,
+    sheet = "evaluation_data",
+    col_types = column_types
+  )
 }
 read_evaluation_metadata <- function(filepath, method = "excel") {
   if (method == "excel") {
@@ -155,13 +154,11 @@ read_sample_blinding <- function(filepath, method = "excel") {
   }
 }
 read_sample_blinding_excel <- function(filepath) {
-  metadata <-
-    readxl::read_xlsx(
-      path = filepath,
-      sheet = "sample_blinding",
-      col_types = c("text", "text")
-    )
-
+  readxl::read_xlsx(
+    path = filepath,
+    sheet = "sample_blinding",
+    col_types = c("text", "text")
+  )
 }
 read_sample_blinding_csv <- function(filepath) {
 

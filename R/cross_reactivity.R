@@ -41,7 +41,7 @@ cross_reactive_subgroup <- function(
   true_calls_anti_subgroup <- true_calls_overall - true_calls_subgroup
   false_calls_anti_subgroup <- false_calls_overall - false_calls_subgroup
 
-  cross_reactive <- proportion_difference(
+  proportion_difference(
     true_calls_1 = true_calls_anti_subgroup,
     false_calls_1 = false_calls_anti_subgroup,
     true_calls_2 = true_calls_subgroup,
